@@ -10,8 +10,10 @@ workflows:
 jobs:
   pigen:
     working_directory: ~/work
-    docker:
-      - image: debian:stretch
+    machine:
+       - image: circleci/classic:2017-01 
+    #docker:
+    #  - image: debian:stretch
 
     steps:
       - checkout
@@ -27,7 +29,7 @@ jobs:
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
       - run: cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
-      - run: cd pi-gen;./build.sh
+      - run: cd pi-gen;sudo ./build.sh
 
 
 
