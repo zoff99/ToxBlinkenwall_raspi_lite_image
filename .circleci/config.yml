@@ -23,12 +23,11 @@ jobs:
             openssl ca-certificates git
 
       - run: git clone https://github.com/RPi-Distro/pi-gen
-      - run: cd pi-gen
       - run: pwd; ls -al
-      - run: echo "IMG_NAME='Raspbian'" > config
-      - run: touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
-      - run: touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
-      - run: sudo ./build.sh
+      - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
+      - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
+      - run: cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
+      - run: cd pi-gen;sudo ./build.sh
 
 
 
