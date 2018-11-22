@@ -1,0 +1,7 @@
+git
+libjpeg-dev libpng-dev imagemagick htop mc fbset cmake qrencode
+libqrencode-dev vim nano wget git make
+autotools-dev libtool bc libv4l-dev libv4lconvert0 v4l-conf v4l-utils
+pkg-config libjpeg-dev libpulse-dev libconfig-dev
+automake checkinstall check yasm
+install libao-dev libasound2-dev
