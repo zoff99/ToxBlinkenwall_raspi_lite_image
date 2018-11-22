@@ -1,0 +1,149 @@
+#! /bin/bash
+
+id -a
+pwd
+
+cd /home/pi/
+rm -Rf ToxBlinkenwall/.git # remove previous install
+rm -Rf tmp/
+git clone https://github.com/zoff99/ToxBlinkenwall tmp
+mkdir -p ToxBlinkenwall/
+cp -a tmp/*  ToxBlinkenwall/
+cp -a tmp/.gitignore ToxBlinkenwall/
+cp -a tmp/.git ToxBlinkenwall/
+rm -Rf tmp/
+
+cd
+export _HOME_="/home/pi/"
+echo $_HOME_
+cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
+
+
+export _SRC_=$_HOME_/src/
+export _INST_=$_HOME_/inst/
+
+export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
+ -mfloat-abi=hard -ftree-vectorize "
+export CF3=" -funsafe-math-optimizations "
+export VV1=" VERBOSE=1 V=1 "
+
+
+rm -Rf $_SRC_
+rm -Rf $_INST_
+
+mkdir -p $_SRC_
+mkdir -p $_INST_
+
+export LD_LIBRARY_PATH=$_INST_/lib/
+export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
+
+
+cd $_SRC_
+# rm -Rf libav
+git clone https://github.com/libav/libav
+cd libav
+git checkout v12.3
+./configure --prefix=$_INST_ --disable-devices --disable-programs \
+--disable-doc --disable-avdevice --disable-avformat \
+--disable-swscale \
+--disable-avfilter --disable-network --disable-everything \
+--disable-bzlib \
+--disable-libxcb-shm \
+--disable-libxcb-xfixes \
+--enable-parser=h264 \
+--enable-runtime-cpudetect \
+--enable-mmal \
+--enable-decoder=h264_mmal \
+--enable-gpl --enable-decoder=h264
+make clean
+make -j4
+make install
+
+
+
+
+cd $_SRC_
+# rm -Rf x264
+git clone git://git.videolan.org/x264.git
+cd x264
+git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+./configure --prefix=$_INST_ --disable-opencl --enable-shared --enable-static \
+--disable-avs --disable-cli
+make clean
+make -j4
+make install
+
+
+cd $_SRC_
+git clone --depth=1 --branch=1.0.16 https://github.com/jedisct1/libsodium.git
+cd libsodium
+./autogen.sh
+export CFLAGS=" $CF2 "
+./configure --prefix=$_INST_ --disable-shared --disable-soname-versions
+make -j 4
+make install
+
+cd $_SRC_
+git clone --depth=1 --branch=v1.7.0 https://github.com/webmproject/libvpx.git
+cd libvpx
+make clean
+export CFLAGS=" $CF2 $CF3 "
+export CXXFLAGS=" $CF2 $CF3 "
+./configure --prefix=$_INST_ --disable-examples \
+  --disable-unit-tests --enable-shared \
+  --size-limit=16384x16384 \
+  --enable-onthefly-bitpacking \
+  --enable-error-concealment \
+  --enable-runtime-cpu-detect \
+  --enable-multi-res-encoding \
+  --enable-postproc \
+  --enable-vp9-postproc \
+  --enable-temporal-denoising \
+  --enable-vp9-temporal-denoising
+
+#  --enable-better-hw-compatibility \
+
+make -j 4
+make install
+
+cd $_SRC_
+git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
+cd opus
+./autogen.sh
+export CFLAGS=" $CF2 $CF3 "
+export CXXFLAGS=" $CF2 $CF3 "
+./configure --prefix=$_INST_ --disable-shared
+make -j 4
+make install
+
+cd $_SRC_
+# git clone https://github.com/TokTok/c-toxcore
+git clone https://github.com/Zoxcore/c-toxcore
+cd c-toxcore
+
+git checkout "toxav-multi-codec"
+
+./autogen.sh
+make clean
+export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export LDFLAGS=-L$_INST_/lib
+
+./configure \
+--prefix=$_INST_ \
+--disable-soname-versions --disable-testing --disable-shared
+make -j 4
+make install
+
+
+cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
+
+
+echo '
+IS_ON=RASPI
+HD=RASPIHD
+export IS_ON
+export HD
+' >> ~/.profile
+
+
+echo "build ready"
