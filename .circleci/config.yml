@@ -17,8 +17,7 @@ jobs:
 
     steps:
       - checkout
-      - run: sudo &apt_install
-          sudo apt update &&
+      - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
             quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
