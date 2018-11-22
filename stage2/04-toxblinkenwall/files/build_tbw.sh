@@ -138,6 +138,47 @@ make install
 cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 
 
+gcc \
+-DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
+-I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
+$CF2 $CF3 \
+-fstack-protector-all \
+-Wno-unused-variable \
+-fPIC -export-dynamic -I$_INST_/include -o toxblinkenwall -lm \
+toxblinkenwall.c openGL/esUtil.c openGL/esShader.c rb.c \
+-I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads \
+-I/opt/vc/include/interface/vmcs_host/linux -lbrcmEGL -lbrcmGLESv2 \
+-lbcm_host -L/opt/vc/lib \
+-std=gnu99 \
+-L$_INST_/lib \
+$_INST_/lib/libtoxcore.a \
+$_INST_/lib/libtoxav.a \
+-lrt \
+$_INST_/lib/libopus.a \
+$_INST_/lib/libvpx.a \
+$_INST_/lib/libx264.a \
+$_INST_/lib/libavcodec.a \
+$_INST_/lib/libavutil.a \
+$_INST_/lib/libsodium.a \
+-lasound \
+-lpthread -lv4lconvert \
+-lmmal -lmmal_core -lmmal_vc_client -lmmal_components -lmmal_util \
+-L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil
+
+res2=$?
+
+ldd toxblinkenwall
+ls -hal toxblinkenwall
+file toxblinkenwall
+
+cd $_HOME_
+
+if [ $res2 -eq 0 ]; then
+ echo "compile: OK"
+else
+ echo "compile: ** ERROR **"
+fi
+
 echo '
 IS_ON=RASPI
 HD=RASPIHD
