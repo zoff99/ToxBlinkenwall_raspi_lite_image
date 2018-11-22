@@ -11,7 +11,7 @@ jobs:
   pigen:
     working_directory: ~/work
     docker:
-      - image: stretch
+      - image: debian:stretch
 
     steps:
       - checkout
