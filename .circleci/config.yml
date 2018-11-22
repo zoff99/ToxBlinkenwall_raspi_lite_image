@@ -11,7 +11,7 @@ jobs:
   pigen:
     working_directory: ~/work
     machine:
-      image: circleci/classic
+      image: circleci/classic:latest
     #docker:
     #  - image: debian:stretch
 
