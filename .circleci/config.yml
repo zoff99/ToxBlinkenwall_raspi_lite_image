@@ -1,0 +1,32 @@
+---
+version: 2
+
+workflows:
+  version: 2
+  build_linux:
+    jobs:
+      - pigen
+
+jobs:
+  pigen:
+    working_directory: ~/work
+    docker:
+      - image: stretch
+
+    steps:
+      - checkout
+      - run: &apt_install
+          apt update &&
+          apt install -y --no-install-recommends
+            quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
+            dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
+
+      - run: git clone https://github.com/RPi-Distro/pi-gen
+      - run: cd pi-gen
+      - run: echo "IMG_NAME='Raspbian'" > config
+      - run: touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
+      - run: touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
+      - run: sudo ./build.sh
+
+
+
