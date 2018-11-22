@@ -28,6 +28,7 @@ echo
 echo
 # just check the files contents
 cat "${ROOTFS_DIR}/etc/rc.local"
+ls -al "${ROOTFS_DIR}/home/pi/"
 echo
 echo
 
