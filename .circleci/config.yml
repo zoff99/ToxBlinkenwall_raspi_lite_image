@@ -26,6 +26,7 @@ jobs:
       - run: git clone https://github.com/RPi-Distro/pi-gen
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
+      - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
       - run: cp -av ./stage2 pi-gen/
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
