@@ -33,3 +33,11 @@ ls -al "${ROOTFS_DIR}/home/pi/"
 echo
 echo
 
+echo "build ToxBlinkenwall ..."
+install -m 755 files/build_tbw.sh "${ROOTFS_DIR}/home/pi/"
+
+on_chroot << EOF
+id -a
+su - pi bash -c "/home/pi/build_tbw.sh"
+EOF
+
