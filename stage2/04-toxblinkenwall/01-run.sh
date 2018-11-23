@@ -60,11 +60,12 @@ su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
 # save built libs and includes for caching (outside of docker)
-ls -al /pi-gen/
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
 
 # set root and pi password to random values for production branch
 on_chroot << EOF
+
+cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1
 
 rand_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1)
 echo "$rand_pass"
