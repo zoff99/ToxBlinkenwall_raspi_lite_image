@@ -1,10 +1,13 @@
 #!/bin/bash -e
 
+echo "-------------------------------"
 ls -al /
 df -ha
-ls -al /pi-gen/work/_GIT_BRANCH_
+ls -al /pi-gen/work/
+ls -al /pi-gen/work/stage3/
+echo "-------------------------------"
 
-install -m 755 /pi-gen/work/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+install -m 755 /pi-gen/work/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 
 on_chroot << EOF
 
