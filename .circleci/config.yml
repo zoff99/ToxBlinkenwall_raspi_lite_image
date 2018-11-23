@@ -12,7 +12,7 @@ jobs:
     working_directory: ~/work
     machine:
       image: circleci/classic:latest
-    #docker:
+    # docker:
     #  - image: debian:stretch
 
     steps:
