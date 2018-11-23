@@ -31,6 +31,7 @@ jobs:
       - run: cp -av ./stage2 pi-gen/
       # give name of current branch to docker
       - run: echo "$CIRCLE_BRANCH" > ~/work/pi-gen/_GIT_BRANCH_
+      - run: echo "$CIRCLE_BRANCH"; cat ~/work/pi-gen/_GIT_BRANCH_
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
