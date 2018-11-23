@@ -4,6 +4,8 @@ ls -al /
 df -ha
 ls -al /pi-gen/work/_GIT_BRANCH_
 
+install -m 755 /pi-gen/work/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+
 on_chroot << EOF
 
 # disable swap
@@ -14,7 +16,7 @@ apt-get --yes --force-yes purge dphys-swapfile
 echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
-cat /pi-gen/work/_GIT_BRANCH_
+cat /_GIT_BRANCH_
 echo "-------------------------------"
 echo "-------------------------------"
 echo "-------------------------------"
