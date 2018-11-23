@@ -2,7 +2,7 @@
 
 ls -al /
 df -ha
-ls -al /pi-gen/_GIT_BRANCH_
+ls -al /pi-gen/work/_GIT_BRANCH_
 
 on_chroot << EOF
 
@@ -14,7 +14,7 @@ apt-get --yes --force-yes purge dphys-swapfile
 echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
-cat /pi-gen/_GIT_BRANCH_
+cat /pi-gen/work/_GIT_BRANCH_
 echo "-------------------------------"
 echo "-------------------------------"
 echo "-------------------------------"
