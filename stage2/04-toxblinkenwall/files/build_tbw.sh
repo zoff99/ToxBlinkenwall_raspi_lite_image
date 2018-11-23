@@ -123,6 +123,12 @@ cd c-toxcore
 
 git checkout "toxav-multi-codec"
 
+echo "GIT:current branch is:"
+cat /pi-gen/_GIT_BRANCH_
+
+sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
+cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
+
 ./autogen.sh
 make clean
 export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
