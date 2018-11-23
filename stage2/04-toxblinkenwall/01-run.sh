@@ -29,7 +29,6 @@ cp -av /usr/share/alsa/alsa.conf /usr/share/alsa/alsa.conf_ORIG
 
 # enable imagemagick to read things from files
 cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
-## TODO:fixme ## sed -i -e 's#^.*<policy domain="path".*$#<!-- removed by ToxBlinkenwall -->#g' /etc/ImageMagick-6/policy.xml
 
 # add tbw to rc.local
 echo "add tbw to rc.local"
@@ -42,10 +41,15 @@ printf 'exit 0\n' >> /etc/rc.local
 
 EOF
 
+## TODO:fixme ## sed -i -e 's#^.*<policy domain="path".*$#<!-- removed by ToxBlinkenwall -->#g' /etc/ImageMagick-6/policy.xml
+/bin/bash files/patch_imagemagick_config.sh
+
 echo
 echo
 # just check the files contents
 cat "${ROOTFS_DIR}/etc/rc.local"
+echo
+echo
 ls -al "${ROOTFS_DIR}/home/pi/"
 echo
 echo
