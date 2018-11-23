@@ -41,6 +41,27 @@ export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
 
 
+cd $_SRC_
+git clone https://github.com/Zoxcore/c-toxcore
+cd c-toxcore
+git checkout "toxav-multi-codec"
+
+echo "GIT:current branch is:"
+cat /pi-gen/_GIT_BRANCH_
+
+./autogen.sh
+make clean
+export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export LDFLAGS=-L$_INST_/lib
+
+./configure \
+--prefix=$_INST_ \
+--disable-soname-versions --disable-testing --disable-shared
+make -j 4
+make install
+
+
+
 cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 
 gcc \
