@@ -53,3 +53,16 @@ EOF
 # save built libs and includes for caching (outside of docker)
 ls -al /pi-gen/
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
+
+# set root and pi password to random values for production branch
+on_chroot << EOF
+
+rand_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1)
+echo "$rand_pass"
+echo "pi:$rand_pass" | chpasswd
+
+rand_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1)
+echo "root:$rand_pass" | chpasswd
+echo "$rand_pass"
+
+EOF
