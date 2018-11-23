@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+ls -al /
+df -ha
+ls -al /pi-gen/_GIT_BRANCH_
+
 on_chroot << EOF
 
 # disable swap
