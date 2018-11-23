@@ -7,6 +7,14 @@ service dphys-swapfile stop
 sudo systemctl disable dphys-swapfile
 apt-get --yes --force-yes purge dphys-swapfile
 
+echo "-------------------------------"
+echo "-------------------------------"
+echo "GIT: current branch is:"
+cat /pi-gen/_GIT_BRANCH_
+echo "-------------------------------"
+echo "-------------------------------"
+echo "-------------------------------"
+
 # backup alsa config
 cp -av /usr/share/alsa/alsa.conf /usr/share/alsa/alsa.conf_ORIG
 
