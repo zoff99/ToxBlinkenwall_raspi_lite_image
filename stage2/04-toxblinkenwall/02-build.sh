@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 install -m 755 files/build_tbw.sh "${ROOTFS_DIR}/home/pi/"
+install -m 755 files/update_tbw.sh "${ROOTFS_DIR}/home/pi/"
 
 on_chroot << EOF
 id -a
