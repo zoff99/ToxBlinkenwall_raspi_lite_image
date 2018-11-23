@@ -1,4 +1,4 @@
-# Build Raspian Lite on CircleCI
+# Build Raspian-Lite-ToxBlinkenwall Image on CircleCI
 
 ### Build Status
 
