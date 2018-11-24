@@ -1,12 +1,5 @@
 #!/bin/bash -e
 
-echo "-------------------------------"
-ls -al /
-df -ha
-ls -al /pi-gen/stage3/
-ls -al /pi-gen/stage3/_GIT_BRANCH_
-echo "-------------------------------"
-
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 
 on_chroot << EOF
@@ -19,7 +12,6 @@ apt-get --yes --force-yes purge dphys-swapfile
 echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
-cat /_GIT_BRANCH_
 _git_branch_=$(cat /_GIT_BRANCH_)
 echo $_git_branch_
 echo "-------------------------------"
@@ -43,7 +35,6 @@ printf 'exit 0\n' >> /etc/rc.local
 
 EOF
 
-## TODO:fixme ## sed -i -e 's#^.*<policy domain="path".*$#<!-- removed by ToxBlinkenwall -->#g' /etc/ImageMagick-6/policy.xml
 /bin/bash files/patch_imagemagick_config.sh
 
 echo
@@ -71,24 +62,8 @@ if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
 fi
 
-
 # save built libs and includes for caching (outside of docker)
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
-
-# set root and pi password to random values for production branch
-on_chroot << EOF
-
-#cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1
-#rand_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1)
-#echo "$rand_pass"
-#echo "pi:$rand_pass" | chpasswd
-#rand_pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9\_\%' | fold -w 30 | head -n 1)
-#echo "root:$rand_pass" | chpasswd
-#echo "$rand_pass"
-
-echo "dummy"
-
-EOF
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
