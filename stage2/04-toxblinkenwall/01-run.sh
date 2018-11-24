@@ -28,6 +28,8 @@ cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 echo "add tbw to rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
 printf '\n' >> /etc/rc.local
+printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
@@ -39,6 +41,7 @@ cat /lib/systemd/system/systemd-udevd.service
 echo "----------------------"
 
 EOF
+
 
 /bin/bash files/patch_imagemagick_config.sh
 
@@ -55,6 +58,11 @@ echo
 echo "build ToxBlinkenwall ..."
 install -m 755 files/build_tbw.sh "${ROOTFS_DIR}/home/pi/"
 install -m 755 files/update_tbw.sh "${ROOTFS_DIR}/home/pi/"
+
+on_chroot << EOF
+chown pi:pi /home/pi/build_tbw.sh
+chown pi:pi /home/pi/update_tbw.sh
+EOF
 
 on_chroot << EOF
 id -a
@@ -74,6 +82,15 @@ fi
 # enable sshd on master branch
 if [ "$_git_branch_""x" == "masterx" ]; then
     systemctl enable ssh
+fi
+
+# set random passwords for "pi" and "root" user
+if [ "$_git_branch_""x" == "releasex" ]; then
+    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
+    touch "${ROOTFS_DIR}/_first_start_"
+elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
+    touch "${ROOTFS_DIR}/_first_start_"
 fi
 
 # save built libs and includes for caching (outside of docker)
