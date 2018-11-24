@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+ls -al /pi-gen/
+ls -al /pi-gen/stage3/
+
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
