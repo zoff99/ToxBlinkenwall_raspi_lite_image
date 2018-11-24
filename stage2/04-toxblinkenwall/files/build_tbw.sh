@@ -124,9 +124,6 @@ git clone https://github.com/Zoxcore/c-toxcore
 cd c-toxcore
 git checkout "release"
 
-echo "GIT:current branch is:"
-cat /pi-gen/work/_GIT_BRANCH_
-
 sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
 cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
 
