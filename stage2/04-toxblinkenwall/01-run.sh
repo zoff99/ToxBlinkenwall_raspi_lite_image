@@ -7,7 +7,7 @@ on_chroot << EOF
 
 # disable swap
 service dphys-swapfile stop
-sudo systemctl disable dphys-swapfile
+systemctl disable dphys-swapfile
 apt-get --yes --force-yes purge dphys-swapfile
 
 echo "-------------------------------"
@@ -63,13 +63,13 @@ install -m 755 files/build_tbw.sh "${ROOTFS_DIR}/home/pi/"
 install -m 755 files/update_tbw.sh "${ROOTFS_DIR}/home/pi/"
 
 on_chroot << EOF
-chown pi:pi /home/pi/build_tbw.sh
-chown pi:pi /home/pi/update_tbw.sh
+  chown pi:pi /home/pi/build_tbw.sh
+  chown pi:pi /home/pi/update_tbw.sh
 EOF
 
 on_chroot << EOF
-id -a
-su - pi bash -c "/home/pi/build_tbw.sh"
+  id -a
+  su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
@@ -84,7 +84,11 @@ fi
 
 # enable sshd on master branch
 if [ "$_git_branch_""x" == "masterx" ]; then
-    systemctl enable ssh
+
+on_chroot << EOF
+  systemctl enable ssh
+EOF
+
 fi
 
 # set random passwords for "pi" and "root" user
@@ -111,20 +115,20 @@ fi
 # fix udev service config to be able to automount USB devices
 install -m 755 files/config_systemd_udev_srv.sh "${ROOTFS_DIR}/config_systemd_udev_srv.sh"
 on_chroot << EOF
-bash /config_systemd_udev_srv.sh
+  bash /config_systemd_udev_srv.sh
 EOF
 
 on_chroot << EOF
-# https://github.com/cdown/tzupdate
-# util to autodetect timezone from IP address
-pip install -U tzupdate
+  # https://github.com/cdown/tzupdate
+  # util to autodetect timezone from IP address
+  pip install -U tzupdate
 EOF
 
 on_chroot << EOF
-rm -f /etc/cron.daily/apt-compat
-rm -f /etc/cron.daily/aptitude
-rm -f /etc/cron.daily/man-db
-rm -f /etc/cron.weekly/man-db
+  rm -f /etc/cron.daily/apt-compat
+  rm -f /etc/cron.daily/aptitude
+  rm -f /etc/cron.daily/man-db
+  rm -f /etc/cron.weekly/man-db
 EOF
 
 
