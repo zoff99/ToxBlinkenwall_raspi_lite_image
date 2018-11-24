@@ -20,6 +20,8 @@ apt-get --yes --force-yes purge dphys-swapfile
 echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
+pwd
+ls -al /
 cat /_GIT_BRANCH_
 _git_branch_=$(cat /_GIT_BRANCH_)
 echo $_git_branch_
