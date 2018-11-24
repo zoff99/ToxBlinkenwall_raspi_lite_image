@@ -61,7 +61,7 @@ id -a
 su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
-_git_branch_=$(cat /_GIT_BRANCH_)
+_git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
   cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
