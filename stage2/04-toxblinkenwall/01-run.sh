@@ -20,6 +20,7 @@ apt-get --yes --force-yes purge dphys-swapfile
 echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
+cat /_GIT_BRANCH_
 _git_branch_=$(cat /_GIT_BRANCH_)
 echo $_git_branch_
 echo "-------------------------------"
@@ -80,6 +81,7 @@ on_chroot << EOF
 EOF
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
+echo $_git_branch_
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
 
 on_chroot << EOF
@@ -110,7 +112,6 @@ fi
 # save built libs and includes for caching (outside of docker)
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
 
-_git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
   install -m 644 files/plug-usb-device.rules_toxphonev20 "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
