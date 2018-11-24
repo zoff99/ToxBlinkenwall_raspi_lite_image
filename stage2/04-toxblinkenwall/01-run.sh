@@ -20,6 +20,8 @@ echo "-------------------------------"
 echo "-------------------------------"
 echo "GIT: current branch is:"
 cat /_GIT_BRANCH_
+_git_branch_=$(cat /_GIT_BRANCH_)
+echo $_git_branch_
 echo "-------------------------------"
 echo "-------------------------------"
 echo "-------------------------------"
@@ -63,6 +65,13 @@ id -a
 su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
+_git_branch_=$(cat /_GIT_BRANCH_)
+if [ "$_git_branch_""x" == "toxphonev20x" ]; then
+  alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
+  cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
+fi
+
+
 # save built libs and includes for caching (outside of docker)
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
 
@@ -80,3 +89,11 @@ on_chroot << EOF
 echo "dummy"
 
 EOF
+
+_git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
+if [ "$_git_branch_""x" == "toxphonev20x" ]; then
+  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
+  install -m 644 files/plug-usb-device.rules "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
+fi
+
+
