@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
 on_chroot << EOF
 
@@ -29,6 +30,8 @@ echo "add tbw to rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
+printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
@@ -110,5 +113,20 @@ install -m 755 files/config_systemd_udev_srv.sh "${ROOTFS_DIR}/config_systemd_ud
 on_chroot << EOF
 bash /config_systemd_udev_srv.sh
 EOF
+
+on_chroot << EOF
+# https://github.com/cdown/tzupdate
+# util to autodetect timezone from IP address
+pip install -U tzupdate
+EOF
+
+on_chroot << EOF
+rm -f /etc/cron.daily/apt-compat
+rm -f /etc/cron.daily/aptitude
+rm -f /etc/cron.daily/man-db
+rm -f /etc/cron.weekly/man-db
+EOF
+
+
 
 
