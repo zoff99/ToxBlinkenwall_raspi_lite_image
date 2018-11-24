@@ -1,4 +1,4 @@
-# Build Raspian-Lite-ToxBlinkenwall Image on CircleCI
+# Build Raspian-Lite-ToxBlinkenwall Image on CircleCI [Toxphone v2.0]
 
 ### Build Status
 
