@@ -10,6 +10,8 @@ echo "==============================="
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
+export _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
+
 on_chroot << EOF
 
 # disable swap
@@ -22,6 +24,7 @@ echo "-------------------------------"
 echo "GIT: current branch is:"
 pwd
 ls -al /
+echo "_git_branch_""XXYY"
 cat /_GIT_BRANCH_
 _git_branch_=$(cat /_GIT_BRANCH_)
 echo $_git_branch_
