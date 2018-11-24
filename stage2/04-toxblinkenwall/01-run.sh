@@ -1,16 +1,13 @@
 #!/bin/bash -e
 
 echo "==============================="
-ls -al ${ROOTFS_DIR}
-echo "ROOTFS_DIR=${ROOTFS_DIR}"
-ls -al /pi-gen/
-ls -al /pi-gen/stage3/_GIT_BRANCH_
+export _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
+echo "GIT: current branch is:"
+echo $_git_branch_
 echo "==============================="
 
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
-
-export _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 
 on_chroot << EOF
 
@@ -18,19 +15,6 @@ on_chroot << EOF
 service dphys-swapfile stop
 systemctl disable dphys-swapfile
 apt-get --yes --force-yes purge dphys-swapfile
-
-echo "-------------------------------"
-echo "-------------------------------"
-echo "GIT: current branch is:"
-pwd
-ls -al /
-echo "_git_branch_""XXYY"
-cat /_GIT_BRANCH_
-_git_branch_=$(cat /_GIT_BRANCH_)
-echo $_git_branch_
-echo "-------------------------------"
-echo "-------------------------------"
-echo "-------------------------------"
 
 # backup alsa config
 cp -av /usr/share/alsa/alsa.conf /usr/share/alsa/alsa.conf_ORIG
@@ -135,6 +119,7 @@ on_chroot << EOF
   # https://github.com/cdown/tzupdate
   # util to autodetect timezone from IP address
   pip install -U tzupdate
+  dpkg-reconfigure -f noninteractive tzdata
 EOF
 
 on_chroot << EOF
@@ -143,7 +128,5 @@ on_chroot << EOF
   rm -f /etc/cron.daily/man-db
   rm -f /etc/cron.weekly/man-db
 EOF
-
-
 
 
