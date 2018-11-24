@@ -1,5 +1,12 @@
 #!/bin/bash -e
 
+echo "==============================="
+ls -al ${ROOTFS_DIR}
+echo "ROOTFS_DIR=${ROOTFS_DIR}"
+ls -al /pi-gen/
+ls -al /pi-gen/stage3/_GIT_BRANCH_
+echo "==============================="
+
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
