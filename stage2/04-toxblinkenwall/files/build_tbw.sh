@@ -6,7 +6,10 @@ pwd
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
-git clone https://github.com/zoff99/ToxBlinkenwall tmp
+git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
+cd tmp
+git checkout "release"
+cd ..
 mkdir -p ToxBlinkenwall/
 cp -a tmp/*  ToxBlinkenwall/
 cp -a tmp/.gitignore ToxBlinkenwall/
@@ -117,11 +120,9 @@ make -j 4
 make install
 
 cd $_SRC_
-# git clone https://github.com/TokTok/c-toxcore
 git clone https://github.com/Zoxcore/c-toxcore
 cd c-toxcore
-
-git checkout "toxav-multi-codec"
+git checkout "release"
 
 echo "GIT:current branch is:"
 cat /pi-gen/work/_GIT_BRANCH_
