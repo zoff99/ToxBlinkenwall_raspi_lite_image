@@ -63,8 +63,17 @@ EOF
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
+
+on_chroot << EOF
   alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
   cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
+EOF
+
+fi
+
+# enable sshd on master branch
+if [ "$_git_branch_""x" == "masterx" ]; then
+    systemctl enable ssh
 fi
 
 # save built libs and includes for caching (outside of docker)
