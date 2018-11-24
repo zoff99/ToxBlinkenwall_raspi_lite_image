@@ -73,7 +73,10 @@ cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
-  install -m 644 files/plug-usb-device.rules "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
+  install -m 644 files/plug-usb-device.rules_toxphonev20 "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
+else
+  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
+  install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 fi
 
 
