@@ -33,6 +33,11 @@ printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh st
 printf '\n' >> /etc/rc.local
 printf 'exit 0\n' >> /etc/rc.local
 
+# check contents of file:
+echo "----------------------"
+cat /lib/systemd/system/systemd-udevd.service
+echo "----------------------"
+
 EOF
 
 /bin/bash files/patch_imagemagick_config.sh
