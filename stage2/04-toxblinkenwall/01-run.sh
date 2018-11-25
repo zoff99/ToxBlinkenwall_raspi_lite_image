@@ -66,7 +66,7 @@ EOF
 
 on_chroot << EOF
   id -a
-  su - pi bash -c "/home/pi/build_tbw.sh"
+  # su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
