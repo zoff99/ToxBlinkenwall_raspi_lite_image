@@ -64,12 +64,26 @@ on_chroot << EOF
   chown pi:pi /home/pi/update_tbw.sh
 EOF
 
+if [ -e /pi-gen/deploy/cache/ ]; then
+   ls -al /pi-gen/deploy/cache/
+
+on_chroot << EOF
+  id -a
+  mkdir -p "/home/pi/inst/"
+  touch "/home/pi/inst/xxaa"
+  # su - pi bash -c "/home/pi/build_tbw.sh cache"
+EOF
+
+else
+
 on_chroot << EOF
   id -a
   mkdir -p "/home/pi/inst/"
   touch "/home/pi/inst/xxaa"
   # su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
+
+fi
 
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 echo $_git_branch_
