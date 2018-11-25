@@ -66,6 +66,9 @@ EOF
 
 if [ -e /pi-gen/deploy/cache/ ]; then
    ls -al /pi-gen/deploy/cache/
+   pushd "${ROOTFS_DIR}/home/pi/"
+   tar -xzvf /pi-gen/deploy/cache/*.tgz
+   popd
 
 on_chroot << EOF
   id -a
@@ -120,8 +123,6 @@ fi
 
 # save built libs and includes for caching (outside of docker)
 echo "prepare cache ..."
-mkdir -p /pi-gen/work/cache/
-cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/cache/ | head -15
 mkdir -p /pi-gen/deploy/cache/
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/deploy/cache/ | head -15
 echo "... done"
