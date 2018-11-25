@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: tbw-library-dependencies
+          key: tbw-library-dependencies-{{ .Branch }}
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
             quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
@@ -50,7 +50,7 @@ jobs:
       - run: cd pi-gen; ls -hal deploy2/
       - save_cache:
           paths: [ "~/work/cache" ]
-          key: tbw-library-dependencies
+          key: tbw-library-dependencies-{{ .Branch }}
 
       - store_artifacts:
           path: ~/work/pi-gen/deploy2
