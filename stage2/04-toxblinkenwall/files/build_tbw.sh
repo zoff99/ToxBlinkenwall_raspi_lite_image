@@ -38,12 +38,14 @@ export VV1=" VERBOSE=1 V=1 "
 
 if [ "$1""x" != "cachex" ]; then
   echo "option: +NOcache+"
-  rm -Rf $_SRC_
-  rm -Rf $_INST_
+  sudo rm -Rf $_SRC_
+  sudo rm -Rf $_INST_
 fi
 
 mkdir -p $_SRC_
 mkdir -p $_INST_
+sudo chown pi:pi $_SRC_
+sudo chown pi:pi $_INST_
 
 export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
