@@ -36,10 +36,12 @@ export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-arm
 export CF3=" -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
+set +x
+
 if [ "$1""x" != "cachex" ]; then
   echo "option: +NOcache+"
-  sudo rm -Rf $_SRC_
-  sudo rm -Rf $_INST_
+  sudo rm -Rfv $_SRC_
+  sudo rm -Rfv $_INST_
 fi
 
 mkdir -p $_SRC_
@@ -49,6 +51,8 @@ sudo chown -R pi:pi $_INST_
 
 export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
+
+set -x
 
 if [ "$1""x" != "cachex" ]; then
 
