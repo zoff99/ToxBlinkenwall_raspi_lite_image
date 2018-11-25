@@ -64,10 +64,10 @@ on_chroot << EOF
   chown pi:pi /home/pi/update_tbw.sh
 EOF
 
-if [ -e /pi-gen/deploy/cache/ ]; then
-   ls -al /pi-gen/deploy/cache/
+if [ -e /pi-gen/cache/c.tgz ]; then
+   ls -al /pi-gen/cache/
    pushd "${ROOTFS_DIR}/home/pi/"
-   tar -xzvf /pi-gen/deploy/cache/*.tgz
+   tar -xzvf /pi-gen/cache/c.tgz
    popd
 
 on_chroot << EOF
