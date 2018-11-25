@@ -14,4 +14,5 @@ rm -f /etc/cron.weekly/man-db
 
 # set timezone automatically
 tzupdate
+dpkg-reconfigure -f noninteractive tzdata
 
