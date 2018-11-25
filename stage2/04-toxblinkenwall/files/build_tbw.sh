@@ -30,9 +30,10 @@ export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-arm
 export CF3=" -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
-
-rm -Rf $_SRC_
-rm -Rf $_INST_
+if [ "$1""x" != "cachex" ]; then
+  rm -Rf $_SRC_
+  rm -Rf $_INST_
+fi
 
 mkdir -p $_SRC_
 mkdir -p $_INST_
@@ -40,6 +41,7 @@ mkdir -p $_INST_
 export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
 
+if [ "$1""x" != "cachex" ]; then
 
 cd $_SRC_
 # rm -Rf libav
@@ -118,6 +120,11 @@ export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-shared
 make -j 4
 make install
+
+else
+  cd $_SRC_
+  rm -Rf c-toxcore/
+fi
 
 cd $_SRC_
 git clone https://github.com/Zoxcore/c-toxcore
