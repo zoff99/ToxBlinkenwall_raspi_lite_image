@@ -72,6 +72,7 @@ EOF
 _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
 echo $_git_branch_
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
+  echo "store alsa template"
 
 on_chroot << EOF
   alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
@@ -82,6 +83,7 @@ fi
 
 # enable sshd on master branch
 if [ "$_git_branch_""x" == "masterx" ]; then
+  echo "enable SSHD"
 
 on_chroot << EOF
   systemctl enable ssh
@@ -91,9 +93,11 @@ fi
 
 # set random passwords for "pi" and "root" user
 if [ "$_git_branch_""x" == "releasex" ]; then
+    echo "set random passwords on first boot [1]"
     install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
     touch "${ROOTFS_DIR}/_first_start_"
 elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+    echo "set random passwords on first boot [2]"
     install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
     touch "${ROOTFS_DIR}/_first_start_"
 fi
@@ -102,9 +106,11 @@ fi
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
 
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
+  echo "using UDEV rules:plug-usb-device.rules_toxphonev20"
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
   install -m 644 files/plug-usb-device.rules_toxphonev20 "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 else
+  echo "using UDEV rules:plug-usb-device.rules_default"
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
   install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 fi
@@ -115,12 +121,15 @@ on_chroot << EOF
   bash /config_systemd_udev_srv.sh
 EOF
 
+echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
   # util to autodetect timezone from IP address
   pip install -U tzupdate
 EOF
+echo "... ready"
 
+echo "removing some cron files"
 on_chroot << EOF
   rm -f /etc/cron.daily/apt-compat
   rm -f /etc/cron.daily/aptitude
