@@ -103,7 +103,10 @@ elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
 fi
 
 # save built libs and includes for caching (outside of docker)
-cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/
+echo "prepare cache ..."
+mkdir -p /pi-gen/work/cache/
+cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/cache/ | head -15
+echo "... done"
 
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   echo "using UDEV rules:plug-usb-device.rules_toxphonev20"
