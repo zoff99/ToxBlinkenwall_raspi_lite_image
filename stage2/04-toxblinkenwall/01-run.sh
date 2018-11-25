@@ -119,7 +119,6 @@ on_chroot << EOF
   # https://github.com/cdown/tzupdate
   # util to autodetect timezone from IP address
   pip install -U tzupdate
-  dpkg-reconfigure -f noninteractive tzdata
 EOF
 
 on_chroot << EOF
