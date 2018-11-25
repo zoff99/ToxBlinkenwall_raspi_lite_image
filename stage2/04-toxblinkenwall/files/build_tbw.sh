@@ -44,8 +44,8 @@ fi
 
 mkdir -p $_SRC_
 mkdir -p $_INST_
-sudo chown pi:pi $_SRC_
-sudo chown pi:pi $_INST_
+sudo chown -R pi:pi $_SRC_
+sudo chown -R pi:pi $_INST_
 
 export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
