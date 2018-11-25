@@ -32,7 +32,7 @@ jobs:
       - run: cd ./stage2 ; ls -alR
       - run: cp -av ./stage2 pi-gen/
       # put cache files in correct place
-      - run: if [ -e ~/work/cache ]; then mv -v ~/work/cache pi-gen/ ; fi
+      - run: if [ -e ~/work/cache ]; then mv -v ~/work/cache pi-gen/ ; sudo chown circleci:circleci /home/circleci/work/pi-gen/cache/c.tgz ; fi
       # give name of current branch to docker
       - run: echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
       - run: echo "$CIRCLE_BRANCH"; cat ./pi-gen/stage3/_GIT_BRANCH_
@@ -44,11 +44,13 @@ jobs:
       - run: cd pi-gen; ls -hal deploy/
       - run: cd ~/work; rm -Rf cache ; mkdir -p cache ; chmod a+rwx cache
       - run: cd pi-gen; ls -al deploy/cache/; cd deploy/cache/ ; ls -al ; ls -al  ~/work/cache; ls -al ~/work/cache/c.tgz
-      - run: cd pi-gen; cd deploy/cache/ ; tar -czvf ~/work/cache/c.tgz *
+      - run: cd pi-gen; cd deploy/cache/ ; sudo tar -czvf /home/circleci/work/cache/c.tgz * # cache dir is strangly not accessalbe without root
       - run: cd pi-gen; mkdir -p deploy2/
+      - run: cd /home/circleci/work/cache/ ; sudo chown circleci:circleci c.tgz
       - run: cd pi-gen; cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
       - run: cd pi-gen; cp -av deploy/build.log deploy2/
       - run: cd pi-gen; ls -hal deploy2/
+
       - save_cache:
           paths: [ "~/work/cache" ]
           key: tbw-library-dependencies-v1-{{ .Branch }}
