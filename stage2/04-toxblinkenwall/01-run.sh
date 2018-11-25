@@ -106,6 +106,8 @@ fi
 echo "prepare cache ..."
 mkdir -p /pi-gen/work/cache/
 cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/work/cache/ | head -15
+mkdir -p /pi-gen/deploy/cache/
+cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/deploy/cache/ | head -15
 echo "... done"
 
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
