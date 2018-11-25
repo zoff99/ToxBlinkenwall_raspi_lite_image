@@ -3,6 +3,12 @@
 id -a
 pwd
 
+if [ "$1""x" == "cachex" ]; then
+  echo "option: *CACHE*"
+else
+  echo "option: +NOcache+"
+fi
+
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
@@ -31,6 +37,7 @@ export CF3=" -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
 if [ "$1""x" != "cachex" ]; then
+  echo "option: +NOcache+"
   rm -Rf $_SRC_
   rm -Rf $_INST_
 fi
@@ -42,6 +49,8 @@ export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
 
 if [ "$1""x" != "cachex" ]; then
+
+  echo "option: +NOcache+"
 
 cd $_SRC_
 # rm -Rf libav
@@ -122,6 +131,7 @@ make -j 4
 make install
 
 else
+  echo "option: *CACHE*"
   cd $_SRC_
   rm -Rf c-toxcore/
 fi
