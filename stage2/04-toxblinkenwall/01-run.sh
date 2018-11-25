@@ -73,8 +73,9 @@ if [ -e /pi-gen/cache/c.tgz ]; then
 on_chroot << EOF
   id -a
   mkdir -p "/home/pi/inst/"
-  touch "/home/pi/inst/xxaa"
-  # su - pi bash -c "/home/pi/build_tbw.sh cache"
+  touch "/home/pi/inst/__YY__"
+  echo "build tbw WITH cache ..."
+  su - pi bash -c "/home/pi/build_tbw.sh cache"
 EOF
 
 else
@@ -82,8 +83,9 @@ else
 on_chroot << EOF
   id -a
   mkdir -p "/home/pi/inst/"
-  touch "/home/pi/inst/xxaa"
-  # su - pi bash -c "/home/pi/build_tbw.sh"
+  touch "/home/pi/inst/__xx__"
+  echo "build tbw *without* cache ..."
+  su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
 fi
