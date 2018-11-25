@@ -31,6 +31,8 @@ jobs:
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
       - run: cd ./stage2 ; ls -alR
       - run: cp -av ./stage2 pi-gen/
+      # put cache files in correct place
+      - run: mv ~/work/cache pi-gen/
       # give name of current branch to docker
       - run: echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
       - run: echo "$CIRCLE_BRANCH"; cat ./pi-gen/stage3/_GIT_BRANCH_
