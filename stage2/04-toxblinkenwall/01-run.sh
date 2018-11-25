@@ -66,6 +66,8 @@ EOF
 
 on_chroot << EOF
   id -a
+  mkdir -p "/home/pi/inst/"
+  touch "/home/pi/inst/xxaa"
   # su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
