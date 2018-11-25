@@ -32,6 +32,7 @@ jobs:
       - run: cd ./stage2 ; ls -alR
       - run: cp -av ./stage2 pi-gen/
       # put cache files in correct place
+      - run: ls -al ~/work/cache
       - run: if [ -e ~/work/cache ]; then mv -v ~/work/cache pi-gen/ ; fi
       # give name of current branch to docker
       - run: echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
