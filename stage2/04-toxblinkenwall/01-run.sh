@@ -66,6 +66,7 @@ EOF
 
 if [ -e /pi-gen/cache/c.tgz ]; then
    ls -al /pi-gen/cache/
+   ls -al "${ROOTFS_DIR}/home/pi/"
    pushd "${ROOTFS_DIR}/home/pi/"
    tar -xzvf /pi-gen/cache/c.tgz
    popd
@@ -76,6 +77,7 @@ on_chroot << EOF
   chmod a+rwx "/home/pi/inst/"
   touch "/home/pi/inst/__YY__"
   chmod a+rwx "/home/pi/inst/__YY__"
+  chown pi:pi -R "/home/pi/inst/"
   echo "build tbw WITH cache ..."
   su - pi bash -c "/home/pi/build_tbw.sh cache"
 EOF
@@ -88,6 +90,7 @@ on_chroot << EOF
   chmod a+rwx "/home/pi/inst/"
   touch "/home/pi/inst/__xx__"
   chmod a+rwx "/home/pi/inst/__xx__"
+  chown pi:pi -R "/home/pi/inst/"
   echo "build tbw *without* cache ..."
   su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
