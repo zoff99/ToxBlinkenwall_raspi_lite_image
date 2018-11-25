@@ -42,6 +42,7 @@ jobs:
       - run: cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
       - run: cd pi-gen;sudo ./build-docker.sh # ./build.sh
       - run: cd pi-gen; ls -hal deploy/
+      - run: cd pi-gen; cd deploy/cache/ ; tar -czvf ~/work/cache/c.tgz *
       - run: cd pi-gen; mkdir -p deploy2/
       - run: cd pi-gen; cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
       - run: cd pi-gen; cp -av deploy/build.log deploy2/
