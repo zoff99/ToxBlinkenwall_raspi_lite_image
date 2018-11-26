@@ -68,6 +68,7 @@ if [ -e /pi-gen/cache/c.tgz ]; then
    ls -al /pi-gen/cache/
    ls -al "${ROOTFS_DIR}/home/pi/"
    pushd "${ROOTFS_DIR}/home/pi/"
+   echo "extracting cache ..."
    tar -xzvf /pi-gen/cache/c.tgz
    popd
 
@@ -133,10 +134,10 @@ fi
 # save built libs and includes for caching (outside of docker)
 echo "prepare cache ..."
 mkdir -p /pi-gen/deploy/cache/
-cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/deploy/cache/ | head -15
-ls -al /pi-gen/deploy/cache/ | head -15
+cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/deploy/cache/
+ls -al /pi-gen/deploy/cache/
 chmod -R a+r /pi-gen/deploy/cache/
-ls -al /pi-gen/deploy/cache/ | head -15
+ls -al /pi-gen/deploy/cache/
 echo "... done"
 
 if [ "$_git_branch_""x" == "toxphonev20x" ]; then
