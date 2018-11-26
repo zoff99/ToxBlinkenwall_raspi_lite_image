@@ -134,6 +134,11 @@ make install
 
 else
   echo "option: *CACHE*"
+  export CFLAGS=" $CF2 $CF3 "
+  export CXXFLAGS=" $CF2 $CF3 "
+
+  ls -al $_INST_/include/
+
   cd $_SRC_
   rm -Rf c-toxcore/
 fi
