@@ -154,7 +154,7 @@ export LDFLAGS=-L$_INST_/lib
 ./configure \
 --prefix=$_INST_ \
 --disable-soname-versions --disable-testing --disable-shared
-make -j 4
+make -j 4 || exit 1
 make install
 
 
@@ -200,6 +200,7 @@ if [ $res2 -eq 0 ]; then
  echo "compile: OK"
 else
  echo "compile: ** ERROR **"
+ exit 2
 fi
 
 echo '
