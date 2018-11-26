@@ -139,6 +139,32 @@ else
 
   ls -al $_INST_/include/
 
+  # -- get the source into the image --
+  cd $_SRC_
+  rm -Rf libav
+  git clone https://github.com/libav/libav
+  cd libav
+  git checkout v12.3
+
+  cd $_SRC_
+  rm -Rf x264
+  git clone git://git.videolan.org/x264.git
+  cd x264
+  git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+
+  cd $_SRC_
+  rm -Rf libsodium
+  git clone --depth=1 --branch=1.0.16 https://github.com/jedisct1/libsodium.git
+
+  cd $_SRC_
+  rm -Rf libvpx
+  git clone --depth=1 --branch=v1.7.0 https://github.com/webmproject/libvpx.git
+
+  cd $_SRC_
+  rm -Rf opus
+  git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
+  # -- get the source into the image --
+
   cd $_SRC_
   rm -Rf c-toxcore/
 fi
