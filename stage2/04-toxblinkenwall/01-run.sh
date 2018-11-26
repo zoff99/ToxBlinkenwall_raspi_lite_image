@@ -143,6 +143,10 @@ if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   echo "using UDEV rules:plug-usb-device.rules_toxphonev20"
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
   install -m 644 files/plug-usb-device.rules_toxphonev20 "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
+elif [ "$_git_branch_""x" == "releasex" ]; then
+  echo "using UDEV rules:plug-usb-device.rules_release"
+  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
+  install -m 644 files/plug-usb-device.rules_release "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 else
   echo "using UDEV rules:plug-usb-device.rules_default"
   install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
