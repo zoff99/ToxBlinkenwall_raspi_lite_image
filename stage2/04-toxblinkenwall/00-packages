@@ -6,3 +6,4 @@ pkg-config libjpeg-dev libpulse-dev libconfig-dev
 automake checkinstall check yasm
 libao-dev libasound2-dev
 bc htop
+python-pip

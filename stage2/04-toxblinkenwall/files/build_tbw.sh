@@ -3,6 +3,12 @@
 id -a
 pwd
 
+if [ "$1""x" == "cachex" ]; then
+  echo "option: *CACHE*"
+else
+  echo "option: +NOcache+"
+fi
+
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
@@ -30,16 +36,23 @@ export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-arm
 export CF3=" -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
-
-rm -Rf $_SRC_
-rm -Rf $_INST_
+if [ "$1""x" != "cachex" ]; then
+  echo "option: +NOcache+"
+  sudo rm -Rfv $_SRC_
+  sudo rm -Rfv $_INST_
+fi
 
 mkdir -p $_SRC_
 mkdir -p $_INST_
+sudo chown -R pi:pi $_SRC_
+sudo chown -R pi:pi $_INST_
 
 export LD_LIBRARY_PATH=$_INST_/lib/
 export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
 
+if [ "$1""x" != "cachex" ]; then
+
+  echo "option: +NOcache+"
 
 cd $_SRC_
 # rm -Rf libav
@@ -119,13 +132,47 @@ export CXXFLAGS=" $CF2 $CF3 "
 make -j 4
 make install
 
+else
+  echo "option: *CACHE*"
+  export CFLAGS=" $CF2 $CF3 "
+  export CXXFLAGS=" $CF2 $CF3 "
+
+  ls -al $_INST_/include/
+
+  # -- get the source into the image --
+  cd $_SRC_
+  rm -Rf libav
+  git clone https://github.com/libav/libav
+  cd libav
+  git checkout v12.3
+
+  cd $_SRC_
+  rm -Rf x264
+  git clone git://git.videolan.org/x264.git
+  cd x264
+  git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+
+  cd $_SRC_
+  rm -Rf libsodium
+  git clone --depth=1 --branch=1.0.16 https://github.com/jedisct1/libsodium.git
+
+  cd $_SRC_
+  rm -Rf libvpx
+  git clone --depth=1 --branch=v1.7.0 https://github.com/webmproject/libvpx.git
+
+  cd $_SRC_
+  rm -Rf opus
+  git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
+  # -- get the source into the image --
+
+  cd $_SRC_
+  rm -Rf c-toxcore/
+fi
+
 cd $_SRC_
 git clone https://github.com/Zoxcore/c-toxcore
 cd c-toxcore
 git checkout "release"
-
-echo "GIT:current branch is:"
-cat /pi-gen/work/_GIT_BRANCH_
 
 sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
 cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
@@ -138,7 +185,7 @@ export LDFLAGS=-L$_INST_/lib
 ./configure \
 --prefix=$_INST_ \
 --disable-soname-versions --disable-testing --disable-shared
-make -j 4
+make -j 4 || exit 1
 make install
 
 
@@ -184,6 +231,7 @@ if [ $res2 -eq 0 ]; then
  echo "compile: OK"
 else
  echo "compile: ** ERROR **"
+ exit 2
 fi
 
 echo '

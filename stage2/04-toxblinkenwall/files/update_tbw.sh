@@ -50,8 +50,6 @@ git clone https://github.com/Zoxcore/c-toxcore
 cd c-toxcore
 git checkout "release"
 
-echo "GIT:current branch is:"
-cat /pi-gen/_GIT_BRANCH_
 
 ./autogen.sh
 make clean
