@@ -104,8 +104,10 @@ if [ "$_git_branch_""x" == "toxphonev20x" ]; then
   echo "store alsa template"
 
 on_chroot << EOF
+  set -x
   alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
-  cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
+  echo "template:$alsa_template"
+  cp -v "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
 EOF
 
 fi
