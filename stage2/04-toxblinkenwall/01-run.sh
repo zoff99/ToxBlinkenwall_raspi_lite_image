@@ -160,6 +160,12 @@ on_chroot << EOF
   bash /config_systemd_udev_srv.sh
 EOF
 
+# activate pi camera
+echo '' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'gpu_mem=128' >> "${ROOTFS_DIR}/boot/config.txt"
+echo '' >> "${ROOTFS_DIR}/boot/config.txt"
+
 echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
