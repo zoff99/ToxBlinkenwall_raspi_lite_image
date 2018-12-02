@@ -2,9 +2,9 @@
 
 ### Build Status
 
-**CircleCI:master** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master)
-**CircleCI:release** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release)
-**CircleCI:toxphonev20** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/toxphonev20.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/toxphonev20)
+**CircleCI:master** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master)<br>
+**CircleCI:release** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release)<br>
+**CircleCI:toxphonev20** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/toxphonev20.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/toxphonev20)<br>
 
 ### Latest Release Version (Raspberry PI)
 
