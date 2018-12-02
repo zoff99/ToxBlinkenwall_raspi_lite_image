@@ -166,6 +166,11 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=128' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
+echo "contents of /boot/config.txt:"
+echo "---------------------------------------"
+cat "${ROOTFS_DIR}/boot/config.txt"
+echo "---------------------------------------"
+
 echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
@@ -173,6 +178,22 @@ on_chroot << EOF
   pip install -U tzupdate
 EOF
 echo "... ready"
+
+echo "enable reboot on kernel crash"
+sed -i -e 's_.*CrashReboot.*__' "${ROOTFS_DIR}/etc/systemd/system.conf"
+sed -i -e 's_.*RuntimeWatchdogSec.*__' "${ROOTFS_DIR}/etc/systemd/system.conf"
+sed -i -e 's_.*ShutdownWatchdogSec.*__' "${ROOTFS_DIR}/etc/systemd/system.conf"
+echo '
+CrashReboot=yes
+RuntimeWatchdogSec=10s
+ShutdownWatchdogSec=5min
+' >> "${ROOTFS_DIR}/etc/systemd/system.conf"
+
+echo "contents of /etc/systemd/system.conf:"
+echo "---------------------------------------"
+cat "${ROOTFS_DIR}/etc/systemd/system.conf"
+echo "---------------------------------------"
+
 
 echo "removing some cron files"
 on_chroot << EOF
