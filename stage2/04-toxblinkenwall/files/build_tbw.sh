@@ -196,6 +196,16 @@ git checkout "release"
 sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
 cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
 
+sed -i -e 'sx#define X264_ENCODE_USEDx//#define X264_ENCODE_USEDx' ./toxav/codecs/h264/codec.c
+cat ./toxav/codecs/h264/codec.c | grep '#define X264_ENCODE_USED'
+
+sed -i -e 'sx.*#define RAPI_HWACCEL_ENC.*x#define RAPI_HWACCEL_ENC 1x' ./toxav/codecs/h264/codec.c
+cat ./toxav/codecs/h264/codec.c | grep '#define RAPI_HWACCEL_ENC'
+
+sed -i -e 'sx.*#define RAPI_HWACCEL_DEC.*x#define RAPI_HWACCEL_DEC 1x' ./toxav/codecs/h264/codec.c
+cat ./toxav/codecs/h264/codec.c | grep '#define RAPI_HWACCEL_DEC'
+
+
 ./autogen.sh
 make clean
 export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
