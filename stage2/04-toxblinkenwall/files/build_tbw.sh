@@ -54,40 +54,59 @@ if [ "$1""x" != "cachex" ]; then
 
   echo "option: +NOcache+"
 
-cd $_SRC_
-# rm -Rf libav
-git clone https://github.com/libav/libav
-cd libav
-git checkout v12.3
-./configure --prefix=$_INST_ --disable-devices --disable-programs \
---disable-doc --disable-avdevice --disable-avformat \
---disable-swscale \
---disable-avfilter --disable-network --disable-everything \
---disable-bzlib \
---disable-libxcb-shm \
---disable-libxcb-xfixes \
---enable-parser=h264 \
---enable-runtime-cpudetect \
---enable-mmal \
---enable-decoder=h264_mmal \
---enable-gpl --enable-decoder=h264
-make clean
-make -j4
-make install
-
-
-
 
 cd $_SRC_
 # rm -Rf x264
 git clone git://git.videolan.org/x264.git
 cd x264
 git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
-./configure --prefix=$_INST_ --disable-opencl --enable-shared --enable-static \
---disable-avs --disable-cli
+./configure --prefix=$_INST_ --disable-opencl --enable-static \
+--disable-avs --disable-cli --enable-pic
 make clean
 make -j4
 make install
+
+
+
+# for ffmpeg --------
+export CFLAGS="-DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
+-I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
+$CF2 $CF3 \
+-I/opt/vc/include \
+-I/opt/vc/include/IL/ \
+-I/opt/vc/interface/vmcs_host/linux \
+-I/opt/vc/interface/vcos/pthreads "
+
+cd $_SRC_
+# rm -Rf libav
+git clone https://github.com/FFmpeg/FFmpeg libav
+cd libav
+git checkout n4.1
+./configure --prefix=$_INST_ --disable-devices \
+--enable-pthreads \
+--disable-shared --enable-static \
+--disable-doc --disable-avdevice \
+--disable-swscale \
+--disable-network \
+--enable-ffmpeg --enable-ffprobe \
+--disable-network --disable-everything \
+--disable-bzlib \
+--disable-libxcb-shm \
+--disable-libxcb-xfixes \
+--enable-parser=h264 \
+--enable-runtime-cpudetect \
+--enable-omx-rpi --enable-mmal \
+--enable-omx \
+--enable-libx264 \
+--enable-encoder=libx264 \
+--enable-decoder=h264_mmal \
+--enable-encoder=h264_omx \
+--enable-gpl --enable-decoder=h264
+make clean
+make -j4
+make install
+
+unset CFLAGS
 
 
 cd $_SRC_
@@ -141,16 +160,16 @@ else
 
   # -- get the source into the image --
   cd $_SRC_
-  rm -Rf libav
-  git clone https://github.com/libav/libav
-  cd libav
-  git checkout v12.3
-
-  cd $_SRC_
   rm -Rf x264
   git clone git://git.videolan.org/x264.git
   cd x264
   git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+
+  cd $_SRC_
+  rm -Rf libav
+  git clone https://github.com/FFmpeg/FFmpeg libav
+  cd libav
+  git checkout n4.1
 
   cd $_SRC_
   rm -Rf libsodium
@@ -217,7 +236,7 @@ $_INST_/lib/libsodium.a \
 -lasound \
 -lpthread -lv4lconvert \
 -lmmal -lmmal_core -lmmal_vc_client -lmmal_components -lmmal_util \
--L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil
+-L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil -ldl
 
 res2=$?
 
