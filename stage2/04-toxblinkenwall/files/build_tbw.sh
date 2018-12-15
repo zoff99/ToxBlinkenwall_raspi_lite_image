@@ -9,12 +9,26 @@ else
   echo "option: +NOcache+"
 fi
 
+echo "==============================="
+export _git_branch_=$(cat /_GIT_BRANCH_)
+echo "GIT: current branch is:"
+echo $_git_branch_
+echo "==============================="
+
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
 git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
 cd tmp
-git checkout "release"
+
+if [ "$_git_branch_""x" == "masterx" ]; then
+    git checkout "master"
+elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+    git checkout "release"
+else
+    git checkout "release"
+fi
+
 cd ..
 mkdir -p ToxBlinkenwall/
 cp -a tmp/*  ToxBlinkenwall/
@@ -191,7 +205,17 @@ fi
 cd $_SRC_
 git clone https://github.com/Zoxcore/c-toxcore
 cd c-toxcore
-git checkout "release"
+
+
+if [ "$_git_branch_""x" == "masterx" ]; then
+    git checkout "toxav-multi-codec"
+elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+    git checkout "release"
+else
+    git checkout "release"
+fi
+
+
 
 sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
 cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
