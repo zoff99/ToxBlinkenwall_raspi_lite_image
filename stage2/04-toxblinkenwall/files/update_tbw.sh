@@ -91,7 +91,7 @@ $_INST_/lib/libsodium.a \
 -lasound \
 -lpthread -lv4lconvert \
 -lmmal -lmmal_core -lmmal_vc_client -lmmal_components -lmmal_util \
--L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil
+-L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil -ldl
 
 res2=$?
 
