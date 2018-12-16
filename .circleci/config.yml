@@ -36,6 +36,9 @@ jobs:
       # give name of current branch to docker
       - run: echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
       - run: echo "$CIRCLE_BRANCH"; cat ./pi-gen/stage3/_GIT_BRANCH_
+      # change bsdtar to give more output, sp CI wont kill our job because of no output for a long time
+      - run: sed -i -e 'sxbsdtar xbsdtar -v x' ./pi-gen/export-noobs/prerun.sh
+      - run: cat ./pi-gen/export-noobs/prerun.sh
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
