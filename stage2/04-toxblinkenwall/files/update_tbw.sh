@@ -17,6 +17,7 @@ rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
 
 if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    echo "using local build from zoff99 repo"
     git clone https://github.com/zoff99/ToxBlinkenwall tmp
     cd tmp
     git checkout "master"
@@ -72,6 +73,7 @@ cd $_SRC_
 rm -Rf c-toxcore
 
 if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    echo "using local build from zoff99 repo"
     git clone https://github.com/zoff99/c-toxcore
     cd c-toxcore
     git checkout "zoff99/zoxcore_local_fork"
