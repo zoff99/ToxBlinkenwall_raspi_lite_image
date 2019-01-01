@@ -230,32 +230,35 @@ EOF
 
 echo "stop unwanted stuff from running on the Pi"
 on_chroot << EOF
+
+set -x
+
 systemctl disable hciuart.service
 systemctl stop hciuart.service
 
-systemctl disable bluealsa.service
-systemctl stop bluealsa.service
+systemctl disable bluealsa.service || echo "ERROR"
+systemctl stop bluealsa.service || echo "ERROR"
 
-systemctl disable bluetooth.service
-systemctl stop bluetooth.service
+systemctl disable bluetooth.service || echo "ERROR"
+systemctl stop bluetooth.service || echo "ERROR"
 
-systemctl disable bluetooth
-systemctl stop bluetooth
+systemctl disable bluetooth || echo "ERROR"
+systemctl stop bluetooth || echo "ERROR"
 
-systemctl disable avahi-daemon
-systemctl stop avahi-daemon
+systemctl disable avahi-daemon || echo "ERROR"
+systemctl stop avahi-daemon || echo "ERROR"
 
-systemctl disable triggerhappy
-systemctl stop triggerhappy
+systemctl disable triggerhappy || echo "ERROR"
+systemctl stop triggerhappy || echo "ERROR"
 
 systemctl disable dbus
-systemctl stop dbus
+systemctl stop dbus || echo "ERROR"
 
 systemctl disable cron
-systemctl stop cron
+systemctl stop cron || echo "ERROR"
 
 systemctl disable systemd-timesyncd.service
-systemctl stop systemd-timesyncd.service
+systemctl stop systemd-timesyncd.service || echo "ERROR"
 
 EOF
 
