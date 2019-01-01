@@ -226,3 +226,39 @@ on_chroot << EOF
 EOF
 
 
+echo "stop unwanted stuff from running on the Pi"
+on_chroot << EOF
+systemctl disable hciuart.service
+systemctl stop hciuart.service
+
+systemctl disable bluealsa.service
+systemctl stop bluealsa.service
+
+systemctl disable bluetooth.service
+systemctl stop bluetooth.service
+
+systemctl disable bluetooth
+systemctl stop bluetooth
+
+systemctl disable avahi-daemon
+systemctl stop avahi-daemon
+
+systemctl disable triggerhappy
+systemctl stop triggerhappy
+
+systemctl disable dbus
+systemctl stop dbus
+
+systemctl disable cron
+systemctl stop cron
+
+systemctl disable systemd-timesyncd.service
+systemctl stop systemd-timesyncd.service
+
+EOF
+
+echo 'dont use debian ntp pool, !!metadataleak!!'
+on_chroot << EOF
+sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
+EOF
+
