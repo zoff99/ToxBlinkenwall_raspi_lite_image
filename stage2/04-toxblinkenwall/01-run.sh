@@ -160,6 +160,28 @@ on_chroot << EOF
   bash /config_systemd_udev_srv.sh
 EOF
 
+# install bcmstat from github
+on_chroot << EOF
+cd /home/pi
+mkdir -p bcmstat/
+cd bcmstat/
+wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.1/bcmstat.sh
+chmod a+rx bcmstat.sh
+EOF
+
+# activate more locales and generate files
+on_chroot << EOF
+echo "de_AT.UTF-8 UTF-8" >> /etc/locale.gen
+echo "de_AT ISO-8859-1" >> /etc/locale.gen
+echo "de_AT@euro ISO-8859-15" >> /etc/locale.gen
+echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+echo "de_DE ISO-8859-1" >> /etc/locale.gen
+echo "de_DE@euro ISO-8859-15" >> /etc/locale.gen
+locale-gen
+locale -a
+EOF
+
+
 # activate pi camera
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
