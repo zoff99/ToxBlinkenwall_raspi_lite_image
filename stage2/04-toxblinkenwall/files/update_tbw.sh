@@ -7,20 +7,30 @@ echo "==============================="
 export _git_branch_=$(cat /_GIT_BRANCH_)
 echo "GIT: current branch is:"
 echo $_git_branch_
+export _git_project_username_=$(cat /_GIT_PROJECT_USERNAME_)
+echo "GIT: current username is:"
+echo $_git_project_username_
 echo "==============================="
 
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
-git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
-cd tmp
 
-if [ "$_git_branch_""x" == "masterx" ]; then
+if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    git clone https://github.com/zoff99/ToxBlinkenwall tmp
+    cd tmp
     git checkout "master"
-elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
-    git checkout "release"
 else
-    git checkout "release"
+    git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
+    cd tmp
+
+    if [ "$_git_branch_""x" == "masterx" ]; then
+        git checkout "master"
+    elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+        git checkout "release"
+    else
+        git checkout "release"
+    fi
 fi
 
 cd ..
@@ -60,29 +70,27 @@ export PKG_CONFIG_PATH=$_INST_/lib/pkgconfig
 
 cd $_SRC_
 rm -Rf c-toxcore
-git clone https://github.com/Zoxcore/c-toxcore
-cd c-toxcore
 
-if [ "$_git_branch_""x" == "masterx" ]; then
-    git checkout "toxav-multi-codec"
-elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
-    git checkout "release"
+if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    git clone https://github.com/zoff99/c-toxcore
+    cd c-toxcore
+    git checkout "zoff99/zoxcore_local_fork"
 else
-    git checkout "release"
+    git clone https://github.com/Zoxcore/c-toxcore
+    cd c-toxcore
+
+    if [ "$_git_branch_""x" == "masterx" ]; then
+        git checkout "toxav-multi-codec"
+    elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+        git checkout "release"
+    else
+        git checkout "release"
+    fi
 fi
-
-sed -i -e 'sx#define X264_ENCODE_USEDx//#define X264_ENCODE_USEDx' ./toxav/codecs/h264/codec.c
-cat ./toxav/codecs/h264/codec.c | grep '#define X264_ENCODE_USED'
-
-sed -i -e 'sx.*#define RAPI_HWACCEL_ENC.*x#define RAPI_HWACCEL_ENC 1x' ./toxav/codecs/h264/codec.c
-cat ./toxav/codecs/h264/codec.c | grep '#define RAPI_HWACCEL_ENC'
-
-sed -i -e 'sx.*#define RAPI_HWACCEL_DEC.*x#define RAPI_HWACCEL_DEC 1x' ./toxav/codecs/h264/codec.c
-cat ./toxav/codecs/h264/codec.c | grep '#define RAPI_HWACCEL_DEC'
 
 ./autogen.sh
 make clean
-export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
 ./configure \
@@ -103,6 +111,7 @@ $CF2 $CF3 \
 -Wno-unused-variable \
 -fPIC -export-dynamic -I$_INST_/include -o toxblinkenwall -lm \
 toxblinkenwall.c openGL/esUtil.c openGL/esShader.c rb.c \
+omx.c \
 -I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads \
 -I/opt/vc/include/interface/vmcs_host/linux -lbrcmEGL -lbrcmGLESv2 \
 -lbcm_host -L/opt/vc/lib \

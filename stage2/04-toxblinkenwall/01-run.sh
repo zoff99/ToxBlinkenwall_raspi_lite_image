@@ -7,6 +7,8 @@ echo $_git_branch_
 echo "==============================="
 
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
+install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
 on_chroot << EOF
