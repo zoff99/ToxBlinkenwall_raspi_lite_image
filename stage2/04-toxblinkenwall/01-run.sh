@@ -7,6 +7,8 @@ echo $_git_branch_
 echo "==============================="
 
 install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
+install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 
 on_chroot << EOF
@@ -160,10 +162,32 @@ on_chroot << EOF
   bash /config_systemd_udev_srv.sh
 EOF
 
+# install bcmstat from github
+on_chroot << EOF
+cd /home/pi
+mkdir -p bcmstat/
+cd bcmstat/
+wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.1/bcmstat.sh
+chmod a+rx bcmstat.sh
+EOF
+
+# activate more locales and generate files
+on_chroot << EOF
+echo "de_AT.UTF-8 UTF-8" >> /etc/locale.gen
+echo "de_AT ISO-8859-1" >> /etc/locale.gen
+echo "de_AT@euro ISO-8859-15" >> /etc/locale.gen
+echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+echo "de_DE ISO-8859-1" >> /etc/locale.gen
+echo "de_DE@euro ISO-8859-15" >> /etc/locale.gen
+locale-gen
+locale -a
+EOF
+
+
 # activate pi camera
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
-echo 'gpu_mem=128' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'gpu_mem=512' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 echo "contents of /boot/config.txt:"
@@ -203,4 +227,43 @@ on_chroot << EOF
   rm -f /etc/cron.weekly/man-db
 EOF
 
+
+echo "stop unwanted stuff from running on the Pi"
+on_chroot << EOF
+
+set -x
+
+systemctl disable hciuart.service
+systemctl stop hciuart.service
+
+systemctl disable bluealsa.service || echo "ERROR"
+systemctl stop bluealsa.service || echo "ERROR"
+
+systemctl disable bluetooth.service || echo "ERROR"
+systemctl stop bluetooth.service || echo "ERROR"
+
+systemctl disable bluetooth || echo "ERROR"
+systemctl stop bluetooth || echo "ERROR"
+
+systemctl disable avahi-daemon || echo "ERROR"
+systemctl stop avahi-daemon || echo "ERROR"
+
+systemctl disable triggerhappy || echo "ERROR"
+systemctl stop triggerhappy || echo "ERROR"
+
+systemctl disable dbus
+systemctl stop dbus || echo "ERROR"
+
+systemctl disable cron
+systemctl stop cron || echo "ERROR"
+
+systemctl disable systemd-timesyncd.service
+systemctl stop systemd-timesyncd.service || echo "ERROR"
+
+EOF
+
+echo 'dont use debian ntp pool, !!metadataleak!!'
+on_chroot << EOF
+sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
+EOF
 

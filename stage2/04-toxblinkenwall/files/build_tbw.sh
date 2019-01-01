@@ -9,12 +9,37 @@ else
   echo "option: +NOcache+"
 fi
 
+echo "==============================="
+export _git_branch_=$(cat /_GIT_BRANCH_)
+echo "GIT: current branch is:"
+echo $_git_branch_
+export _git_project_username_=$(cat /_GIT_PROJECT_USERNAME_)
+echo "GIT: current username is:"
+echo $_git_project_username_
+echo "==============================="
+
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
-git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
-cd tmp
-git checkout "release"
+
+if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    echo "using local build from zoff99 repo"
+    git clone https://github.com/zoff99/ToxBlinkenwall tmp
+    cd tmp
+    git checkout "master"
+else
+    git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
+    cd tmp
+
+    if [ "$_git_branch_""x" == "masterx" ]; then
+        git checkout "master"
+    elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+        git checkout "release"
+    else
+        git checkout "release"
+    fi
+fi
+
 cd ..
 mkdir -p ToxBlinkenwall/
 cp -a tmp/*  ToxBlinkenwall/
@@ -54,40 +79,59 @@ if [ "$1""x" != "cachex" ]; then
 
   echo "option: +NOcache+"
 
-cd $_SRC_
-# rm -Rf libav
-git clone https://github.com/libav/libav
-cd libav
-git checkout v12.3
-./configure --prefix=$_INST_ --disable-devices --disable-programs \
---disable-doc --disable-avdevice --disable-avformat \
---disable-swscale \
---disable-avfilter --disable-network --disable-everything \
---disable-bzlib \
---disable-libxcb-shm \
---disable-libxcb-xfixes \
---enable-parser=h264 \
---enable-runtime-cpudetect \
---enable-mmal \
---enable-decoder=h264_mmal \
---enable-gpl --enable-decoder=h264
-make clean
-make -j4
-make install
-
-
-
 
 cd $_SRC_
 # rm -Rf x264
 git clone git://git.videolan.org/x264.git
 cd x264
 git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
-./configure --prefix=$_INST_ --disable-opencl --enable-shared --enable-static \
---disable-avs --disable-cli
+./configure --prefix=$_INST_ --disable-opencl --enable-static \
+--disable-avs --disable-cli --enable-pic
 make clean
 make -j4
 make install
+
+
+
+# for ffmpeg --------
+export CFLAGS="-DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
+-I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
+$CF2 $CF3 \
+-I/opt/vc/include \
+-I/opt/vc/include/IL/ \
+-I/opt/vc/interface/vmcs_host/linux \
+-I/opt/vc/interface/vcos/pthreads "
+
+cd $_SRC_
+# rm -Rf libav
+git clone https://github.com/FFmpeg/FFmpeg libav
+cd libav
+git checkout n4.1
+./configure --prefix=$_INST_ --disable-devices \
+--enable-pthreads \
+--disable-shared --enable-static \
+--disable-doc --disable-avdevice \
+--disable-swscale \
+--disable-network \
+--enable-ffmpeg --enable-ffprobe \
+--disable-network --disable-everything \
+--disable-bzlib \
+--disable-libxcb-shm \
+--disable-libxcb-xfixes \
+--enable-parser=h264 \
+--enable-runtime-cpudetect \
+--enable-omx-rpi --enable-mmal \
+--enable-omx \
+--enable-libx264 \
+--enable-encoder=libx264 \
+--enable-decoder=h264_mmal \
+--enable-encoder=h264_omx \
+--enable-gpl --enable-decoder=h264
+make clean
+make -j4
+make install
+
+unset CFLAGS
 
 
 cd $_SRC_
@@ -141,16 +185,16 @@ else
 
   # -- get the source into the image --
   cd $_SRC_
-  rm -Rf libav
-  git clone https://github.com/libav/libav
-  cd libav
-  git checkout v12.3
-
-  cd $_SRC_
   rm -Rf x264
   git clone git://git.videolan.org/x264.git
   cd x264
   git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+
+  cd $_SRC_
+  rm -Rf libav
+  git clone https://github.com/FFmpeg/FFmpeg libav
+  cd libav
+  git checkout n4.1
 
   cd $_SRC_
   rm -Rf libsodium
@@ -170,16 +214,28 @@ else
 fi
 
 cd $_SRC_
-git clone https://github.com/Zoxcore/c-toxcore
-cd c-toxcore
-git checkout "release"
 
-sed -i -e 'sm#define DISABLE_H264_ENCODER_FEATURE.*m#define DISABLE_H264_ENCODER_FEATURE 1m' toxav/rtp.c
-cat toxav/rtp.c |grep 'define DISABLE_H264_ENCODER_FEATURE'
+if [ "$_git_project_username_""x" == "zoff99x" ]; then
+    echo "using local build from zoff99 repo"
+    git clone https://github.com/zoff99/c-toxcore
+    cd c-toxcore
+    git checkout "zoff99/zoxcore_local_fork"
+else
+    git clone https://github.com/Zoxcore/c-toxcore
+    cd c-toxcore
+
+    if [ "$_git_branch_""x" == "masterx" ]; then
+        git checkout "toxav-multi-codec"
+    elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
+        git checkout "release"
+    else
+        git checkout "release"
+    fi
+fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
 ./configure \
@@ -200,6 +256,7 @@ $CF2 $CF3 \
 -Wno-unused-variable \
 -fPIC -export-dynamic -I$_INST_/include -o toxblinkenwall -lm \
 toxblinkenwall.c openGL/esUtil.c openGL/esShader.c rb.c \
+omx.c \
 -I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads \
 -I/opt/vc/include/interface/vmcs_host/linux -lbrcmEGL -lbrcmGLESv2 \
 -lbcm_host -L/opt/vc/lib \
@@ -217,7 +274,7 @@ $_INST_/lib/libsodium.a \
 -lasound \
 -lpthread -lv4lconvert \
 -lmmal -lmmal_core -lmmal_vc_client -lmmal_components -lmmal_util \
--L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil
+-L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil -ldl
 
 res2=$?
 
