@@ -187,7 +187,7 @@ EOF
 # activate pi camera
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
-echo 'gpu_mem=512' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 echo "contents of /boot/config.txt:"
@@ -231,8 +231,6 @@ EOF
 echo "stop unwanted stuff from running on the Pi"
 on_chroot << EOF
 
-set -x
-
 systemctl disable hciuart.service
 systemctl stop hciuart.service
 
@@ -251,8 +249,20 @@ systemctl stop avahi-daemon || echo "ERROR"
 systemctl disable triggerhappy || echo "ERROR"
 systemctl stop triggerhappy || echo "ERROR"
 
+systemctl disable triggerhappy.socket || echo "ERROR"
+systemctl stop triggerhappy.socket || echo "ERROR"
+
 systemctl disable dbus
 systemctl stop dbus || echo "ERROR"
+
+systemctl disable dbus.socket
+systemctl stop dbus.socket || echo "ERROR"
+
+systemctl disable syslog
+systemctl stop syslog || echo "ERROR"
+
+systemctl disable syslog.socket
+systemctl stop syslog.socket || echo "ERROR"
 
 systemctl disable cron
 systemctl stop cron || echo "ERROR"
@@ -260,6 +270,12 @@ systemctl stop cron || echo "ERROR"
 systemctl disable systemd-timesyncd.service
 systemctl stop systemd-timesyncd.service || echo "ERROR"
 
+EOF
+
+echo "enable predictable network interface names"
+on_chroot << EOF
+rm -f /etc/systemd/network/99-default.link
+ln -sf /dev/null /etc/systemd/network/99-default.link
 EOF
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
