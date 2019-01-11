@@ -1,1 +1,3 @@
 KERNEL=="sd*[!0-9]", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}'"
+KERNEL=="pcmC[D0-9cp]*", DRIVERS=="usb", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}'"
+KERNEL=="pcmC[D0-9cp]*", DRIVERS=="usb", ACTION=="remove", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}'"
