@@ -28,7 +28,7 @@ cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 echo "configure rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
 printf '\n' >> /etc/rc.local
-printf '(sleep 5;/home/pi/detect_usb_audio.sh) &\n' >> /etc/rc.local
+printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
