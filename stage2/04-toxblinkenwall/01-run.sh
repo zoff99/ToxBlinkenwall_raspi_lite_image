@@ -158,6 +158,12 @@ else
   install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 fi
 
+echo "reload udevd rules"
+on_chroot << EOF
+ systemctl restart systemd-udevd
+ systemctl daemon-reload
+EOF
+
 # fix udev service config to be able to automount USB devices
 install -m 755 files/config_systemd_udev_srv.sh "${ROOTFS_DIR}/config_systemd_udev_srv.sh"
 on_chroot << EOF
