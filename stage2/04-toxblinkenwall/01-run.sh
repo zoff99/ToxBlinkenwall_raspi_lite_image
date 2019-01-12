@@ -28,6 +28,9 @@ cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 echo "configure rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
 printf '\n' >> /etc/rc.local
+printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
+printf 'systemctl daemon-reload\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
@@ -158,11 +161,12 @@ else
   install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 fi
 
-echo "reload udevd rules"
-on_chroot << EOF
- systemctl restart systemd-udevd
- systemctl daemon-reload
-EOF
+# HINT: does not work here, needs to be run on the live system (was now moved to /etc/rc.local)
+#echo "reload udevd rules"
+#on_chroot << EOF
+# systemctl restart systemd-udevd
+# systemctl daemon-reload
+#EOF
 
 # fix udev service config to be able to automount USB devices
 install -m 755 files/config_systemd_udev_srv.sh "${ROOTFS_DIR}/config_systemd_udev_srv.sh"
