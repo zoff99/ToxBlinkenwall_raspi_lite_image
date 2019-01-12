@@ -5,6 +5,6 @@ autotools-dev libtool bc libv4l-dev libv4lconvert0 v4l-conf v4l-utils
 pkg-config libjpeg-dev libpulse-dev libconfig-dev
 automake checkinstall check yasm
 libao-dev libasound2-dev libasound2-plugins
-bc htop
+bc htop speedometer
 python-pip
 ntp ntpstat
