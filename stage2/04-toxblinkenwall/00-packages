@@ -1,4 +1,5 @@
 git
+coreutils
 libjpeg-dev libpng-dev imagemagick htop mc fbset cmake qrencode
 libqrencode-dev vim nano wget curl git make
 autotools-dev libtool bc libv4l-dev libv4lconvert0 v4l-conf v4l-utils
