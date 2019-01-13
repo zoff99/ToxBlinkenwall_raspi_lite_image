@@ -24,9 +24,14 @@ cp -av /usr/share/alsa/alsa.conf /usr/share/alsa/alsa.conf_ORIG
 # enable imagemagick to read things from files
 cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 
-# add tbw to rc.local
-echo "add tbw to rc.local"
+# configure rc.local
+echo "configure rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
+printf '\n' >> /etc/rc.local
+printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
+printf 'systemctl daemon-reload\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
+printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
@@ -156,6 +161,13 @@ else
   install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 fi
 
+# HINT: does not work here, needs to be run on the live system (was now moved to /etc/rc.local)
+#echo "reload udevd rules"
+#on_chroot << EOF
+# systemctl restart systemd-udevd
+# systemctl daemon-reload
+#EOF
+
 # fix udev service config to be able to automount USB devices
 install -m 755 files/config_systemd_udev_srv.sh "${ROOTFS_DIR}/config_systemd_udev_srv.sh"
 on_chroot << EOF
@@ -187,7 +199,7 @@ EOF
 # activate pi camera
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
-echo 'gpu_mem=512' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 echo "contents of /boot/config.txt:"
@@ -231,8 +243,6 @@ EOF
 echo "stop unwanted stuff from running on the Pi"
 on_chroot << EOF
 
-set -x
-
 systemctl disable hciuart.service
 systemctl stop hciuart.service
 
@@ -251,8 +261,20 @@ systemctl stop avahi-daemon || echo "ERROR"
 systemctl disable triggerhappy || echo "ERROR"
 systemctl stop triggerhappy || echo "ERROR"
 
+systemctl disable triggerhappy.socket || echo "ERROR"
+systemctl stop triggerhappy.socket || echo "ERROR"
+
 systemctl disable dbus
 systemctl stop dbus || echo "ERROR"
+
+systemctl disable dbus.socket
+systemctl stop dbus.socket || echo "ERROR"
+
+systemctl disable syslog
+systemctl stop syslog || echo "ERROR"
+
+systemctl disable syslog.socket
+systemctl stop syslog.socket || echo "ERROR"
 
 systemctl disable cron
 systemctl stop cron || echo "ERROR"
@@ -261,6 +283,25 @@ systemctl disable systemd-timesyncd.service
 systemctl stop systemd-timesyncd.service || echo "ERROR"
 
 EOF
+
+echo "enable predictable network interface names"
+on_chroot << EOF
+rm -f /etc/systemd/network/99-default.link
+ln -sf /dev/null /etc/systemd/network/99-default.link
+EOF
+
+echo "disable more annonying things"
+on_chroot << EOF
+    rm -f /usr/lib/apt/apt.systemd.daily
+    rm -f /lib/systemd/system/apt-daily-upgrade.timer
+    rm -f /var/lib/systemd/deb-systemd-helper-enabled/timers.target.wants/apt-daily-upgrade.timer
+    rm -f /etc/systemd/system/timers.target.wants/apt-daily-upgrade.timer
+    systemctl stop apt-daily.timer || echo "ERROR"
+    systemctl disable apt-daily.timer || echo "ERROR"
+    systemctl mask apt-daily.service || echo "ERROR"
+    systemctl daemon-reload || echo "ERROR"
+EOF
+
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
 on_chroot << EOF
