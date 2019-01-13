@@ -290,6 +290,19 @@ rm -f /etc/systemd/network/99-default.link
 ln -sf /dev/null /etc/systemd/network/99-default.link
 EOF
 
+echo "disable more annonying things"
+on_chroot << EOF
+    rm -f /usr/lib/apt/apt.systemd.daily
+    rm -f /lib/systemd/system/apt-daily-upgrade.timer
+    rm -f /var/lib/systemd/deb-systemd-helper-enabled/timers.target.wants/apt-daily-upgrade.timer
+    rm -f /etc/systemd/system/timers.target.wants/apt-daily-upgrade.timer
+    systemctl stop apt-daily.timer || echo "ERROR"
+    systemctl disable apt-daily.timer || echo "ERROR"
+    systemctl mask apt-daily.service || echo "ERROR"
+    systemctl daemon-reload || echo "ERROR"
+EOF
+
+
 echo 'dont use debian ntp pool, !!metadataleak!!'
 on_chroot << EOF
 sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
