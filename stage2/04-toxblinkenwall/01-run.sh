@@ -136,6 +136,10 @@ elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
     echo "set random passwords on first boot [2]"
     install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
     touch "${ROOTFS_DIR}/_first_start_"
+else
+    echo "set random passwords on first boot [2]"
+    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
+    touch "${ROOTFS_DIR}/_first_start_"
 fi
 
 # save built libs and includes for caching (outside of docker)
