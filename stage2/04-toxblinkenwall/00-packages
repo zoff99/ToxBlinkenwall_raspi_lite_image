@@ -9,3 +9,4 @@ libao-dev libasound2-dev libasound2-plugins
 bc htop speedometer
 python-pip
 ntp ntpstat
+ecryptfs-utils

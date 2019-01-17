@@ -16,3 +16,6 @@ rm -f /etc/cron.weekly/man-db
 tzupdate
 dpkg-reconfigure -f noninteractive tzdata
 
+# mount tox db encrypted storage dir
+bash /mount_tox_db.sh
+

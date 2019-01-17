@@ -10,6 +10,7 @@ install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
+install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
 
 on_chroot << EOF
 
@@ -31,11 +32,11 @@ printf '\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
+printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
-printf '\n' >> /etc/rc.local
-printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
