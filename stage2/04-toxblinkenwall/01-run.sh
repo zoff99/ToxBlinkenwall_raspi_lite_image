@@ -307,6 +307,13 @@ on_chroot << EOF
     systemctl daemon-reload || echo "ERROR"
 EOF
 
+echo 'increase network buffers'
+on_chroot << EOF
+    echo '' >> /etc/sysctl.conf
+    echo 'net.core.rmem_max=1048576' >> /etc/sysctl.conf
+    echo 'net.core.wmem_max=1048576' >> /etc/sysctl.conf
+EOF
+
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
 on_chroot << EOF
