@@ -10,3 +10,4 @@ bc htop speedometer
 python-pip
 ntp ntpstat
 ecryptfs-utils
+python3-pip
