@@ -212,6 +212,11 @@ echo "---------------------------------------"
 cat "${ROOTFS_DIR}/boot/config.txt"
 echo "---------------------------------------"
 
+
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
 echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
@@ -219,6 +224,18 @@ on_chroot << EOF
   pip install -U tzupdate
 EOF
 echo "... ready"
+
+echo "install evdev ..."
+on_chroot << EOF
+  # install module used by "ext_keys_evdev.py" script to get keyboard input events
+  python3.5 -m pip install evdev
+EOF
+echo "... ready"
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+
 
 echo "enable reboot on kernel crash"
 sed -i -e 's_.*CrashReboot.*__' "${ROOTFS_DIR}/etc/systemd/system.conf"
