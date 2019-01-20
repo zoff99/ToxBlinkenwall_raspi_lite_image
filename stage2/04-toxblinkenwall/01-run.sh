@@ -10,6 +10,7 @@ install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
+install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
 
 on_chroot << EOF
 
@@ -31,11 +32,11 @@ printf '\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
+printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
-printf '\n' >> /etc/rc.local
-printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
@@ -136,6 +137,10 @@ elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
     echo "set random passwords on first boot [2]"
     install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
     touch "${ROOTFS_DIR}/_first_start_"
+else
+    echo "set random passwords on first boot [2]"
+    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
+    touch "${ROOTFS_DIR}/_first_start_"
 fi
 
 # save built libs and includes for caching (outside of docker)
@@ -207,6 +212,11 @@ echo "---------------------------------------"
 cat "${ROOTFS_DIR}/boot/config.txt"
 echo "---------------------------------------"
 
+
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
 echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
@@ -214,6 +224,18 @@ on_chroot << EOF
   pip install -U tzupdate
 EOF
 echo "... ready"
+
+echo "install evdev ..."
+on_chroot << EOF
+  # install module used by "ext_keys_evdev.py" script to get keyboard input events
+  python3 -m pip install evdev
+EOF
+echo "... ready"
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+
 
 echo "enable reboot on kernel crash"
 sed -i -e 's_.*CrashReboot.*__' "${ROOTFS_DIR}/etc/systemd/system.conf"
@@ -302,9 +324,27 @@ on_chroot << EOF
     systemctl daemon-reload || echo "ERROR"
 EOF
 
+echo 'increase network buffers'
+on_chroot << EOF
+    echo '' >> /etc/sysctl.conf
+    echo 'net.core.rmem_max=1048576' >> /etc/sysctl.conf
+    echo 'net.core.wmem_max=1048576' >> /etc/sysctl.conf
+EOF
+
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
 on_chroot << EOF
 sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
+EOF
+
+echo 'add some nice aliases to .bashrc'
+on_chroot << EOF
+    echo '' >> /home/pi/.bashrc
+    echo "alias 'tu'='tail -F -n400 ~/ToxBlinkenwall/toxblinkenwall/toxblinkenwall.log'" >> /home/pi/.bashrc
+    echo "alias 'nn'='speedometer  -l  -r wlan0 -t wlan0 -m \$(( 1024 * 1024 * 3 / 2 ))'" >> /home/pi/.bashrc
+    echo "alias 'nn1'='speedometer  -l  -r eth0 -t eth0 -m \$(( 1024 * 1024 * 3 / 2 ))'" >> /home/pi/.bashrc
+    chown pi:pi /home/pi/.bashrc
+    # see the content
+    cat /home/pi/.bashrc
 EOF
 
