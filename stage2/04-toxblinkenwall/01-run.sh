@@ -337,3 +337,14 @@ on_chroot << EOF
 sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
 EOF
 
+echo 'add some nice aliases to .bashrc'
+on_chroot << EOF
+    echo '' >> /home/pi/.bashrc
+    echo "alias 'tu'='tail -F -n400 ~/ToxBlinkenwall/toxblinkenwall/toxblinkenwall.log'" >> /home/pi/.bashrc
+    echo "alias 'nn'='speedometer  -l  -r wlan0 -t wlan0 -m \$(( 1024 * 1024 * 3 / 2 ))'" >> /home/pi/.bashrc
+    echo "alias 'nn1'='speedometer  -l  -r eth0 -t eth0 -m \$(( 1024 * 1024 * 3 / 2 ))'" >> /home/pi/.bashrc
+    chown pi:pi /home/pi/.bashrc
+    # see the content
+    cat /home/pi/.bashrc
+EOF
+
