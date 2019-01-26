@@ -7,7 +7,9 @@ pkg-config libjpeg-dev libpulse-dev libconfig-dev
 automake checkinstall check yasm
 libao-dev libasound2-dev libasound2-plugins
 bc htop speedometer
-python-pip
 ntp ntpstat
 ecryptfs-utils
+python-pip
 python3-pip
+python3-pigpio
+python3-rpi.gpio
