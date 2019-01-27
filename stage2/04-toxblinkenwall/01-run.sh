@@ -354,7 +354,7 @@ on_chroot << EOF
     echo \$rand_chars
 
     echo 'rpi-'"\$rand_chars" > /etc/hostname
-    echo '127.0.1.1        rpi-'"\$rand_chars" >> /etc/hosts
+    echo '127.0.1.1   rpi-'"\$rand_chars" >> /etc/hosts
 
     cat /etc/hostname
     cat /etc/hosts
