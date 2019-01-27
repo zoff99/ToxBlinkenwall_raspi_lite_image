@@ -48,6 +48,12 @@ printf 'exit 0\n' >> /etc/rc.local
 
 # check contents of file:
 echo "----------------------"
+cat /etc/rc.local
+echo "----------------------"
+
+
+# check contents of file:
+echo "----------------------"
 cat /lib/systemd/system/systemd-udevd.service
 echo "----------------------"
 
