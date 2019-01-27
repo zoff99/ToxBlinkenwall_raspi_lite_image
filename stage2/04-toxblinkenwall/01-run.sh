@@ -37,7 +37,7 @@ printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'ip -4 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
-printf 'ip -6 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'ip -4 addr show wlan0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
@@ -53,12 +53,6 @@ printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'exit 0\n' >> /etc/rc.local
-
-# check contents of file:
-echo "----------------------"
-cat /etc/rc.local
-echo "----------------------"
-
 
 # check contents of file:
 echo "----------------------"
