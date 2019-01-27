@@ -32,6 +32,9 @@ printf '\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
+printf 'ip -4 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'ip -6 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n' >> /etc/rc.local
