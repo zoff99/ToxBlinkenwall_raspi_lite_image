@@ -359,15 +359,3 @@ on_chroot << EOF
     cat /home/pi/.bashrc
 EOF
 
-echo 'set nicer hostname with some random bits in it'
-on_chroot << EOF
-    rand_chars=\$(dd if=/dev/urandom bs=100 count=10240 | tr -dc 'A-F0-9' | fold -w 5 | head -n 1)
-    echo \$rand_chars
-
-    echo 'rpi-'"\$rand_chars" > /etc/hostname
-    echo '127.0.1.1   rpi-'"\$rand_chars" >> /etc/hosts
-
-    cat /etc/hostname
-    cat /etc/hosts
-EOF
-
