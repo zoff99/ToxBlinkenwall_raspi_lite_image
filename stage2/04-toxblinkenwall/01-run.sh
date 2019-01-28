@@ -36,8 +36,14 @@ printf 'sleep 3\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo -n eth0:\n' >> /etc/rc.local
 printf 'ip -4 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'echo -n wlan0:\n' >> /etc/rc.local
 printf 'ip -4 addr show wlan0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'echo -n IP:\n' >> /etc/rc.local
+printf 'hostname -I\n' >> /etc/rc.local
+printf 'echo -n hostname:\n' >> /etc/rc.local
+printf 'hostname\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
 printf 'xxxxxxxxxx\n' >> /etc/rc.local
