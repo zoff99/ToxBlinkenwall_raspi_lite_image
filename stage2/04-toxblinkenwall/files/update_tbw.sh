@@ -98,7 +98,7 @@ export LDFLAGS=-L$_INST_/lib
 ./configure \
 --prefix=$_INST_ \
 --disable-soname-versions --disable-testing --disable-shared
-make -j 4
+make -j $(nproc)
 make install
 
 
