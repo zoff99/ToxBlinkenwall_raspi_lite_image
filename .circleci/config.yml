@@ -40,9 +40,12 @@ jobs:
       - run: echo "$CIRCLE_PROJECT_REPONAME"; cat ./pi-gen/stage3/_GIT_PROJECT_REPONAME_
       - run: echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
       - run: echo "$CIRCLE_BRANCH"; cat ./pi-gen/stage3/_GIT_BRANCH_
-      # change bsdtar to give more output, sp CI wont kill our job because of no output for a long time
+      # change bsdtar to give more output, so CI wont kill our job because of no output for a long time
       - run: sed -i -e 'sxbsdtar xbsdtar -v x' ./pi-gen/export-noobs/prerun.sh
       - run: cat ./pi-gen/export-noobs/prerun.sh
+      # change debootstrap to give more output, so CI wont kill our job because of no output for a long time
+      - run: sed -i -e 'sxdebootstrap xdebootstrap --verbose x' ./pi-gen/stage0/prerun.sh
+      - run: cat ./pi-gen/stage0/prerun.sh
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
