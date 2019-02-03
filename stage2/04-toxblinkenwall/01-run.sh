@@ -10,6 +10,7 @@ install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
+install -m 755 files/loop_update_os.sh "${ROOTFS_DIR}/loop_update_os.sh"
 install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
 
 on_chroot << EOF

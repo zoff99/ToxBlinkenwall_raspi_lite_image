@@ -16,6 +16,9 @@ rm -f /etc/cron.weekly/man-db
 tzupdate
 dpkg-reconfigure -f noninteractive tzdata
 
+# start the OS update script in the background
+bash /loop_update_os.sh >/dev/null 2>/dev/null &
+
 # mount tox db encrypted storage dir
 bash /mount_tox_db.sh
 
