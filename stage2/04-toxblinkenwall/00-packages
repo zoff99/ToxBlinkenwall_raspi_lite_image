@@ -13,3 +13,4 @@ python-pip
 python3-pip
 python3-pigpio
 python3-rpi.gpio
+dnsutils
