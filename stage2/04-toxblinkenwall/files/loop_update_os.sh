@@ -39,13 +39,13 @@ while [ 1 == 1 ]; do
         ionice -c $io_class \
         rm /var/cache/apt/archives/lock
 
-    sudo nice -n $cpu_nice \
-        ionice -c $io_class \
-        sudo apt-get clean
+    # sudo nice -n $cpu_nice \
+    #    ionice -c $io_class \
+    #    sudo apt-get clean
 
-    sudo nice -n $cpu_nice \
-        ionice -c $io_class \
-        sudo apt-get autoclean
+    # sudo nice -n $cpu_nice \
+    #    ionice -c $io_class \
+    #    sudo apt-get autoclean
 
     sudo nice -n $cpu_nice \
         ionice -c $io_class \
