@@ -88,7 +88,7 @@ git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
 --disable-avs --disable-cli --enable-pic
 make clean
-make -j4
+make -j $(nproc)
 make install
 
 
@@ -128,7 +128,7 @@ git checkout n4.1
 --enable-encoder=h264_omx \
 --enable-gpl --enable-decoder=h264
 make clean
-make -j4
+make -j $(nproc)
 make install
 
 unset CFLAGS
@@ -140,7 +140,7 @@ cd libsodium
 ./autogen.sh
 export CFLAGS=" $CF2 "
 ./configure --prefix=$_INST_ --disable-shared --disable-soname-versions
-make -j 4
+make -j $(nproc)
 make install
 
 cd $_SRC_
@@ -163,7 +163,7 @@ export CXXFLAGS=" $CF2 $CF3 "
 
 #  --enable-better-hw-compatibility \
 
-make -j 4
+make -j $(nproc)
 make install
 
 cd $_SRC_
@@ -173,7 +173,7 @@ cd opus
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-shared
-make -j 4
+make -j $(nproc)
 make install
 
 else
@@ -241,7 +241,7 @@ export LDFLAGS=-L$_INST_/lib
 ./configure \
 --prefix=$_INST_ \
 --disable-soname-versions --disable-testing --disable-shared
-make -j 4 || exit 1
+make -j $(nproc) || exit 1
 make install
 
 

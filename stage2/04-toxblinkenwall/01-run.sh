@@ -10,6 +10,7 @@ install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
 install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
+install -m 755 files/loop_update_os.sh "${ROOTFS_DIR}/loop_update_os.sh"
 install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
 
 on_chroot << EOF
@@ -31,6 +32,23 @@ sed -i -e 's#exit 0##' /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
+printf 'sleep 3\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo -n eth0:\n' >> /etc/rc.local
+printf 'ip -4 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'echo -n wlan0:\n' >> /etc/rc.local
+printf 'ip -4 addr show wlan0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
+printf 'echo -n IP:\n' >> /etc/rc.local
+printf 'hostname -I\n' >> /etc/rc.local
+printf 'echo -n hostname:\n' >> /etc/rc.local
+printf 'hostname\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'sleep 3\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'bash /on_every_boot.sh > /dev/null 2>/dev/null\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
