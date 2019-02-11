@@ -34,10 +34,10 @@
 
 ## Latest Stable Version (Raspberry PI)
 
-the latest stable version can be downloaded from CircleCI, [here](https://image.toxblinkenwall.org)
+the latest stable version can be downloaded from CircleCI via [https://image.toxblinkenwall.org/](https://image.toxblinkenwall.org/)
 
 <br><br><b>!!! Danger Danger !!!</b><br><br>
 #### Development Snapshot Version (Raspberry PI)
 
-the latest Development Snapshot can be downloaded from CircleCI, [here](https://imagedev.toxblinkenwall.org/)<br>
+the latest Development Snapshot can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)<br>
 **be careful when using this version**
