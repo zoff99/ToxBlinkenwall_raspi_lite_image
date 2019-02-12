@@ -12,6 +12,9 @@ rm -f /etc/cron.daily/aptitude
 rm -f /etc/cron.daily/man-db
 rm -f /etc/cron.weekly/man-db
 
+# higher priority to eth0 (over wlan0)
+ifmetric wlan0 200
+
 # set timezone automatically
 tzupdate
 dpkg-reconfigure -f noninteractive tzdata
