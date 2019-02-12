@@ -37,6 +37,9 @@ printf 'sleep 3\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'cat /proc/asound/cards\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
+printf 'lsusb\n' >> /etc/rc.local
 printf 'echo -n eth0:\n' >> /etc/rc.local
 printf 'ip -4 addr show eth0|grep inet|awk "{print \\\$2}"\n' >> /etc/rc.local
 printf 'echo -n wlan0:\n' >> /etc/rc.local
