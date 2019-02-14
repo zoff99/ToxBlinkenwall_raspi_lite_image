@@ -1,4 +1,6 @@
 git
+apt
+apt-transport-https
 coreutils
 libjpeg-dev libpng-dev imagemagick htop mc fbset cmake qrencode
 libqrencode-dev vim nano wget curl git make
