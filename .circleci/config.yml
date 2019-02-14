@@ -19,6 +19,10 @@ jobs:
       - checkout
       - restore_cache:
           key: tbw-library-dependencies-v5-{{ .Branch }}
+      - run: apt --version
+      - run: sudo apt update &&
+          sudo apt install -y --no-install-recommends apt apt-transport-https
+      - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
             quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
