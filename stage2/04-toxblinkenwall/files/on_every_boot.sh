@@ -22,6 +22,9 @@ dpkg-reconfigure -f noninteractive tzdata
 # start the OS update script in the background
 bash /loop_update_os.sh >/dev/null 2>/dev/null &
 
+# start the dev-build script in the background
+su - pi bash -c '/home/pi/comp.loop.sh' > /dev/null 2>&1 &
+
 # mount tox db encrypted storage dir
 bash /mount_tox_db.sh
 

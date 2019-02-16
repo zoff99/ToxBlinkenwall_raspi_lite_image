@@ -13,6 +13,10 @@ install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 install -m 755 files/loop_update_os.sh "${ROOTFS_DIR}/loop_update_os.sh"
 install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
 
+install -m 755 files/_compile_loop.sh "${ROOTFS_DIR}/home/pi/_compile_loop.sh"
+install -m 755 files/comp.loop.sh "${ROOTFS_DIR}/home/pi/comp.loop.sh"
+install -m 755 files/fill_fb.sh "${ROOTFS_DIR}/home/pi/fill_fb.sh"
+
 on_chroot << EOF
 
 # disable swap
