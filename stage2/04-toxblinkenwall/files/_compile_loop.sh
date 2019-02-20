@@ -20,7 +20,7 @@ if [ -f "OPTION_DEV_BUILD_FULL" ]; then
 fi
 
 
-export ASAN=0
+export ASAN=1
 
 if [ "$ASAN""x" == "1x" ]; then
 	ASZI=" -fsanitize=address -fno-omit-frame-pointer " # "-static-libasan "
@@ -187,18 +187,14 @@ fi
 cd $_SRC_
 cd c-toxcore
 
-if [ "$ASAN""x" == "1x" ]; then
-    export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libasan.so.3
-    export ASAN_OPTIONS=malloc_context_size=100:check_initialization_order=true # verbosity=2:
-fi
 
 ./autogen.sh
 make clean
 
-export CFLAGS=" -fPIE -pie -fPIC -D HW_CODEC_CONFIG_RPI3_TBW_TV $ASZI $CF2 \
+export CFLAGS=" -fPIE -pie -fPIC -D HW_CODEC_CONFIG_RPI3_TBW_TV $CF2 \
             -D_GNU_SOURCE -I$_INST_/include/ -O3 -ggdb3 -fstack-protector-all \
             --param=ssp-buffer-size=1 "
-export LDFLAGS=" -fPIE -pie -fPIC $ASZL -ggdb3 -L$_INST_/lib "
+export LDFLAGS=" -fPIE -pie -fPIC -ggdb3 -L$_INST_/lib "
 
 ./configure \
 --prefix=$_INST_ \
@@ -227,6 +223,12 @@ echo "#############"
 if [ $res -eq 0 ]; then
 
 cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
+
+if [ "$ASAN""x" == "1x" ]; then
+    export LD_PRELOAD=/usr/lib/arm-linux-gnueabihf/libasan.so.3
+    export ASAN_OPTIONS=malloc_context_size=100:check_initialization_order=true # verbosity=2:
+fi
+
 
 _OO_=" -ggdb3 -O3 -fno-omit-frame-pointer -Wstack-protector \
       -fstack-protector-all \
