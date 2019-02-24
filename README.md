@@ -5,6 +5,9 @@
 **CircleCI:release** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release)<br>
 **CircleCI:master** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master)<br>
 
+## Operations manual
+[pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
+
 ## Things you need
 
 - Raspberry Pi 3B or 3B+
