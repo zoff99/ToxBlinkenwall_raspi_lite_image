@@ -13,7 +13,8 @@ rm -f /etc/cron.daily/man-db
 rm -f /etc/cron.weekly/man-db
 
 # higher priority to eth0 (over wlan0)
-ifmetric wlan0 404
+# this may cause issues ??
+## ifmetric wlan0 404
 
 # set timezone automatically
 tzupdate
