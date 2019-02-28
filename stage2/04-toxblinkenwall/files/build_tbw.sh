@@ -56,9 +56,9 @@ cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 export _SRC_=$_HOME_/src/
 export _INST_=$_HOME_/inst/
 
-export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
+export CF2=" -O3 -ggdb3 -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
  -mfloat-abi=hard -ftree-vectorize "
-export CF3=" -funsafe-math-optimizations "
+export CF3="" # " -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
 if [ "$1""x" != "cachex" ]; then
@@ -106,7 +106,7 @@ cd $_SRC_
 # rm -Rf libav
 git clone https://github.com/FFmpeg/FFmpeg libav
 cd libav
-git checkout n4.1
+git checkout n4.1.1
 ./configure --prefix=$_INST_ --disable-devices \
 --enable-pthreads \
 --disable-shared --enable-static \
@@ -135,7 +135,7 @@ unset CFLAGS
 
 
 cd $_SRC_
-git clone --depth=1 --branch=1.0.16 https://github.com/jedisct1/libsodium.git
+git clone --depth=1 --branch=1.0.17 https://github.com/jedisct1/libsodium.git
 cd libsodium
 ./autogen.sh
 export CFLAGS=" $CF2 "
@@ -144,7 +144,7 @@ make -j $(nproc)
 make install
 
 cd $_SRC_
-git clone --depth=1 --branch=v1.7.0 https://github.com/webmproject/libvpx.git
+git clone --depth=1 --branch=v1.8.0 https://github.com/webmproject/libvpx.git
 cd libvpx
 make clean
 export CFLAGS=" $CF2 $CF3 "
@@ -167,7 +167,7 @@ make -j $(nproc)
 make install
 
 cd $_SRC_
-git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
+git clone --depth=1 --branch=v1.3 https://github.com/xiph/opus.git
 cd opus
 ./autogen.sh
 export CFLAGS=" $CF2 $CF3 "
@@ -194,19 +194,19 @@ else
   rm -Rf libav
   git clone https://github.com/FFmpeg/FFmpeg libav
   cd libav
-  git checkout n4.1
+  git checkout n4.1.1
 
   cd $_SRC_
   rm -Rf libsodium
-  git clone --depth=1 --branch=1.0.16 https://github.com/jedisct1/libsodium.git
+  git clone --depth=1 --branch=1.0.17 https://github.com/jedisct1/libsodium.git
 
   cd $_SRC_
   rm -Rf libvpx
-  git clone --depth=1 --branch=v1.7.0 https://github.com/webmproject/libvpx.git
+  git clone --depth=1 --branch=v1.8.0 https://github.com/webmproject/libvpx.git
 
   cd $_SRC_
   rm -Rf opus
-  git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
+  git clone --depth=1 --branch=v1.3 https://github.com/xiph/opus.git
   # -- get the source into the image --
 
   cd $_SRC_
@@ -235,7 +235,8 @@ fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
+                --param=ssp-buffer-size=1 -ggdb3 -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
 ./configure \

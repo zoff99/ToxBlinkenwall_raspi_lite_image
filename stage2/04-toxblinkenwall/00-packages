@@ -1,4 +1,6 @@
 git
+apt
+apt-transport-https
 coreutils
 libjpeg-dev libpng-dev imagemagick htop mc fbset cmake qrencode
 libqrencode-dev vim nano wget curl git make
@@ -14,3 +16,5 @@ python3-pip
 python3-pigpio
 python3-rpi.gpio
 dnsutils
+ifmetric
+tor tor-arm

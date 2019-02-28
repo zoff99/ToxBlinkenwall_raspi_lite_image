@@ -57,9 +57,9 @@ sleep 1
 export _SRC_=$_HOME_/src/
 export _INST_=$_HOME_/inst/
 
-export CF2=" -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
+export CF2=" -O3 -ggdb3 -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
  -mfloat-abi=hard -ftree-vectorize "
-export CF3=" -funsafe-math-optimizations "
+export CF3="" # " -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
 mkdir -p $_SRC_
@@ -92,7 +92,8 @@ fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 -g -fstack-protector-all "
+export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
+                --param=ssp-buffer-size=1 -ggdb3 -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
 ./configure \

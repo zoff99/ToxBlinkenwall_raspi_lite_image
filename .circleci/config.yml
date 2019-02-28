@@ -18,7 +18,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: tbw-library-dependencies-v5-{{ .Branch }}
+          key: tbw-library-dependencies-v6-{{ .Branch }}
+      - run: apt --version
+      - run: sudo apt update &&
+          sudo apt install -y --no-install-recommends apt apt-transport-https
+      - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
             quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
@@ -64,7 +68,7 @@ jobs:
 
       - save_cache:
           paths: [ "~/work/cache" ]
-          key: tbw-library-dependencies-v5-{{ .Branch }}
+          key: tbw-library-dependencies-v6-{{ .Branch }}
 
       - store_artifacts:
           path: ~/work/pi-gen/deploy2

@@ -5,6 +5,9 @@
 **CircleCI:release** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release)<br>
 **CircleCI:master** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master)<br>
 
+## Operations manual
+[pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
+
 ## Things you need
 
 - Raspberry Pi 3B or 3B+
@@ -32,12 +35,12 @@
 - a USB Keyboard or USB Keypad
 
 
-## Latest Release Version (Raspberry PI)
+## Latest Stable Version (Raspberry PI)
 
-the latest Release can be downloaded from CircleCI, [here](https://circleci.com/api/v1.1/project/github/Zoxcore/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=release)
+the latest stable version can be downloaded from CircleCI via [https://image.toxblinkenwall.org/](https://image.toxblinkenwall.org/)
 
 <br><br><b>!!! Danger Danger !!!</b><br><br>
 #### Development Snapshot Version (Raspberry PI)
 
-the latest Development Snapshot can be downloaded from CircleCI, [here](https://circleci.com/api/v1.1/project/github/Zoxcore/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=master)<br>
+the latest Development Snapshot can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)<br>
 **be careful when using this version**
