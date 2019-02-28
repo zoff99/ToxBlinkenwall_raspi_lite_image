@@ -1,1 +1,6 @@
-KERNEL=="sd*[!0-9]", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_release.sh '%E{DEVNAME}'"
+KERNEL=="sd*[!0-9]", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' add drive"
+KERNEL=="sd*[!0-9]", ACTION=="remove", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' remove drive"
+KERNEL=="pcmC[D0-9cp]*", DRIVERS=="usb", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' add audio"
+KERNEL=="pcmC[D0-9cp]*", DRIVERS=="usb", ACTION=="remove", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' remove audio"
+KERNEL=="video[0-9]", DRIVERS=="usb", ACTION=="add", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' add video"
+KERNEL=="video[0-9]", DRIVERS=="usb", ACTION=="remove", RUN+="/home/pi/ToxBlinkenwall/toxblinkenwall/udev_default.sh '%E{DEVNAME}' remove video"
