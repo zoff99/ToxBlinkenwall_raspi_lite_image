@@ -235,10 +235,10 @@ _OO_=" -ggdb3 -O3 -fno-omit-frame-pointer -Wstack-protector \
       --param=ssp-buffer-size=1 "
 
 
+# -fPIE -pie \
 
 gcc $_OO_ \
 $ASZI $ASZL \
--fPIE -pie \
 -DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
 -I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
 $CF2 $CF3 \
