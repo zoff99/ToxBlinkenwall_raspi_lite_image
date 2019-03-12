@@ -7,11 +7,6 @@ echo $_HOME_
 cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 
 
-export CF2=" -fPIE -pie -fPIC -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
-export CFX2=" -fPIE -pie -fPIC -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
-export CF3="" # " -funsafe-math-optimizations "
-export VV1=" VERBOSE=1 V=1 "
-
 export FULL=0
 
 if [ -f "OPTION_DEV_BUILD_FULL" ]; then
@@ -26,6 +21,18 @@ if [ "$ASAN""x" == "1x" ]; then
 	ASZI=" -fsanitize=address -fno-omit-frame-pointer " # "-static-libasan "
 	ASZL="" # " -static-libasan "
 fi
+
+export USEPIE=0
+
+if [ "$USEPIE""x" == "1x" ]; then
+    PIEFL1=" -fPIE -pie "
+fi
+
+export CF2=" $PIEFL1 -fPIC -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
+export CFX2=" $PIEFL1 -fPIC -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
+export CF3="" # " -funsafe-math-optimizations "
+export VV1=" VERBOSE=1 V=1 "
+
 
 ./initscript.sh stop
 
@@ -191,10 +198,10 @@ cd c-toxcore
 ./autogen.sh
 make clean
 
-export CFLAGS=" -fPIE -pie -fPIC -D HW_CODEC_CONFIG_RPI3_TBW_TV $CF2 \
+export CFLAGS=" $PIEFL1 -fPIC -D HW_CODEC_CONFIG_RPI3_TBW_TV $CF2 \
             -D_GNU_SOURCE -I$_INST_/include/ -O3 -ggdb3 -fstack-protector-all \
             --param=ssp-buffer-size=1 "
-export LDFLAGS=" -fPIE -pie -fPIC -ggdb3 -L$_INST_/lib "
+export LDFLAGS=" $PIEFL1 -fPIC -ggdb3 -L$_INST_/lib "
 
 ./configure \
 --prefix=$_INST_ \
@@ -202,9 +209,10 @@ export LDFLAGS=" -fPIE -pie -fPIC -ggdb3 -L$_INST_/lib "
 
 make clean
 
-sed -i -e 'sxpic_mode=.*xpic_mode=yesxg' libtool
-sed -i -e 'sxpie_flag=xpie_flag=-fPICxg' libtool
-
+if [ "$USEPIE""x" == "1x" ]; then
+    sed -i -e 'sxpic_mode=.*xpic_mode=yesxg' libtool
+    sed -i -e 'sxpie_flag=xpie_flag=-fPICxg' libtool
+fi
 
 make $VV1 -j 4
 err_code=$?
@@ -235,10 +243,9 @@ _OO_=" -ggdb3 -O3 -fno-omit-frame-pointer -Wstack-protector \
       --param=ssp-buffer-size=1 "
 
 
-# -fPIE -pie \
-
 gcc $_OO_ \
 $ASZI $ASZL \
+$PIEFL1 \
 -DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
 -I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
 $CF2 $CF3 \
