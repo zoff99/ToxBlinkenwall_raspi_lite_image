@@ -41,6 +41,8 @@ printf 'sleep 3\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
 printf 'echo xxxxxxxxxx\n' >> /etc/rc.local
+printf 'tvservice -s\n' >> /etc/rc.local
+printf '\n' >> /etc/rc.local
 printf 'cat /proc/asound/cards\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'lsusb\n' >> /etc/rc.local
