@@ -84,7 +84,8 @@ cd $_SRC_
 # rm -Rf x264
 git clone git://git.videolan.org/x264.git
 cd x264
-git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+# https://code.videolan.org/videolan/x264/commit/72db437770fd1ce3961f624dd57a8e75ff65ae0b
+git checkout 72db437770fd1ce3961f624dd57a8e75ff65ae0b # stable
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
 --disable-avs --disable-cli --enable-pic
 make clean
@@ -188,7 +189,8 @@ else
   rm -Rf x264
   git clone git://git.videolan.org/x264.git
   cd x264
-  git checkout 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
+  # https://code.videolan.org/videolan/x264/commit/72db437770fd1ce3961f624dd57a8e75ff65ae0b
+  git checkout 72db437770fd1ce3961f624dd57a8e75ff65ae0b # stable
 
   cd $_SRC_
   rm -Rf libav
