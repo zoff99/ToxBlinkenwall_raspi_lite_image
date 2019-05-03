@@ -28,8 +28,8 @@ if [ "$USEPIE""x" == "1x" ]; then
     PIEFL1=" -fPIE -pie "
 fi
 
-export CF2=" $PIEFL1 -fPIC -O3 -g -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
-export CFX2=" $PIEFL1 -fPIC -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize "
+export CF2=" $PIEFL1 -fPIC -O3 -g -marm "
+export CFX2=" $PIEFL1 -fPIC -marm "
 export CF3="" # " -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
