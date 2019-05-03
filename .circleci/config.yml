@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: tbw-library-dependencies-v7-{{ .Branch }}
+          key: tbw-library-dependencies-v8-{{ .Branch }}
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends apt apt-transport-https
@@ -68,7 +68,7 @@ jobs:
 
       - save_cache:
           paths: [ "~/work/cache" ]
-          key: tbw-library-dependencies-v7-{{ .Branch }}
+          key: tbw-library-dependencies-v8-{{ .Branch }}
 
       - store_artifacts:
           path: ~/work/pi-gen/deploy2
