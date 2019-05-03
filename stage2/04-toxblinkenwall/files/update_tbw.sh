@@ -57,8 +57,7 @@ sleep 1
 export _SRC_=$_HOME_/src/
 export _INST_=$_HOME_/inst/
 
-export CF2=" -O3 -ggdb3 -marm -march=armv8-a+crc -mtune=cortex-a53 -mfpu=neon-fp-armv8 \
- -mfloat-abi=hard -ftree-vectorize "
+export CF2=" -O3 -ggdb3 "
 export CF3="" # " -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
