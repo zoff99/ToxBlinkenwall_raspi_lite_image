@@ -85,6 +85,8 @@ git clone git://git.videolan.org/x264.git
 cd x264
 # https://code.videolan.org/videolan/x264/commit/72db437770fd1ce3961f624dd57a8e75ff65ae0b
 git checkout 72db437770fd1ce3961f624dd57a8e75ff65ae0b # stable
+export CFLAGS=" $CF2 $CF3 "
+export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
 --disable-avs --disable-cli --enable-pic
 make clean
@@ -138,7 +140,8 @@ cd $_SRC_
 git clone --depth=1 --branch=1.0.17 https://github.com/jedisct1/libsodium.git
 cd libsodium
 ./autogen.sh
-export CFLAGS=" $CF2 "
+export CFLAGS=" $CF2 $CF3 "
+export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-shared --disable-soname-versions
 make -j $(nproc)
 make install
