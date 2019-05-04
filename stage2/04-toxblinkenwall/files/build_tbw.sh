@@ -56,7 +56,7 @@ cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 export _SRC_=$_HOME_/src/
 export _INST_=$_HOME_/inst/
 
-export CF2=" -O3 -ggdb3 "
+export CF2=" -O3 -ggdb3 -marm -mtune=arm1176jzf-s -march=armv6 -mfpu=vfp -mfloat-abi=hard "
 export CF3="" # " -funsafe-math-optimizations "
 export VV1=" VERBOSE=1 V=1 "
 
