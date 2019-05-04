@@ -88,7 +88,7 @@ git checkout 72db437770fd1ce3961f624dd57a8e75ff65ae0b # stable
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
---disable-avs --disable-cli --enable-pic
+--disable-avs --disable-cli --enable-pic --disable-asm
 make clean
 make -j $(nproc)
 make install
@@ -128,6 +128,7 @@ git checkout n4.1.1
 --enable-encoder=libx264 \
 --enable-decoder=h264_mmal \
 --enable-encoder=h264_omx \
+--disable-neon \
 --enable-gpl --enable-decoder=h264
 make clean
 make -j $(nproc)
