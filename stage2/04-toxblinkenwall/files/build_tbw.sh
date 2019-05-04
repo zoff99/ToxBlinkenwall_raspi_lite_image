@@ -153,9 +153,13 @@ cd libvpx
 make clean
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
+
+sed -i -e 's#armv7-linux-gcc#armv6-linux-gcc#g' ./configure
+
 ./configure --prefix=$_INST_ --disable-examples \
   --disable-unit-tests --enable-shared \
   --size-limit=16384x16384 \
+  --target=armv6-linux-gcc \
   --enable-onthefly-bitpacking \
   --enable-error-concealment \
   --enable-runtime-cpu-detect \
@@ -163,6 +167,7 @@ export CXXFLAGS=" $CF2 $CF3 "
   --enable-postproc \
   --enable-vp9-postproc \
   --enable-temporal-denoising \
+  --disable-neon --disable-neon-asm \
   --enable-vp9-temporal-denoising
 
 #  --enable-better-hw-compatibility \
