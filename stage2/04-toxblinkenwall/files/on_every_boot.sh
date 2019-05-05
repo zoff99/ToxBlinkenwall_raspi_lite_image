@@ -29,3 +29,13 @@ su - pi bash -c '/home/pi/comp.loop.sh' > /dev/null 2>&1 &
 # mount tox db encrypted storage dir
 bash /mount_tox_db.sh
 
+# disable some unused stuff
+systemctl stop tor
+systemctl disable tor
+systemctl stop dbus
+systemctl stop dbus.socket
+systemctl disable dbus.socket
+systemctl disable dbus
+
+echo '#! /bin/bash' > /home/pi/ToxBlinkenwall/toxblinkenwall/ext_keys_scripts/ext_keys.py
+echo '#! /bin/bash' > /home/pi/ToxBlinkenwall/toxblinkenwall/scripts/create_gfx.sh
