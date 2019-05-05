@@ -241,7 +241,7 @@ EOF
 # activate pi camera
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
-echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
+echo 'gpu_mem=64' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 echo "contents of /boot/config.txt:"
