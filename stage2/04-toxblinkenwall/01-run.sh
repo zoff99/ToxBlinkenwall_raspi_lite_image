@@ -244,11 +244,6 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=64' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
-echo "contents of /boot/config.txt:"
-echo "---------------------------------------"
-cat "${ROOTFS_DIR}/boot/config.txt"
-echo "---------------------------------------"
-
 
 if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
 
@@ -263,6 +258,11 @@ echo "... ready"
   echo 'dtparam=spi=on' >> "${ROOTFS_DIR}/boot/config.txt"
 
 fi
+
+echo "contents of /boot/config.txt:"
+echo "---------------------------------------"
+cat "${ROOTFS_DIR}/boot/config.txt"
+echo "---------------------------------------"
 
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
