@@ -258,6 +258,10 @@ on_chroot << EOF
 EOF
 echo "... ready"
 
+  echo 'i2c-dev' >> "${ROOTFS_DIR}/etc/modules"
+  echo 'dtparam=i2c_arm=on' >> "${ROOTFS_DIR}/boot/config.txt"
+  echo 'dtparam=spi=on' >> "${ROOTFS_DIR}/boot/config.txt"
+
 fi
 
 ### ----- TODO: do those without pip !!!!! ---------
