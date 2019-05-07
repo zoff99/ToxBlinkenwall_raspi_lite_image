@@ -20,3 +20,5 @@ dnsutils
 ifmetric
 tor tor-arm
 sysstat
+python-smbus
+i2c-tools
