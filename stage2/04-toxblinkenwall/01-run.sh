@@ -250,6 +250,16 @@ cat "${ROOTFS_DIR}/boot/config.txt"
 echo "---------------------------------------"
 
 
+if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
+
+echo "install adafruit-circuitpython-ssd1306 ..."
+on_chroot << EOF
+  pip3 install adafruit-circuitpython-ssd1306
+EOF
+echo "... ready"
+
+fi
+
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
