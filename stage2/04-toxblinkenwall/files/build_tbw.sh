@@ -245,7 +245,7 @@ fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
+export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI -DRPIZEROW $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
                 --param=ssp-buffer-size=1 -ggdb3 -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
@@ -260,7 +260,7 @@ cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
 
 
 gcc \
--DRASPBERRY_PI -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
+-DRASPBERRY_PI -DRPIZEROW -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
 -I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
 $CF2 $CF3 \
 -fstack-protector-all \

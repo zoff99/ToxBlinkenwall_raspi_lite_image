@@ -12,6 +12,9 @@ rm -f /etc/cron.daily/aptitude
 rm -f /etc/cron.daily/man-db
 rm -f /etc/cron.weekly/man-db
 
+# call on_boot script
+su - pi bash -c '/home/pi/ToxBlinkenwall/toxblinkenwall/scripts/on_boot.sh' > /dev/null 2>&1 &
+
 # higher priority to eth0 (over wlan0)
 # this may cause issues ??
 ## ifmetric wlan0 404
