@@ -244,11 +244,25 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=64' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
+
+if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
+
+echo "install adafruit-circuitpython-ssd1306 ..."
+on_chroot << EOF
+  pip3 install adafruit-circuitpython-ssd1306
+EOF
+echo "... ready"
+
+  echo 'i2c-dev' >> "${ROOTFS_DIR}/etc/modules"
+  echo 'dtparam=i2c_arm=on' >> "${ROOTFS_DIR}/boot/config.txt"
+  echo 'dtparam=spi=on' >> "${ROOTFS_DIR}/boot/config.txt"
+
+fi
+
 echo "contents of /boot/config.txt:"
 echo "---------------------------------------"
 cat "${ROOTFS_DIR}/boot/config.txt"
 echo "---------------------------------------"
-
 
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------

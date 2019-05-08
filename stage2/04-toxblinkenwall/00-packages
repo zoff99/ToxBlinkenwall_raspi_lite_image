@@ -13,9 +13,12 @@ ntp ntpstat
 ecryptfs-utils
 python-pip
 python3-pip
+python3-pil
 python3-pigpio
 python3-rpi.gpio
 dnsutils
 ifmetric
 tor tor-arm
 sysstat
+python-smbus
+i2c-tools
