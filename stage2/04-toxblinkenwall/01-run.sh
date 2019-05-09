@@ -249,7 +249,7 @@ if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
 
 echo "install adafruit-circuitpython-ssd1306 ..."
 on_chroot << EOF
-  pip3 install adafruit-circuitpython-ssd1306 || sleep 60 || pip3 install adafruit-circuitpython-ssd1306 || sleep 60 || pip3 install adafruit-circuitpython-ssd1306
+  pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306
 EOF
 echo "... ready"
 
