@@ -29,4 +29,9 @@ jobs:
             openssl ca-certificates git sudo bc wget rsync
 
       - run: pwd; ls -al; id -a
+      - run: git clone https://github.com/Linutronix/elbe.git
+      - run: pwd; ls -al; id -a
+      - run: cd elbe;./elbe initvm create --directory=initvm
+      - run: cd elbe;./elbe initvm submit --directory=initvm examples/rescue.xml
+
 
