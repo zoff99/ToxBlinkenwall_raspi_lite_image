@@ -27,6 +27,7 @@ jobs:
             quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
+            qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
 
       - run: pwd; ls -al; id -a
       - run: git clone https://github.com/Linutronix/elbe.git
