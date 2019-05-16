@@ -18,6 +18,7 @@ jobs:
     steps:
       - checkout
       - run: lsb_release --all
+      - run: python --version
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends apt apt-transport-https
@@ -28,6 +29,7 @@ jobs:
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
             qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+            python-libvirt
 
       - run: pwd; ls -al; id -a
       - run: git clone https://github.com/Linutronix/elbe.git
