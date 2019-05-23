@@ -1,4 +1,7 @@
-# Build Raspian-Lite-ToxBlinkenwall Image on CircleCI
+<H1>ToxBlinkenwall - eWindow</H1>
+<p align="center">
+<img height="600" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof.jpg"></img>
+</p>
 
 ### Build Status
 
