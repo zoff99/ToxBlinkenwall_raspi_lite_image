@@ -12,6 +12,12 @@ rm -f /etc/cron.daily/aptitude
 rm -f /etc/cron.daily/man-db
 rm -f /etc/cron.weekly/man-db
 
+# mount tmpfs dir
+rm -Rf /home/pi/ToxBlinkenwall/toxblinkenwall/share/
+mkdir -p /home/pi/ToxBlinkenwall/toxblinkenwall/share/
+mount -t tmpfs -o size=1M tmpfs /home/pi/ToxBlinkenwall/toxblinkenwall/share/
+chmod a+rwx /home/pi/ToxBlinkenwall/toxblinkenwall/share/
+
 # higher priority to eth0 (over wlan0)
 # this may cause issues ??
 ## ifmetric wlan0 404
