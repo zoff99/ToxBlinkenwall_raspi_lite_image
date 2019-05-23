@@ -248,14 +248,14 @@ echo "install tzupdate ..."
 on_chroot << EOF
   # https://github.com/cdown/tzupdate
   # util to autodetect timezone from IP address
-  pip install -U tzupdate
+  pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate
 EOF
 echo "... ready"
 
 echo "install evdev ..."
 on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
-  python3 -m pip install evdev
+  python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
 EOF
 echo "... ready"
 ### ----- TODO: do those without pip !!!!! ---------
