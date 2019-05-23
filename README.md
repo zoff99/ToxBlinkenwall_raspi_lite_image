@@ -1,15 +1,10 @@
 <H1>ToxBlinkenwall - eWindow</H1>
 <p align="left">
-<img height="400" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof.jpg"></img><br>
+<img height="400" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof_slim.jpg"></img><br>
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/aaa1.JPG"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/bbb1.jpg"></img>
 </p>
 
-### Build Status
-
-**CircleCI:release** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/release)<br>
-**CircleCI:master** [![CircleCI](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master.svg?style=svg)](https://circleci.com/gh/Zoxcore/ToxBlinkenwall_raspi_lite_image/tree/master)<br>
-
-## Operations manual
+# Operations manual
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
 # Things you need
