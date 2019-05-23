@@ -1,6 +1,6 @@
 <H1>ToxBlinkenwall - eWindow</H1>
 <p align="center">
-<img height="600" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof.jpg"></img>
+<img height="500" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof.jpg"></img>
 </p>
 
 ### Build Status
@@ -11,7 +11,7 @@
 ## Operations manual
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
-## Things you need
+# Things you need
 
 - Raspberry Pi 3B or 3B+
     + <sub><sup>supported devices:</sup></sub>
@@ -38,12 +38,6 @@
 - a USB Keyboard or USB Keypad
 
 
-## Latest Stable Version (Raspberry PI)
+# Latest Version (Raspberry PI)
 
-the latest stable version can be downloaded from CircleCI via [https://image.toxblinkenwall.org/](https://image.toxblinkenwall.org/)
-
-<br><br><b>!!! Danger Danger !!!</b><br><br>
-#### Development Snapshot Version (Raspberry PI)
-
-the latest Development Snapshot can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)<br>
-**be careful when using this version**
+the latest stable version can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)
