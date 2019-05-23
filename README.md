@@ -7,6 +7,12 @@
 # Operations manual
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
+# Social Media
+
+[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mastodon.png"></img>](https://chaos.social/@ToxBlinkenwall)
+<br>
+[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/Twitter_Social_Icon_Rounded_Square_Color.png"></img>](https://twitter.com/ToxBlinkenwall)
+
 # Things you need
 
 - Raspberry Pi 3B or 3B+
