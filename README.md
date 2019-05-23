@@ -9,9 +9,7 @@
 
 # Social Media
 
-[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mastodon.png"></img>](https://chaos.social/@ToxBlinkenwall)
-<br>
-[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/Twitter_Social_Icon_Rounded_Square_Color.png"></img>](https://twitter.com/ToxBlinkenwall)
+[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mastodon.png"></img>](https://chaos.social/@ToxBlinkenwall)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/Twitter_Social_Icon_Rounded_Square_Color.png"></img>](https://twitter.com/ToxBlinkenwall)
 
 # Things you need
 
