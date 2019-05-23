@@ -40,4 +40,4 @@
 
 # Latest Version (Raspberry PI)
 
-the latest stable version can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)
+the latest version can be downloaded from CircleCI via [https://imagedev.toxblinkenwall.org/](https://imagedev.toxblinkenwall.org/)
