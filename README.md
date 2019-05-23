@@ -1,8 +1,7 @@
 <H1>ToxBlinkenwall - eWindow</H1>
 <p align="left">
 <img height="400" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof_slim.jpg"></img><br>
-<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/aaa1.JPG"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/bbb1.jpg"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/ccc1.jpg
-"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/aaa1.JPG"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/bbb1.jpg"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/ccc1.jpg"></img>
 </p>
 
 # Operations manual
