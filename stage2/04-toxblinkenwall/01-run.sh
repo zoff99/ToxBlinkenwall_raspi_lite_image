@@ -304,6 +304,18 @@ cat "${ROOTFS_DIR}/etc/systemd/system.conf"
 echo "---------------------------------------"
 
 
+echo "user run dir size"
+echo '
+[Login]
+RuntimeDirectorySize=2M
+' > "${ROOTFS_DIR}/etc/systemd/logind.conf"
+
+echo "contents of /etc/systemd/logind.conf:"
+echo "---------------------------------------"
+cat "${ROOTFS_DIR}/etc/systemd/logind.conf"
+echo "---------------------------------------"
+
+
 echo "removing some cron files"
 on_chroot << EOF
   rm -f /etc/cron.daily/apt-compat
