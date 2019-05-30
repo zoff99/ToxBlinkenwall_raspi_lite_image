@@ -68,6 +68,9 @@ systemctl start hciuart.service
 sleep 2
 systemctl start bluealsa.service
 
+# add to /boot/config.txt
+# dtoverlay=pi3-disable-bt
+
 
 sleep 30
 echo -e "power up\nconnect AB:EF:AB:EF:EF:AB\n quit"|bluetoothctl
