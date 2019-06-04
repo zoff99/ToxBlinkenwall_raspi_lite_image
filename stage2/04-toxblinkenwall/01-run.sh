@@ -364,6 +364,12 @@ on_chroot << EOF
 sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
 EOF
 
+echo 'blacklist bcm2835_codec module'
+# this module creates /dev/video10 /dev/video11 /dev/video12
+on_chroot << EOF
+    echo 'blacklist bcm2835_codec' > /etc/modprobe.d/blacklist-bcm2835_codec.conf
+EOF
+
 echo 'add some nice aliases to .bashrc'
 on_chroot << EOF
     echo '' >> /home/pi/.bashrc
