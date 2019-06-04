@@ -394,6 +394,11 @@ on_chroot << EOF
     echo 'net.core.wmem_max=1048576' >> /etc/sysctl.conf
 EOF
 
+echo 'blacklist bcm2835_codec module'
+# this module creates /dev/video10 /dev/video11 /dev/video12
+on_chroot << EOF
+    echo 'blacklist bcm2835_codec' > /etc/modprobe.d/blacklist-bcm2835_codec.conf
+EOF
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
 on_chroot << EOF
