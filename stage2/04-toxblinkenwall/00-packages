@@ -19,3 +19,4 @@ dnsutils
 ifmetric
 tor tor-arm
 sysstat
+rng-tools
