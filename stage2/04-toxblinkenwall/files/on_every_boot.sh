@@ -89,4 +89,5 @@ systemctl disable dbus
 fi
 
 echo '#! /bin/bash' > /home/pi/ToxBlinkenwall/toxblinkenwall/ext_keys_scripts/ext_keys.py
+echo '#! /bin/bash' > /home/pi/ToxBlinkenwall/toxblinkenwall/ext_keys_scripts/ext_keys_evdev.py
 echo '#! /bin/bash' > /home/pi/ToxBlinkenwall/toxblinkenwall/scripts/create_gfx.sh
