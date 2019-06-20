@@ -20,6 +20,7 @@ jobs:
       - restore_cache:
           key: tbw-library-dependencies-v13-{{ .Branch }}
       - run: ps -ef|grep apt-get
+      - run: sudo pkill apt-get
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends apt apt-transport-https
