@@ -33,7 +33,7 @@ cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 # configure rc.local
 echo "configure rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
-printf '\n' >> /etc/rc.local
+printf 'set +e\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
