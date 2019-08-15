@@ -33,7 +33,7 @@ cp -av /etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml.BACKUP
 # configure rc.local
 echo "configure rc.local"
 sed -i -e 's#exit 0##' /etc/rc.local
-printf '\n' >> /etc/rc.local
+printf 'set +e\n' >> /etc/rc.local
 printf 'systemctl restart systemd-udevd\n' >> /etc/rc.local
 printf 'systemctl daemon-reload\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
@@ -145,24 +145,12 @@ EOF
 
 fi
 
-# enable sshd on some branches
-if [ "$_git_branch_""x" == "masterx" ]; then
-  echo "enable SSHD"
+# enable sshd
+echo "enable SSHD"
 
 on_chroot << EOF
   systemctl enable ssh
 EOF
-
-fi
-
-if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
-  echo "enable SSHD"
-
-on_chroot << EOF
-  systemctl enable ssh
-EOF
-
-fi
 
 
 # set random passwords for "pi" and "root" user
@@ -244,20 +232,6 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=64' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
-
-if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
-
-echo "install adafruit-circuitpython-ssd1306 ..."
-on_chroot << EOF
-  pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306
-EOF
-echo "... ready"
-
-  echo 'i2c-dev' >> "${ROOTFS_DIR}/etc/modules"
-  echo 'dtparam=i2c_arm=on' >> "${ROOTFS_DIR}/boot/config.txt"
-  echo 'dtparam=spi=on' >> "${ROOTFS_DIR}/boot/config.txt"
-
-fi
 
 echo "contents of /boot/config.txt:"
 echo "---------------------------------------"

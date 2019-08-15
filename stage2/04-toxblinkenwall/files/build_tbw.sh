@@ -274,10 +274,21 @@ ls -hal ToxProxy
 file ToxProxy
 ldd ToxProxy
 
-## ----------------------------------------
-
+## ------------- hack to make it work with tbw image ---------------------------
+## ------------- hack to make it work with tbw image ---------------------------
 mkdir -p $_HOME_/ToxBlinkenwall/toxblinkenwall
 cp -av ToxProxy $_HOME_/ToxBlinkenwall/toxblinkenwall/toxproxy
+cp -av $_HOME_/ToxBlinkenwall/detect_usb_audio.sh $_HOME_/ToxBlinkenwall/toxblinkenwall/
+cp -av $_HOME_/ToxBlinkenwall/process_usb_drive.sh $_HOME_/ToxBlinkenwall/toxblinkenwall/
+cp -av $_HOME_/ToxBlinkenwall/udev_default.sh $_HOME_/ToxBlinkenwall/toxblinkenwall/
+
+echo "tp dir looks like this :"
+echo "----------------------------"
+ls -al $_HOME_/ToxBlinkenwall/toxblinkenwall/
+echo "----------------------------"
+## ------------- hack to make it work with tbw image ---------------------------
+## ------------- hack to make it work with tbw image ---------------------------
+
 
 ## ----------------------------------------
 
