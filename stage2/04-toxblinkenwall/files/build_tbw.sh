@@ -22,23 +22,10 @@ cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
 
-if [ "$_git_project_username_""x" == "zoff99x" ]; then
-    echo "using local build from zoff99 repo"
-    git clone https://github.com/zoff99/ToxBlinkenwall tmp
-    cd tmp
-    git checkout "master"
-else
-    git clone https://github.com/Zoxcore/ToxBlinkenwall tmp
-    cd tmp
-
-    if [ "$_git_branch_""x" == "masterx" ]; then
-        git checkout "master"
-    elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
-        git checkout "release"
-    else
-        git checkout "release"
-    fi
-fi
+echo "using local build from zoff99 repo"
+git clone https://github.com/zoff99/ToxProxy tmp
+cd tmp
+git checkout "zoff99/tweaks_001"
 
 cd ..
 mkdir -p ToxBlinkenwall/
@@ -50,7 +37,8 @@ rm -Rf tmp/
 cd
 export _HOME_="/home/pi/"
 echo $_HOME_
-cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
+
+# cd $_HOME_/ToxBlinkenwall/
 
 
 export _SRC_=$_HOME_/src/
@@ -245,7 +233,7 @@ fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI -DRPIZEROW $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
+export CFLAGS=" -DRPIZEROW $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
                 --param=ssp-buffer-size=1 -ggdb3 -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
@@ -256,21 +244,15 @@ make -j $(nproc) || exit 1
 make install
 
 
-cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
+cd $_HOME_/ToxBlinkenwall/src/
 
+export WARN01=" -Wall -Wextra -Wno-unused-result -Wno-pointer-sign -Wno-unused-parameter -Wno-unused-variable "
+export CFLAGS=" $WARN01 -std=gnu99 -I$_INST_/include/ \
+  -L$_INST_/lib -O3 -g3 -fstack-protector-all -fPIC -export-dynamic "
 
-gcc \
--DRASPBERRY_PI -DRPIZEROW -DOMX_SKIP64BIT -DUSE_VCHIQ_ARM \
--I/opt/vc/include -I/opt/vc/interface/vmcs_host/linux -I/opt/vc/interface/vcos/pthreads \
-$CF2 $CF3 \
--fstack-protector-all \
--Wno-unused-variable \
--fPIC -export-dynamic -I$_INST_/include -o toxblinkenwall -lm \
-toxblinkenwall.c openGL/esUtil.c openGL/esShader.c rb.c \
-omx.c \
--I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads \
--I/opt/vc/include/interface/vmcs_host/linux -lbrcmEGL -lbrcmGLESv2 \
--lbcm_host -L/opt/vc/lib \
+gcc $CFLAGS \
+ToxProxy.c \
+-lm \
 -std=gnu99 \
 -L$_INST_/lib \
 $_INST_/lib/libtoxcore.a \
@@ -282,16 +264,90 @@ $_INST_/lib/libx264.a \
 $_INST_/lib/libavcodec.a \
 $_INST_/lib/libavutil.a \
 $_INST_/lib/libsodium.a \
--lasound \
--lpthread -lv4lconvert \
--lmmal -lmmal_core -lmmal_vc_client -lmmal_components -lmmal_util \
--L/opt/vc/lib -lbcm_host -lvcos -lopenmaxil -ldl
+-lpthread \
+-ldl \
+-o ToxProxy
 
 res2=$?
 
-ldd toxblinkenwall
-ls -hal toxblinkenwall
-file toxblinkenwall
+ls -hal ToxProxy
+file ToxProxy
+ldd ToxProxy
+
+## ----------------------------------------
+
+mkdir -p $_HOME_/ToxBlinkenwall/toxblinkenwall
+cp -av ToxProxy $_HOME_/ToxBlinkenwall/toxblinkenwall/toxproxy
+
+## ----------------------------------------
+
+echo '#! /bin/bash
+cd ~/ToxBlinkenwall/toxblinkenwall/
+./loop_services.sh > /dev/null 2>/dev/null &
+' >> /home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh
+chmod u+rwx /home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh
+
+## ----------------------------------------
+
+echo '#! /bin/bash
+
+function clean_up
+{
+	pkill toxproxy
+	sleep 2
+	pkill -9 toxproxy
+	pkill -9 toxproxy
+	exit
+}
+
+cd $(dirname "$0")
+export LD_LIBRARY_PATH=~/inst/lib/
+
+trap clean_up SIGHUP SIGINT SIGTERM SIGKILL
+
+while [ 1 == 1 ]; do
+    # just in case, so that udev scripts really really work
+    sudo systemctl daemon-reload
+    sudo systemctl restart systemd-udevd
+    mkdir -p ./db/
+
+    if [ -f "OPTION_USE_STDLOG" ]; then
+        std_log=stdlog.log
+    else
+        std_log=/dev/null
+    fi
+    ulimit -c 99999
+
+    ./toxproxy > "$std_log" 2>&1
+
+    #
+    if [ -f "OPTION_USE_STDLOG" ]; then
+        # save debug info ---------------
+        mv ./toxproxy.2 ./toxproxy.3
+        mv ./core.2 ./core.3
+        mv ./stdlog.log.2 ./stdlog.log.3
+        # -------------------------------
+        mv ./toxproxy.1 ./toxproxy.2
+        mv ./core.1 ./core.2
+        mv ./stdlog.log.1 ./stdlog.log.2
+        # -------------------------------
+        cp ./toxproxy ./toxproxy.1
+        mv ./core ./core.1
+        mv ./stdlog.log ./stdlog.log.1
+        # save debug info ---------------
+    fi
+    #
+
+    if [ -f "OPTION_NOLOOP" ]; then
+        # do not loop/restart
+        clean_up
+        exit 1
+    fi
+
+done
+' >> /home/pi/ToxBlinkenwall/toxblinkenwall/loop_services.sh
+chmod u+rwx /home/pi/ToxBlinkenwall/toxblinkenwall/loop_services.sh
+
 
 cd $_HOME_
 
@@ -302,12 +358,7 @@ else
  exit 2
 fi
 
-echo '
-IS_ON=RASPI
-HD=RASPIHD
-export IS_ON
-export HD
-' >> ~/.profile
+# echo '' >> ~/.profile
 
 
 echo "build ready"
