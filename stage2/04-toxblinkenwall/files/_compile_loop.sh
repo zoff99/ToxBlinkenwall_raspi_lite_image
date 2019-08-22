@@ -15,7 +15,7 @@ if [ -f "OPTION_DEV_BUILD_FULL" ]; then
 fi
 
 
-export ASAN=1
+export ASAN=0
 
 if [ "$ASAN""x" == "1x" ]; then
 	ASZI=" -fsanitize=address -fno-omit-frame-pointer " # "-static-libasan "
