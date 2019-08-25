@@ -51,7 +51,7 @@ echo '#! /bin/bash
     apt-get install -y docker-ce docker-ce-cli containerd.io
     # docker --------
 
-    cd $_HOME_;git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2018-11-13-raspbian-stretch"
+    cd $_HOME_;git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "175dfb027ffabd4b8d5080097af0e51ed9a4a56c" # pi4 support
     cd $_HOME_;cp -av /data/stage2 pi-gen/
     cd $_HOME_;cd ./pi-gen/stage2 ; find . -type f | xargs -L1 chmod a+x
     cd $_HOME_;cd ./pi-gen/stage2 ; ls -alR

@@ -11,7 +11,7 @@ jobs:
   pigen:
     working_directory: ~/work
     machine:
-      image: circleci/classic:latest
+      image: circleci/classic:201808-01 # ubuntu 18.06.0
     # docker:
     #  - image: debian:stretch
 
@@ -30,7 +30,7 @@ jobs:
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
 
-      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2018-11-13-raspbian-stretch"
+      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "175dfb027ffabd4b8d5080097af0e51ed9a4a56c" # pi4 support
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
