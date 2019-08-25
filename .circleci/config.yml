@@ -11,7 +11,7 @@ jobs:
   pigen:
     working_directory: ~/work
     machine:
-      image: circleci/classic:201808-01 # ubuntu 18.06.0
+      image: circleci/ubuntu-1804
     # docker:
     #  - image: debian:stretch
 
