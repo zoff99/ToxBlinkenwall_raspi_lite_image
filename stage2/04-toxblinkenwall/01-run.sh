@@ -145,15 +145,15 @@ EOF
 
 fi
 
-# enable sshd on master branch
-if [ "$_git_branch_""x" == "masterx" ]; then
+# enable sshd on master branch --> now on ALL branches!!
+#if [ "$_git_branch_""x" == "masterx" ]; then
   echo "enable SSHD"
 
 on_chroot << EOF
   systemctl enable ssh
 EOF
 
-fi
+#fi
 
 # set random passwords for "pi" and "root" user
 if [ "$_git_branch_""x" == "releasex" ]; then
