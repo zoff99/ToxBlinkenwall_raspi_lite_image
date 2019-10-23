@@ -264,6 +264,7 @@ echo "---------------------------------------"
 cat "${ROOTFS_DIR}/boot/config.txt"
 echo "---------------------------------------"
 
+
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
