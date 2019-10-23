@@ -88,7 +88,7 @@ if [ "$FULL""x" == "1x" ]; then
     rm -Rf libav
     git clone https://github.com/FFmpeg/FFmpeg libav
     cd libav
-    git checkout n4.1.1
+    git checkout n4.2.1
     ./configure --prefix=$_INST_ \
     --enable-pthreads \
     --disable-shared --enable-static \
@@ -122,7 +122,7 @@ fi
 if [ "$FULL""x" == "1x" ]; then
 
     cd $_SRC_
-    git clone --depth=1 --branch=1.0.17 https://github.com/jedisct1/libsodium.git
+    git clone --depth=1 --branch=1.0.18 https://github.com/jedisct1/libsodium.git
     cd libsodium
     ./autogen.sh
     make clean
@@ -141,7 +141,7 @@ fi
 if [ "$FULL""x" == "1x" ]; then
 
     cd $_SRC_
-    git clone --depth=1 --branch=v1.8.0 https://github.com/webmproject/libvpx.git
+    git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git
     cd libvpx
     make clean
     export CFLAGS=" $CF2 $CF3 "
@@ -172,7 +172,7 @@ fi
 if [ "$FULL""x" == "1x" ]; then
 
     cd $_SRC_
-    git clone --depth=1 --branch=v1.3 https://github.com/xiph/opus.git
+    git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git
     cd opus
     ./autogen.sh
     make clean
