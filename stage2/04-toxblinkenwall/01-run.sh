@@ -280,6 +280,18 @@ cat "${ROOTFS_DIR}/etc/systemd/system.conf"
 echo "---------------------------------------"
 
 
+echo "user run dir size"
+echo '
+[Login]
+RuntimeDirectorySize=2M
+' > "${ROOTFS_DIR}/etc/systemd/logind.conf"
+
+echo "contents of /etc/systemd/logind.conf:"
+echo "---------------------------------------"
+cat "${ROOTFS_DIR}/etc/systemd/logind.conf"
+echo "---------------------------------------"
+
+
 echo "removing some cron files"
 on_chroot << EOF
   rm -f /etc/cron.daily/apt-compat
@@ -358,16 +370,15 @@ on_chroot << EOF
     echo 'net.core.wmem_max=1048576' >> /etc/sysctl.conf
 EOF
 
-
-echo 'dont use debian ntp pool, !!metadataleak!!'
-on_chroot << EOF
-sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
-EOF
-
 echo 'blacklist bcm2835_codec module'
 # this module creates /dev/video10 /dev/video11 /dev/video12
 on_chroot << EOF
     echo 'blacklist bcm2835_codec' > /etc/modprobe.d/blacklist-bcm2835_codec.conf
+EOF
+
+echo 'dont use debian ntp pool, !!metadataleak!!'
+on_chroot << EOF
+sed -i -e 's#debian\.pool#pool#g' /etc/ntp.conf
 EOF
 
 echo 'add some nice aliases to .bashrc'
