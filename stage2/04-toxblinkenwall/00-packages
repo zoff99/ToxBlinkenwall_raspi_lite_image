@@ -20,3 +20,4 @@ ifmetric
 tor tor-arm
 sysstat
 rng-tools
+ifupdown
