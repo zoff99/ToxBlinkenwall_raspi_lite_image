@@ -24,3 +24,4 @@ python-smbus
 i2c-tools
 bluealsa
 rng-tools
+ifupdown
