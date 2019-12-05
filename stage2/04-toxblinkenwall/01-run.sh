@@ -269,13 +269,13 @@ echo "---------------------------------------"
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
-echo "install tzupdate ..."
-on_chroot << EOF
-  # https://github.com/cdown/tzupdate
-  # util to autodetect timezone from IP address
-  pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate
-EOF
-echo "... ready"
+#echo "install tzupdate ..."
+#on_chroot << EOF
+#  # https://github.com/cdown/tzupdate
+#  # util to autodetect timezone from IP address
+#  pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate
+#EOF
+#echo "... ready"
 
 echo "install evdev ..."
 on_chroot << EOF
