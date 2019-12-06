@@ -65,7 +65,7 @@ printf '(sleep 5;/home/pi/ToxBlinkenwall/toxblinkenwall/detect_usb_audio.sh) &\n
 printf '\n' >> /etc/rc.local
 printf 'bash /set_random_passwds.sh > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
-printf 'echo none > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
+printf 'echo cpu > /sys/class/leds/led0/trigger\n' >> /etc/rc.local
 printf 'su - pi bash -c "/home/pi/ToxBlinkenwall/toxblinkenwall/initscript.sh start" > /dev/null 2>/dev/null &\n' >> /etc/rc.local
 printf '\n' >> /etc/rc.local
 printf 'exit 0\n' >> /etc/rc.local
@@ -242,18 +242,21 @@ echo "---------------------------------------"
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
 ### ----- TODO: do those without pip !!!!! ---------
-echo "install tzupdate ..."
-on_chroot << EOF
-  # https://github.com/cdown/tzupdate
-  # util to autodetect timezone from IP address
-  pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate
-EOF
-echo "... ready"
+#echo "install tzupdate ..."
+#on_chroot << EOF
+#  # https://github.com/cdown/tzupdate
+#  # util to autodetect timezone from IP address
+#  pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate || pip install -U tzupdate
+#EOF
+#echo "... ready"
 
 echo "install evdev ..."
 on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
-  python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  #python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-libevdev
 EOF
 echo "... ready"
 ### ----- TODO: do those without pip !!!!! ---------

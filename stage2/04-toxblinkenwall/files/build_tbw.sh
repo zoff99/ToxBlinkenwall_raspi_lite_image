@@ -308,6 +308,7 @@ function clean_up
 	sleep 2
 	pkill -9 toxproxy
 	pkill -9 toxproxy
+    cat /dev/zero > /dev/fb0
 	exit
 }
 
@@ -329,6 +330,7 @@ while [ 1 == 1 ]; do
     fi
     ulimit -c 99999
 
+    cat /dev/zero > /dev/fb0
     ./toxproxy > "$std_log" 2>&1
 
     #
