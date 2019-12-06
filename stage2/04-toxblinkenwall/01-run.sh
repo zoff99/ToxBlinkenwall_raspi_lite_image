@@ -247,11 +247,19 @@ echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
 
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
 echo "install adafruit-circuitpython-ssd1306 ..."
 on_chroot << EOF
   pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306
 EOF
 echo "... ready"
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
+### ----- TODO: do those without pip !!!!! ---------
 
   echo 'i2c-dev' >> "${ROOTFS_DIR}/etc/modules"
   echo 'dtparam=i2c_arm=on' >> "${ROOTFS_DIR}/boot/config.txt"
@@ -280,7 +288,10 @@ echo "---------------------------------------"
 echo "install evdev ..."
 on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
-  python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  # python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-libevdev
 EOF
 echo "... ready"
 ### ----- TODO: do those without pip !!!!! ---------
