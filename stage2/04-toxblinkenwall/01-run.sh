@@ -257,6 +257,9 @@ on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
   # python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
   cat /etc/apt/sources.list
+  apt-get install -y --force-yes --no-install-recommends aptitude
+  aptitude search evdev
+  aptitude search python3
   apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-evdev
   apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-libevdev
 EOF
