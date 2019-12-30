@@ -86,10 +86,10 @@ git clone https://code.videolan.org/videolan/x264.git
 cd x264
 git checkout 1771b556ee45207f8711744ccbd5d42a3949b14c # stable
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
---disable-avs --disable-cli --enable-pic
+--disable-avs --disable-cli --enable-pic || exit 1
 make clean
-make -j $(nproc)
-make install
+make -j $(nproc) || exit 1
+make install || exit 1
 
 
 
@@ -126,10 +126,10 @@ git checkout n4.2.1
 --enable-encoder=libx264 \
 --enable-decoder=h264_mmal \
 --enable-encoder=h264_omx \
---enable-gpl --enable-decoder=h264
+--enable-gpl --enable-decoder=h264 || exit 1
 make clean
-make -j $(nproc)
-make install
+make -j $(nproc) || exit 1
+make install || exit 1
 
 unset CFLAGS
 
@@ -140,9 +140,9 @@ cd libsodium
 ./autogen.sh
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
-./configure --prefix=$_INST_ --disable-shared --disable-soname-versions
-make -j $(nproc)
-make install
+./configure --prefix=$_INST_ --disable-shared --disable-soname-versions || exit 1
+make -j $(nproc) || exit 1
+make install || exit 1
 
 cd $_SRC_
 git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git
@@ -160,12 +160,12 @@ export CXXFLAGS=" $CF2 $CF3 "
   --enable-postproc \
   --enable-vp9-postproc \
   --enable-temporal-denoising \
-  --enable-vp9-temporal-denoising
+  --enable-vp9-temporal-denoising || exit 1
 
 #  --enable-better-hw-compatibility \
 
-make -j $(nproc)
-make install
+make -j $(nproc) || exit 1
+make install || exit 1
 
 cd $_SRC_
 git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git
@@ -173,9 +173,9 @@ cd opus
 ./autogen.sh
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
-./configure --prefix=$_INST_ --disable-shared
-make -j $(nproc)
-make install
+./configure --prefix=$_INST_ --disable-shared || exit 1
+make -j $(nproc) || exit 1
+make install || exit 1
 
 else
   echo "option: *CACHE*"
@@ -189,25 +189,25 @@ else
   rm -Rf x264
   git clone https://code.videolan.org/videolan/x264.git
   cd x264
-  git checkout 1771b556ee45207f8711744ccbd5d42a3949b14c # stable
+  git checkout 1771b556ee45207f8711744ccbd5d42a3949b14c || exit 1 # stable
 
   cd $_SRC_
   rm -Rf libav
   git clone https://github.com/FFmpeg/FFmpeg libav
   cd libav
-  git checkout n4.2.1
+  git checkout n4.2.1 || exit 1
 
   cd $_SRC_
   rm -Rf libsodium
-  git clone --depth=1 --branch=1.0.18 https://github.com/jedisct1/libsodium.git
+  git clone --depth=1 --branch=1.0.18 https://github.com/jedisct1/libsodium.git || exit 1
 
   cd $_SRC_
   rm -Rf libvpx
-  git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git
+  git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git || exit 1
 
   cd $_SRC_
   rm -Rf opus
-  git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git
+  git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git || exit 1
   # -- get the source into the image --
 
   cd $_SRC_
@@ -242,9 +242,9 @@ export LDFLAGS=-L$_INST_/lib
 
 ./configure \
 --prefix=$_INST_ \
---disable-soname-versions --disable-testing --disable-shared
+--disable-soname-versions --disable-testing --disable-shared || exit 1
 make -j $(nproc) || exit 1
-make install
+make install || exit 1
 
 
 cd $_HOME_/ToxBlinkenwall/toxblinkenwall/
