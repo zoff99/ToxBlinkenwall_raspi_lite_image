@@ -26,11 +26,12 @@ jobs:
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
-            quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
+            quilt parted coreutils qemu-user-static debootstrap zerofree pxz zip
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
+            binfmt-support unzip
 
-      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "175dfb027ffabd4b8d5080097af0e51ed9a4a56c" # pi4 support
+      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2020-02-05-raspbian-buster" # pi4 support
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;

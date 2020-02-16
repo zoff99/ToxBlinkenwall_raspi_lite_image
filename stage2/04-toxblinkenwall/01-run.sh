@@ -18,6 +18,13 @@ install -m 755 files/comp.loop.sh "${ROOTFS_DIR}/home/pi/comp.loop.sh"
 install -m 755 files/fill_fb.sh "${ROOTFS_DIR}/home/pi/fill_fb.sh"
 
 on_chroot << EOF
+chown pi:pi /home/pi/_compile_loop.sh
+chown pi:pi /home/pi/comp.loop.sh
+chown pi:pi /home/pi/fill_fb.sh
+EOF
+
+
+on_chroot << EOF
 
 # disable swap
 service dphys-swapfile stop
@@ -210,9 +217,11 @@ EOF
 on_chroot << EOF
 cd /home/pi
 mkdir -p bcmstat/
+chown pi:pi bcmstat/
 cd bcmstat/
-wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.1/bcmstat.sh
+wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.3/bcmstat.sh
 chmod a+rx bcmstat.sh
+chown pi:pi bcmstat.sh
 EOF
 
 # activate more locales and generate files
