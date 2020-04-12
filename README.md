@@ -15,8 +15,9 @@
 7) open the file ```backup/toxid.txt``` on the USB thumb drive and add this ToxID as friend on your TRIfA App
 8) wait for the friend to come online in TRIfA
 9) long click on the ToxProxy in TRIfA in the friendlist and select ```add as ToxProxy```
-10) Your are **DONE**, you now have offline messages
-
+10) Your are **DONE**, you now have offline messages \*<br>
+   \* (offline 1-on-1 messages between TRIfa <-> TRIfA)<br>
+   \* (offline group messages for all Clients)<br>
 
 ## Latest Version (for Raspberry PI)
 
