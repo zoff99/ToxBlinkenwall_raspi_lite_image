@@ -14,7 +14,7 @@
 6) unplug the USB thumb drive from the Raspberry Pi's USB port
 7) open the file ```xxxx``` on the USB thumb drive and add this ToxID as friend on your TRIfA App
 8) wait for the friend to come online in TRIfA
-9) long click on the ToxProxy in TRIfA in the friendlist and select ```yy```
+9) long click on the ToxProxy in TRIfA in the friendlist and select ```add as ToxProxy```
 10) Your are **DONE**, you now have offline messages
 
 
