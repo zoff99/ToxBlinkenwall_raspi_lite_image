@@ -13,16 +13,19 @@
 
 # Things you need
 
-- Raspberry Pi 3B or 3B+
+- Raspberry Pi 3B or 3B+ or 4B
     + <sub><sup>supported devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)</sup></sub>
         - <sub><sup>[Raspberry Pi 3 Model B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)</sup></sub>
         - <sub><sup>[Rsapberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)</sup></sub>
 - Raspberry Pi Powersupply
     + <sub><sup>recommended devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 15.3W USB-C Power Supply](https://www.raspberrypi.org/products/type-c-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi Universal Power Supply](https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/)</sup></sub>
 - Raspbeery Pi Camera module V2
     + <sub><sup>supported devices:</sup></sub>
         - <sub><sup>[Raspberry Pi Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)</sup></sub>
+        - <sub><sup>[Logitech C920 HD PRO Webcam](https://www.amazon.de/gp/product/B006A2Q81M)</sup>
         - <sub><sup>[PLAYSTATION Eye - camera](https://www.amazon.de/Playstation-PS3-eyetoy-Kamera-Großpackung/dp/B00LME2JGQ)</sup></sub>
 - a micro SD Card 16Gbyte size or larger
     + <sub><sup>recommended devices:</sup></sub>
