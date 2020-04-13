@@ -21,6 +21,8 @@
    \* (offline 1-on-1 messages between TRIfa <-> TRIfA)<br>
    \* (offline group messages for all Clients)<br>
 
+keep your ToxProxy running at home, where limited people have access to it!
+
 ## Latest Version (for Raspberry PI)
 
 The latest version can be downloaded from [CircleCI](https://circleci.com/api/v1.1/project/github/zoff99/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=toxproxy_01)
