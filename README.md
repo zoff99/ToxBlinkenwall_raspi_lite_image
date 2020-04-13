@@ -4,6 +4,8 @@
 
 **CircleCI** [![CircleCI](https://circleci.com/gh/zoff99/ToxBlinkenwall_raspi_lite_image/tree/toxproxy_01.svg?style=svg)](https://circleci.com/gh/zoff99/ToxBlinkenwall_raspi_lite_image/tree/toxproxy_01)<br>
 
+<img height="300" src="https://raw.githubusercontent.com/zoff99/ToxProxy/zoff99/tweaks_001/pix/toxproxy_001_medium.jpg"></img><br>
+
 ## Operations manual
 
 1) Download the SD CardImage from the link below.
