@@ -40,8 +40,8 @@
     + <sub><sup>supported devices:</sup></sub>
         - <sub><sup>[Acusis by Antimatter Research](https://www.crowdsupply.com/antimatter-research/acusis)</sup></sub>
         - <sub><sup>[USB Sound Device DA-70772](https://www.amazon.de/gp/product/B000FIH4FQ)</sup></sub>
-        - <sub><sup>[Plantronics P610](https://www.amazon.de/Plantronics-610-M-CALISTO-WW-Schwarz/dp/B00SLP4VQK)</sup></sub>
-        - <sub><sup>[PLAYSTATION Eye - microphone](https://www.amazon.de/Playstation-PS3-eyetoy-Kamera-Großpackung/dp/B00LME2JGQ)</sup></sub>
+        - <sub><sup>[Plantronics P610](https://www.amazon.de/gp/product/B00SLP4VQK)</sup></sub>
+        - <sub><sup>[Jabra Evolve 20 SE MS](https://www.amazon.de/gp/product/B00OD74Q2Y)</sup></sub>
 - a USB Keyboard or USB Keypad
 
 
