@@ -4,6 +4,10 @@
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/aaa1.JPG"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/bbb1.jpg"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/ccc1.jpg"></img>
 </p>
 
+### Build Status
+
+**CircleCI** [![CircleCI](https://circleci.com/gh/zoff99/ToxBlinkenwall_raspi_lite_image/tree/toxphone_pi4.svg?style=svg)](https://circleci.com/gh/zoff99/ToxBlinkenwall_raspi_lite_image/tree/toxphone_pi4)<br>
+
 # Operations manual
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
