@@ -26,7 +26,7 @@
     + <sub><sup>recommended devices:</sup></sub>
         - <sub><sup>[Raspberry Pi 15.3W USB-C Power Supply](https://www.raspberrypi.org/products/type-c-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi Universal Power Supply](https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/)</sup></sub>
-- Raspbeery Pi Camera module V2
+- Raspberry Pi Camera module V2
     + <sub><sup>supported devices:</sup></sub>
         - <sub><sup>[Raspberry Pi Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)</sup></sub>
         - <sub><sup>[Logitech C920 HD PRO Webcam](https://www.amazon.de/gp/product/B006A2Q81M)</sup>
