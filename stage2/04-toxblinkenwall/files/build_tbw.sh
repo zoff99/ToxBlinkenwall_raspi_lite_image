@@ -69,10 +69,9 @@ if [ "$1""x" != "cachex" ]; then
 
 cd $_SRC_
 # rm -Rf x264
-git clone git://git.videolan.org/x264.git
+git clone https://code.videolan.org/videolan/x264.git
 cd x264
-# https://code.videolan.org/videolan/x264/commit/72db437770fd1ce3961f624dd57a8e75ff65ae0b
-git checkout 72db437770fd1ce3961f624dd57a8e75ff65ae0b # stable
+git checkout 1771b556ee45207f8711744ccbd5d42a3949b14c # 0a84d986e7020f8344f00752e3600b9769cc1e85 # stable
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
