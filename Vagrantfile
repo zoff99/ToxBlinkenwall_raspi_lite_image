@@ -27,3 +27,4 @@ Vagrant.configure("2") do |config|
     bash /artefacts/runme.sh
   SHELL
 end
+
