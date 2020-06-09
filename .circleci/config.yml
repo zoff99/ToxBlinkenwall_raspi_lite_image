@@ -21,6 +21,8 @@ jobs:
           key: tbw-library-dependencies-v7-{{ .Branch }}
       - run: sudo pkill apt-get || echo dummy
       - run: apt --version
+      - run: ls -al /etc/apt/sources.list.d/
+      - run: sudo rm /etc/apt/sources.list.d/heroku.list
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends apt apt-transport-https
       - run: apt --version
