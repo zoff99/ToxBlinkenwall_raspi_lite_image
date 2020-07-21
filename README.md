@@ -47,6 +47,11 @@
 
 # Latest Version (Raspberry PI)
 
+Download the latest Release version here:
+https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/releases
+
+# Latest Development Version (Raspberry PI) [not always available]
+
 The latest version can be downloaded from [CircleCI](https://circleci.com/api/v1.1/project/github/zoff99/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=toxphone_pi4)
 
 ## Source for ToxBlinkenwall
