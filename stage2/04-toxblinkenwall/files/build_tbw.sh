@@ -18,6 +18,14 @@ echo "GIT: current username is:"
 echo $_git_project_username_
 echo "==============================="
 
+## ----------------------
+_FFMPEG_VERSION_="n4.1.6"
+_OPUS_VERSION_="v1.3.1"
+_VPX_VERSION_="v1.8.0"
+_LIBSODIUM_VERSION_="1.0.18"
+_X264_VERSION_="1771b556ee45207f8711744ccbd5d42a3949b14c"
+## ----------------------
+
 cd /home/pi/
 rm -Rf ToxBlinkenwall/.git # remove previous install
 rm -Rf tmp/
@@ -84,7 +92,7 @@ cd $_SRC_
 # rm -Rf x264
 git clone https://code.videolan.org/videolan/x264.git
 cd x264
-git checkout 34c06d1c17ad968fbdda153cb772f77ee31b3095 # stable
+git checkout "$_X264_VERSION_" # stable
 ./configure --prefix=$_INST_ --disable-opencl --enable-static \
 --disable-avs --disable-cli --enable-pic || exit 1
 make clean
@@ -106,7 +114,7 @@ cd $_SRC_
 # rm -Rf libav
 git clone https://github.com/FFmpeg/FFmpeg libav
 cd libav
-git checkout n4.2.1
+git checkout "$_FFMPEG_VERSION_"
 ./configure --prefix=$_INST_ --disable-devices \
 --enable-pthreads \
 --disable-shared --enable-static \
@@ -135,7 +143,7 @@ unset CFLAGS
 
 
 cd $_SRC_
-git clone --depth=1 --branch=1.0.18 https://github.com/jedisct1/libsodium.git
+git clone --depth=1 --branch="$_LIBSODIUM_VERSION_" https://github.com/jedisct1/libsodium.git
 cd libsodium
 ./autogen.sh
 export CFLAGS=" $CF2 $CF3 "
@@ -145,7 +153,7 @@ make -j $(nproc) || exit 1
 make install || exit 1
 
 cd $_SRC_
-git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git
+git clone --depth=1 --branch="$_VPX_VERSION_" https://github.com/webmproject/libvpx.git
 cd libvpx
 make clean
 export CFLAGS=" $CF2 $CF3 "
@@ -168,12 +176,12 @@ make -j $(nproc) || exit 1
 make install || exit 1
 
 cd $_SRC_
-git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git
+git clone --depth=1 --branch="$_OPUS_VERSION_" https://github.com/xiph/opus.git
 cd opus
 ./autogen.sh
 export CFLAGS=" $CF2 $CF3 "
 export CXXFLAGS=" $CF2 $CF3 "
-./configure --prefix=$_INST_ --disable-shared || exit 1
+./configure --prefix=$_INST_ --disable-shared --enable-float-approx || exit 1
 make -j $(nproc) || exit 1
 make install || exit 1
 
@@ -189,25 +197,25 @@ else
   rm -Rf x264
   git clone https://code.videolan.org/videolan/x264.git
   cd x264
-  git checkout 34c06d1c17ad968fbdda153cb772f77ee31b3095 || exit 1 # stable
+  git checkout "$_X264_VERSION_" || exit 1 # stable
 
   cd $_SRC_
   rm -Rf libav
   git clone https://github.com/FFmpeg/FFmpeg libav
   cd libav
-  git checkout n4.2.1 || exit 1
+  git checkout "$_FFMPEG_VERSION_" || exit 1
 
   cd $_SRC_
   rm -Rf libsodium
-  git clone --depth=1 --branch=1.0.18 https://github.com/jedisct1/libsodium.git || exit 1
+  git clone --depth=1 --branch="$_LIBSODIUM_VERSION_" https://github.com/jedisct1/libsodium.git || exit 1
 
   cd $_SRC_
   rm -Rf libvpx
-  git clone --depth=1 --branch=v1.8.1 https://github.com/webmproject/libvpx.git || exit 1
+  git clone --depth=1 --branch="$_VPX_VERSION_" https://github.com/webmproject/libvpx.git || exit 1
 
   cd $_SRC_
   rm -Rf opus
-  git clone --depth=1 --branch=v1.3.1 https://github.com/xiph/opus.git || exit 1
+  git clone --depth=1 --branch="$_OPUS_VERSION_" https://github.com/xiph/opus.git || exit 1
   # -- get the source into the image --
 
   cd $_SRC_
