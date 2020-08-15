@@ -243,6 +243,10 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
+#disable some stuff so that fbset (and framebuffer) works correctly
+sed -i -e 's_dtoverlay=vc4-fkms-v3d_#dtoverlay=vc4-fkms-v3d_' "${ROOTFS_DIR}/boot/config.txt"
+sed -i -e 's/max_framebuffers=.*/#max_framebuffers=2/' "${ROOTFS_DIR}/boot/config.txt"
+
 echo "contents of /boot/config.txt:"
 echo "---------------------------------------"
 cat "${ROOTFS_DIR}/boot/config.txt"
