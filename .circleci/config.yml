@@ -16,12 +16,7 @@ jobs:
     #  - image: debian:stretch
 
     steps:
-
-      # circleCI checkout fix
-      - run: wget "https://raw.githubusercontent.com/zoff99/ToxAndroidRefImpl/zoff99/dev003/.circleci/checkout_fix.sh" -O /tmp/c.sh
-      - run: bash /tmp/c.sh
-      #- checkout
-
+      - checkout
       - restore_cache:
           key: tbw-library-dependencies-v7-{{ .Branch }}
       - run: sudo pkill apt-get || echo dummy
