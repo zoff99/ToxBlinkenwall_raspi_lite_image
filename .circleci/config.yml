@@ -11,26 +11,30 @@ jobs:
   pigen:
     working_directory: ~/work
     machine:
-      image: circleci/classic:latest
+      image: ubuntu-1604:201903-01
     # docker:
     #  - image: debian:stretch
 
     steps:
       - checkout
       - restore_cache:
-          key: tbw-library-dependencies-v13-{{ .Branch }}
+          key: tbw-library-dependencies-v14-{{ .Branch }}
       - run: sudo pkill apt-get || echo dummy
       - run: apt --version
+      - run: ls -al /etc/apt/sources.list.d/
+      - run: sudo rm /etc/apt/sources.list.d/heroku.list
+      - run: sudo rm /etc/apt/sources.list.d/google-chrome.list
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends apt apt-transport-https
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
-            quilt parted realpath qemu-user-static debootstrap zerofree pxz zip
+            quilt parted coreutils realpath qemu-user-static debootstrap zerofree pxz zip
             dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
+            binfmt-support unzip
 
-      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2018-11-13-raspbian-stretch"
+      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2020-02-05-raspbian-buster" # pi4 support
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
@@ -69,7 +73,7 @@ jobs:
 
       - save_cache:
           paths: [ "~/work/cache" ]
-          key: tbw-library-dependencies-v13-{{ .Branch }}
+          key: tbw-library-dependencies-v14-{{ .Branch }}
 
       - store_artifacts:
           path: ~/work/pi-gen/deploy2

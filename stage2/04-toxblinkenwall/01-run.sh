@@ -18,6 +18,13 @@ install -m 755 files/comp.loop.sh "${ROOTFS_DIR}/home/pi/comp.loop.sh"
 install -m 755 files/fill_fb.sh "${ROOTFS_DIR}/home/pi/fill_fb.sh"
 
 on_chroot << EOF
+chown pi:pi /home/pi/_compile_loop.sh
+chown pi:pi /home/pi/comp.loop.sh
+chown pi:pi /home/pi/fill_fb.sh
+EOF
+
+
+on_chroot << EOF
 
 # disable swap
 service dphys-swapfile stop
@@ -145,25 +152,15 @@ EOF
 
 fi
 
-# enable sshd on some branches
-if [ "$_git_branch_""x" == "masterx" ]; then
+# enable sshd on master branch --> now on ALL branches!!
+#if [ "$_git_branch_""x" == "masterx" ]; then
   echo "enable SSHD"
 
 on_chroot << EOF
   systemctl enable ssh
 EOF
 
-fi
-
-if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
-  echo "enable SSHD"
-
-on_chroot << EOF
-  systemctl enable ssh
-EOF
-
-fi
-
+#fi
 
 # set random passwords for "pi" and "root" user
 if [ "$_git_branch_""x" == "releasex" ]; then
@@ -220,9 +217,11 @@ EOF
 on_chroot << EOF
 cd /home/pi
 mkdir -p bcmstat/
+chown pi:pi bcmstat/
 cd bcmstat/
-wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.1/bcmstat.sh
+wget -O bcmstat.sh https://raw.githubusercontent.com/MilhouseVH/bcmstat/0.5.3/bcmstat.sh
 chmod a+rx bcmstat.sh
+chown pi:pi bcmstat.sh
 EOF
 
 # activate more locales and generate files
@@ -288,7 +287,10 @@ echo "---------------------------------------"
 echo "install evdev ..."
 on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
-  python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  # python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-evdev
+  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-libevdev
 EOF
 echo "... ready"
 ### ----- TODO: do those without pip !!!!! ---------
