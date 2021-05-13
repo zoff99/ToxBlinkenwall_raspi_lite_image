@@ -29,7 +29,7 @@ echo '#! /bin/bash
     echo $_HOME_
 
     apt-get install -y --no-install-recommends \
-    quilt parted coreutils qemu-user-static debootstrap zerofree pxz zip \
+    quilt parted coreutils realpath qemu-user-static debootstrap zerofree pxz zip \
     dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl \
     openssl ca-certificates git sudo bc wget rsync \
     binfmt-support unzip
