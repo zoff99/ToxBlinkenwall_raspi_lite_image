@@ -30,10 +30,13 @@ jobs:
       - run: apt --version
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
-            quilt parted coreutils coreutils qemu-user-static debootstrap zerofree pxz zip
+            quilt parted coreutils coreutils qemu-user-static debootstrap zerofree zip
             dosfstools libarchive-tools libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
             binfmt-support unzip
+      - run: sudo ln -s /usr/bin/xz /usr/local/bin/pxz || exit 0
+      - run: xz --version
+      - run: pxz --version
 
       - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2020-02-05-raspbian-buster" # pi4 support
       - run: pwd; ls -al; id -a
