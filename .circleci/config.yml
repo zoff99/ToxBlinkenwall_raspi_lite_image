@@ -31,7 +31,7 @@ jobs:
       - run: sudo apt update &&
           sudo apt install -y --no-install-recommends
             quilt parted coreutils realpath qemu-user-static debootstrap zerofree pxz zip
-            dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
+            dosfstools libarchive-tools libcap2-bin grep rsync xz-utils file git curl
             openssl ca-certificates git sudo bc wget rsync
             binfmt-support unzip
 
