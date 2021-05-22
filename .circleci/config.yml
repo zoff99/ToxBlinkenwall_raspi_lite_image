@@ -11,8 +11,8 @@ jobs:
   pigen:
     working_directory: ~/work
     machine:
-      image: ubuntu-1604:202104-01
-           # ubuntu-2004:202104-01
+      image: ubuntu-2004:202104-01
+           # ubuntu-1604:202104-01
     # docker:
     #  - image: debian:stretch
 
