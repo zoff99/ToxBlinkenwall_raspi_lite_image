@@ -252,7 +252,10 @@ if [ "$_git_branch_""x" == "piphone_z_01x" ]; then
 ### ----- TODO: do those without pip !!!!! ---------
 echo "install adafruit-circuitpython-ssd1306 ..."
 on_chroot << EOF
-  pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306
+    python --version
+    python3 --version
+    pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306 || pip install adafruit-circuitpython-ssd1306
+    # pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306 || pip3 install adafruit-circuitpython-ssd1306
 EOF
 echo "... ready"
 ### ----- TODO: do those without pip !!!!! ---------
