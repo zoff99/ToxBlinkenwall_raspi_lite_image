@@ -249,7 +249,7 @@ fi
 
 ./autogen.sh
 make clean
-export CFLAGS=" -D HW_CODEC_CONFIG_RPI3_TBW_BIDI -DRPIZEROW $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
+export CFLAGS=" -DTOX_CAPABILITIES_ACTIVE -D HW_CODEC_CONFIG_RPI3_TBW_BIDI -DRPIZEROW $CF2 -D_GNU_SOURCE -I$_INST_/include/ -O3 \
                 --param=ssp-buffer-size=1 -ggdb3 -fstack-protector-all "
 export LDFLAGS=-L$_INST_/lib
 
