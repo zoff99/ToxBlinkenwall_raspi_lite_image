@@ -69,4 +69,11 @@ jobs:
       - run: cd pi-gen; cp -av deploy/build.log deploy2/
       - run: cd pi-gen; ls -hal deploy2/
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: raspi_sdcard_image
+          path: |
+            deploy2/*
+
 
