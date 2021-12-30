@@ -74,6 +74,6 @@ jobs:
         with:
           name: raspi_sdcard_image
           path: |
-            deploy2/*
+            pi-gen/deploy2/*
 
 
