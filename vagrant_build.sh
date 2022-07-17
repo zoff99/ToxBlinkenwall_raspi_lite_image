@@ -28,11 +28,15 @@ echo '#! /bin/bash
     export _HOME_=$(pwd)
     echo $_HOME_
 
+    export DEBIAN_FRONTEND=noninteractive
+
     apt-get install -y --no-install-recommends \
-    quilt parted coreutils realpath qemu-user-static debootstrap zerofree pxz zip \
+    quilt parted coreutils qemu-user-static debootstrap zerofree pxz zip \
     dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl \
     openssl ca-certificates git sudo bc wget rsync \
     binfmt-support unzip
+
+    modprobe nbd
 
     # docker --------
     apt-get install -y apt-transport-https \
@@ -52,7 +56,7 @@ echo '#! /bin/bash
     apt-get install -y docker-ce docker-ce-cli containerd.io
     # docker --------
 
-    cd $_HOME_;git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2020-02-05-raspbian-buster" # pi4 support
+    cd $_HOME_;git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2021-05-07-raspbian-buster" # pi4 support
     cd $_HOME_;cp -av /data/stage2 pi-gen/
     cd $_HOME_;cd ./pi-gen/stage2 ; find . -type f | xargs -L1 chmod a+x
     cd $_HOME_;cd ./pi-gen/stage2 ; ls -alR

@@ -21,3 +21,4 @@ tor tor-arm
 sysstat
 rng-tools
 ifupdown
+sudo
