@@ -15,75 +15,66 @@ mkdir -p ./data/
 
 rsync -avz ./stage2 ./data/
 
-echo '#! /bin/bash
-    rm -f /var/lib/apt/lists/lock
-    rm -f /var/cache/apt/archives/lock
-    apt-get update > /dev/null 2> /dev/null
+# quilt qemu-user-static debootstrap zip libarchive-tools qemu-utils pigz
 
+echo '#! /bin/bash
+    git clone https://github.com/RPi-Distro/pi-gen
+    cd pi-gen/
+    git checkout "2023-12-05-raspios-bookworm-arm64"
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        binfmt-support quilt qemu-user-static \
+        debootstrap zip libarchive-tools \
+        qemu-utils pigz
+    modprobe nbd
+    modprobe binfmt_misc
+    update-binfmts --enable
+    lsmod | grep nbd
+    lsmod | grep binfmt_misc
+    echo "IMG_NAME=Raspbian" > config
+    touch ./stage3/SKIP
+    touch ./stage4/SKIP ./stage5/SKIP
+    touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
+
+    # custom parts ----------------------------
+    # custom parts ----------------------------
     export CIRCLE_PROJECT_USERNAME="zoff99"
     export CIRCLE_BRANCH="master"
-
-    cd
-    mkdir -p work
-    export _HOME_=$(pwd)
-    echo $_HOME_
-
-    export DEBIAN_FRONTEND=noninteractive
-
-    apt-get install -y --no-install-recommends \
-    quilt parted coreutils qemu-user-static debootstrap zerofree pxz zip \
-    dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl \
-    openssl ca-certificates git sudo bc wget rsync \
-    binfmt-support unzip
-
-    modprobe nbd
-
-    # docker --------
-    apt-get install -y apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-    # --
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    # --
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-    # --
-    apt-get update
-    # --
-    apt-get install -y docker-ce docker-ce-cli containerd.io
-    # docker --------
-
-    cd $_HOME_;git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2021-05-07-raspbian-buster" # pi4 support
-    cd $_HOME_;cp -av /data/stage2 pi-gen/
-    cd $_HOME_;cd ./pi-gen/stage2 ; find . -type f | xargs -L1 chmod a+x
-    cd $_HOME_;cd ./pi-gen/stage2 ; ls -alR
+    export CIRCLE_PROJECT_REPONAME="ToxBlinkenwall"
+    pwd
+    cp -av /data/stage2 ./
+    cd ./stage2
+    find . -type f | xargs -L1 chmod a+x
+    ls -alR
+    cd ../
     # give name of CI vars to docker
-    cd $_HOME_;echo "$CIRCLE_PROJECT_USERNAME" > ./pi-gen/stage3/_GIT_PROJECT_USERNAME_
-    cd $_HOME_;echo "$CIRCLE_PROJECT_USERNAME"; cat ./pi-gen/stage3/_GIT_PROJECT_USERNAME_
-    cd $_HOME_;echo "$CIRCLE_PROJECT_REPONAME" > ./pi-gen/stage3/_GIT_PROJECT_REPONAME_
-    cd $_HOME_;echo "$CIRCLE_PROJECT_REPONAME"; cat ./pi-gen/stage3/_GIT_PROJECT_REPONAME_
-    cd $_HOME_;echo "$CIRCLE_BRANCH" > ./pi-gen/stage3/_GIT_BRANCH_
-    cd $_HOME_;echo "$CIRCLE_BRANCH"; cat ./pi-gen/stage3/_GIT_BRANCH_
+    echo "$CIRCLE_PROJECT_USERNAME" > ./stage3/_GIT_PROJECT_USERNAME_
+    echo "$CIRCLE_PROJECT_USERNAME"
+    cat ./stage3/_GIT_PROJECT_USERNAME_
+    echo "$CIRCLE_PROJECT_REPONAME" > ./stage3/_GIT_PROJECT_REPONAME_
+    echo "$CIRCLE_PROJECT_REPONAME"
+    cat ./stage3/_GIT_PROJECT_REPONAME_
+    echo "$CIRCLE_BRANCH" > ./stage3/_GIT_BRANCH_
+    echo "$CIRCLE_BRANCH"
+    cat ./stage3/_GIT_BRANCH_
+    ls -al ./stage3/
+    # custom parts ----------------------------
+    # custom parts ----------------------------
 
-    # add ToxBlinkenwall custom build stuff ----------
-    cd $_HOME_;cd pi-gen;echo "IMG_NAME=Raspbian" > config
-    cd $_HOME_;cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
-    cd $_HOME_;cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
+    ./build.sh
 
-    # load module for ARM binaries -------------------
-    modprobe binfmt_misc
-    cd $_HOME_;cd pi-gen;./build-docker.sh # ./build.sh
-
-    cd $_HOME_;cd pi-gen; mkdir -p deploy2/
-    cd $_HOME_;cd pi-gen; cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
-    cd $_HOME_;cd pi-gen; cp -av deploy/build.log deploy2/
-    cd $_HOME_;cd pi-gen; ls -hal deploy2/
-    # save artefacts ---------------------------------
-    cd $_HOME_;cd pi-gen; cd deploy2/ ; mv -v * /artefacts/
-
+    # save generated image --------------------
+    # save generated image --------------------
+    mkdir -p deploy2/
+    find -name "*Raspbian-lite.zip"
+    find -name "\*Raspbian-lite.zip"
+    cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
+    cp -av deploy/build.log deploy2/
+    ls -hal deploy2/
+    cd deploy2/ ; mv -v * /artefacts/
+    # save generated image --------------------
+    # save generated image --------------------
 
 ' > ./artefacts/runme.sh
 
@@ -91,4 +82,6 @@ chmod a+x ./artefacts/runme.sh
 
 vagrant destroy -f
 vagrant up
+
+
 

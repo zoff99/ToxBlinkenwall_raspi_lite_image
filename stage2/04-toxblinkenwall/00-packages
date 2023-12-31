@@ -11,14 +11,33 @@ libao-dev libasound2-dev libasound2-plugins
 bc htop speedometer
 ntp ntpstat
 ecryptfs-utils
-python-pip
 python3-pip
 python3-pigpio
 python3-rpi.gpio
 dnsutils
 ifmetric
-tor tor-arm
+tor
+tor-arm
 sysstat
 rng-tools
 ifupdown
 sudo
+ffmpeg
+libsdl2-dev
+libopus-dev
+libvpx-dev
+libx264-dev
+libavcodec-dev
+libavutil-dev
+libsodium-dev
+
+
+
+
+
+
+
+
+
+
+

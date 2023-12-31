@@ -1,14 +1,26 @@
-#!/bin/bash -e
+#!/bin/bash
+
+echo "========"
+pwd
+echo "========"
+ls -al .
+echo "========"
+ls -al ../
+echo "========"
+ls -al ../../
+echo "========"
+ls -al ../../stage3/
+echo "========"
 
 echo "==============================="
-export _git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
+export _git_branch_=$(cat ../../stage3/_GIT_BRANCH_)
 echo "GIT: current branch is:"
 echo $_git_branch_
 echo "==============================="
 
-install -m 755 /pi-gen/stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
-install -m 755 /pi-gen/stage3/_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
-install -m 755 /pi-gen/stage3/_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
+install -m 755 ../../stage3/_GIT_BRANCH_ "${ROOTFS_DIR}/_GIT_BRANCH_"
+install -m 755 ../../stage3//_GIT_PROJECT_USERNAME_ "${ROOTFS_DIR}/_GIT_PROJECT_USERNAME_"
+install -m 755 ../../stage3//_GIT_PROJECT_REPONAME_ "${ROOTFS_DIR}/_GIT_PROJECT_REPONAME_"
 install -m 755 files/on_every_boot.sh "${ROOTFS_DIR}/on_every_boot.sh"
 install -m 755 files/loop_update_os.sh "${ROOTFS_DIR}/loop_update_os.sh"
 install -m 755 files/mount_tox_db.sh "${ROOTFS_DIR}/mount_tox_db.sh"
@@ -106,27 +118,6 @@ on_chroot << EOF
   chown pi:pi /home/pi/update_tbw.sh
 EOF
 
-if [ -e /pi-gen/cache/c.tgz ]; then
-   ls -al /pi-gen/cache/
-   ls -al "${ROOTFS_DIR}/home/pi/"
-   pushd "${ROOTFS_DIR}/home/pi/"
-   echo "extracting cache ..."
-   tar -xzvf /pi-gen/cache/c.tgz
-   popd
-
-on_chroot << EOF
-  id -a
-  mkdir -p "/home/pi/inst/"
-  chmod a+rwx "/home/pi/inst/"
-  touch "/home/pi/inst/__YY__"
-  chmod a+rwx "/home/pi/inst/__YY__"
-  chown pi:pi -R "/home/pi/inst/"
-  echo "build tbw WITH cache ..."
-  su - pi bash -c "/home/pi/build_tbw.sh cache"
-EOF
-
-else
-
 on_chroot << EOF
   id -a
   mkdir -p "/home/pi/inst/"
@@ -138,67 +129,19 @@ on_chroot << EOF
   su - pi bash -c "/home/pi/build_tbw.sh"
 EOF
 
-fi
-
-_git_branch_=$(cat /pi-gen/stage3/_GIT_BRANCH_)
-echo $_git_branch_
-if [ "$_git_branch_""x" == "toxphonev20x" ]; then
-  echo "store alsa template"
-
-on_chroot << EOF
-  alsa_template="/home/pi/ToxBlinkenwall/__first_install_on_pi/alsa_template.txt"
-  cp "$alsa_template" "/home/pi/ToxBlinkenwall/toxblinkenwall/alsa_template.txt"
-EOF
-
-fi
-
-# enable sshd on master branch --> now on ALL branches!!
-#if [ "$_git_branch_""x" == "masterx" ]; then
-  echo "enable SSHD"
-
+echo "enable SSHD"
 on_chroot << EOF
   systemctl enable ssh
 EOF
 
-#fi
-
 # set random passwords for "pi" and "root" user
-if [ "$_git_branch_""x" == "releasex" ]; then
-    echo "set random passwords on first boot [1]"
-    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
-    touch "${ROOTFS_DIR}/_first_start_"
-elif [ "$_git_branch_""x" == "toxphonev20x" ]; then
-    echo "set random passwords on first boot [2]"
-    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
-    touch "${ROOTFS_DIR}/_first_start_"
-else
-    echo "set random passwords on first boot [2]"
-    install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
-    touch "${ROOTFS_DIR}/_first_start_"
-fi
+echo "set random passwords on first boot [1]"
+install -m 755 files/set_random_passwds.sh "${ROOTFS_DIR}/set_random_passwds.sh"
+touch "${ROOTFS_DIR}/_first_start_"
 
-# save built libs and includes for caching (outside of docker)
-echo "prepare cache ..."
-mkdir -p /pi-gen/deploy/cache/
-cp -av "${ROOTFS_DIR}/home/pi/inst/" /pi-gen/deploy/cache/
-ls -al /pi-gen/deploy/cache/
-chmod -R a+r /pi-gen/deploy/cache/
-ls -al /pi-gen/deploy/cache/
-echo "... done"
-
-if [ "$_git_branch_""x" == "toxphonev20x" ]; then
-  echo "using UDEV rules:plug-usb-device.rules_toxphonev20"
-  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
-  install -m 644 files/plug-usb-device.rules_toxphonev20 "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
-elif [ "$_git_branch_""x" == "releasex" ]; then
-  echo "using UDEV rules:plug-usb-device.rules_release"
-  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
-  install -m 644 files/plug-usb-device.rules_release "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
-else
-  echo "using UDEV rules:plug-usb-device.rules_default"
-  install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
-  install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
-fi
+echo "using UDEV rules:plug-usb-device.rules_default"
+install -d                                 "${ROOTFS_DIR}/etc/udev/rules.d"
+install -m 644 files/plug-usb-device.rules_default "${ROOTFS_DIR}/etc/udev/rules.d/80-plug-usb-device.rules"
 
 # HINT: does not work here, needs to be run on the live system (was now moved to /etc/rc.local)
 #echo "reload udevd rules"
@@ -269,7 +212,6 @@ echo "install evdev ..."
 on_chroot << EOF
   # install module used by "ext_keys_evdev.py" script to get keyboard input events
   # python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev || python3 -m pip install evdev
-  apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python-evdev
   apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-evdev
   apt-get install -y --force-yes --no-install-recommends -o "Dpkg::Options::=--force-confdef" python3-libevdev
 EOF
