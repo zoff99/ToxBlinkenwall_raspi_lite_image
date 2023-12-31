@@ -56,6 +56,9 @@ jobs:
       - run: cat ./pi-gen/stage0/prerun.sh
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
+      - run: cd pi-gen;echo "DISABLE_FIRST_BOOT_USER_RENAME='1'" >> config
+      - run: cd pi-gen;echo "FIRST_USER_PASS='984a755nb7349r857348t9573495'" >> config
+
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
       - run: cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
       - run: cd pi-gen;sudo ./build.sh
@@ -65,7 +68,6 @@ jobs:
       - run: cd pi-gen; find -name "*Raspbian-lite.zip" || echo "no error"
       - run: cd pi-gen; find -name "\*Raspbian-lite.zip" || echo "no error"
       - run: cd pi-gen; cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
-      - run: cd pi-gen; cp -av deploy/build.log deploy2/
       - run: cd pi-gen; ls -hal deploy2/
 
       - name: Upload a Build Artifact
