@@ -6,9 +6,9 @@
 
 ### Build Status
 
-[![Nightly](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/nightly.yml/badge.svg?branch=toxphone_pi4)](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/nightly.yml)<br>
+[![Nightly](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml/badge.svg)](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml)<br>
 
-# Operations manual
+# Operations manual (Warning: outdated)
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
 # Social Media
@@ -17,8 +17,9 @@
 
 # Things you need
 
-- Raspberry Pi 3B or 3B+ or 4B
+- Raspberry Pi 3B or 3B+ or 4B or 5
     + <sub><sup>supported devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/)</sup></sub>
         - <sub><sup>[Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)</sup></sub>
         - <sub><sup>[Raspberry Pi 3 Model B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)</sup></sub>
         - <sub><sup>[Rsapberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)</sup></sub>
@@ -49,10 +50,6 @@
 
 Download the latest Release version here:
 https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/releases
-
-# Latest Development Version (Raspberry PI)<br>[not always available]
-
-The latest version can be downloaded from [CircleCI](https://circleci.com/api/v1.1/project/github/zoff99/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=toxphone_pi4)
 
 ## Source for ToxBlinkenwall
 
