@@ -33,6 +33,9 @@ echo '#! /bin/bash
     lsmod | grep nbd
     lsmod | grep binfmt_misc
     echo "IMG_NAME=Raspbian" > config
+    echo "DISABLE_FIRST_BOOT_USER_RENAME=1" >> config
+    echo "FIRST_USER_PASS=984a755nb7349r857348t9573495" >> config
+
     touch ./stage3/SKIP
     touch ./stage4/SKIP ./stage5/SKIP
     touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
