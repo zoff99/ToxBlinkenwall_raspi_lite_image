@@ -25,6 +25,7 @@
         - <sub><sup>[Rsapberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)</sup></sub>
 - Raspberry Pi Powersupply
     + <sub><sup>recommended devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 27W USB-C Power Supply](https://www.raspberrypi.com/products/27w-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi 15.3W USB-C Power Supply](https://www.raspberrypi.org/products/type-c-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi Universal Power Supply](https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/)</sup></sub>
 - Raspberry Pi Camera module V2
