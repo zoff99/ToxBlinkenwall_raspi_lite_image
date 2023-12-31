@@ -4,8 +4,8 @@ on:
   push:
     paths-ignore:
      - 'README.md'
-  schedule:
-    - cron:  '0 0 * * *'
+  #schedule:
+  #  - cron:  '0 0 * * *'
   workflow_dispatch:
     inputs:
       version:
@@ -18,10 +18,10 @@ defaults:
 
 jobs:
   build:
-    runs-on: ubuntu-19.04
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: apt --version
 
       - run: ls -al /etc/apt/sources.list.d/
@@ -30,20 +30,20 @@ jobs:
       - run: apt --version
       - run: sudo apt update &&
           sudo DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends
-            quilt parted coreutils qemu-user-static debootstrap zerofree pxz zip
-            dosfstools bsdtar libcap2-bin grep rsync xz-utils file git curl
-            openssl ca-certificates git sudo bc wget rsync
-            binfmt-support unzip
-      - run: sudo modprobe nbd
+            binfmt-support quilt qemu-user-static
+            debootstrap zip libarchive-tools
+            qemu-utils pigz
 
-      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2021-05-07-raspbian-buster" # pi4 support
+      - run: sudo modprobe nbd
+      - run: sudo modprobe binfmt_misc
+      - run: sudo update-binfmts --enable
+
+      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2023-12-05-raspios-bookworm-arm64"
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
       - run: cd ./stage2 ; ls -alR
       - run: cp -av ./stage2 pi-gen/
-      # put cache files in correct place
-      - run: if [ -e ~/work/cache ]; then mv -v ~/work/cache pi-gen/ ; sudo chown circleci:circleci /home/circleci/work/pi-gen/cache/c.tgz ; fi
       # give name of CI vars to docker
       - run: echo "$GITHUB_ACTOR" > ./pi-gen/stage3/_GIT_PROJECT_USERNAME_
       - run: echo "$GITHUB_ACTOR"; cat ./pi-gen/stage3/_GIT_PROJECT_USERNAME_
@@ -51,9 +51,6 @@ jobs:
       - run: echo "$GITHUB_REPOSITORY"; cat ./pi-gen/stage3/_GIT_PROJECT_REPONAME_
       - run: echo "$GITHUB_REF_NAME" > ./pi-gen/stage3/_GIT_BRANCH_
       - run: echo "$GITHUB_REF_NAME"; cat ./pi-gen/stage3/_GIT_BRANCH_
-      # change bsdtar to give more output, so CI wont kill our job because of no output for a long time
-      - run: sed -i -e 'sxbsdtar xbsdtar -v x' ./pi-gen/export-noobs/prerun.sh
-      - run: cat ./pi-gen/export-noobs/prerun.sh
       # change debootstrap to give more output, so CI wont kill our job because of no output for a long time
       - run: sed -i -e 'sxdebootstrap xdebootstrap --verbose x' ./pi-gen/stage0/prerun.sh
       - run: cat ./pi-gen/stage0/prerun.sh
@@ -61,11 +58,12 @@ jobs:
       - run: cd pi-gen;echo "IMG_NAME='Raspbian'" > config
       - run: cd pi-gen;touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
       - run: cd pi-gen;touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
-      - run: cd pi-gen;sudo ./build-docker.sh # ./build.sh
+      - run: cd pi-gen;sudo ./build.sh
       - run: cd pi-gen; ls -hal deploy/
-      - run: cd ~/work; rm -Rf cache ; mkdir -p cache ; chmod a+rwx cache
-      - run: cd pi-gen; ls -al deploy/cache/; cd deploy/cache/ ; ls -al ; ls -al  ~/work/cache
       - run: cd pi-gen; mkdir -p deploy2/
+
+      - run: cd pi-gen; find -name "*Raspbian-lite.zip" || echo "no error"
+      - run: cd pi-gen; find -name "\*Raspbian-lite.zip" || echo "no error"
       - run: cd pi-gen; cp -av deploy/image_*-Raspbian-lite.zip deploy2/image-Raspbian-lite.zip
       - run: cd pi-gen; cp -av deploy/build.log deploy2/
       - run: cd pi-gen; ls -hal deploy2/
