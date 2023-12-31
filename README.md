@@ -13,10 +13,10 @@
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone2_1.png"></img>
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_3.jpg"></img>
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_4.jpg"></img>
-<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_crt_5.jpg"></img>
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_a.png"></img>
-<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_b.png"></img>
-<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_variety.png"></img>
+<img height="300" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_b.png"></img>
+<img height="300" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_variety.png"></img>
+<img width="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_crt_5.jpg"></img>
 
 
 
