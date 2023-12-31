@@ -12,6 +12,10 @@ rm -f /etc/cron.daily/aptitude
 rm -f /etc/cron.daily/man-db
 rm -f /etc/cron.weekly/man-db
 
+# stop bluetoothd
+systemctl stop bluetooth.service
+systemctl disable bluetooth.service
+
 # mount tmpfs dir
 rm -Rf /home/pi/ToxBlinkenwall/toxblinkenwall/share/
 mkdir -p /home/pi/ToxBlinkenwall/toxblinkenwall/share/
