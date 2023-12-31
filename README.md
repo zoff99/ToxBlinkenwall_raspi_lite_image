@@ -50,7 +50,7 @@
 # Latest Version (Raspberry PI)
 
 Download the latest Release version here:
-https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/releases
+https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml
 
 ## Source for ToxBlinkenwall
 
