@@ -1,4 +1,4 @@
-name: Nightly
+name: Nightly RPI5
 
 on:
   push:
@@ -17,7 +17,7 @@ defaults:
     shell: bash
 
 jobs:
-  build:
+  build_rpi5:
     runs-on: ubuntu-22.04
 
     steps:
