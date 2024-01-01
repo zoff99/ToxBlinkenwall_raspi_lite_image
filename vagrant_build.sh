@@ -20,7 +20,7 @@ rsync -avz ./stage2 ./data/
 echo '#! /bin/bash
     git clone https://github.com/RPi-Distro/pi-gen
     cd pi-gen/
-    git checkout "2023-12-05-raspios-bookworm-arm64"
+    git checkout "2023-12-05-raspios-bookworm"
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
     apt-get install -y --no-install-recommends \
