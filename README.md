@@ -2,28 +2,51 @@
 <p align="left">
 <img height="400" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tiww_prof_slim.jpg"></img><br>
 <img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/aaa1.JPG"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/bbb1.jpg"></img><img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/ccc1.jpg"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/DSC07751.jpg"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/DSC_2032.JPG"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/DSC_2116.JPG"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mobile_tbw.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tbw_less_100_euro.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tbw_metalab.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone1a.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone1b.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone2_1.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_3.jpg"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_4.jpg"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_a.png"></img>
+<img height="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_b.png"></img>
+<br>
+<img height="300" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphonez_variety.png"></img>
+<img width="200" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/tphone_mobile_crt_5.jpg"></img>
+
+
+
+
+
 </p>
 
 ### Build Status
 
-[![Nightly](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/nightly.yml/badge.svg?branch=toxphone_pi4)](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/nightly.yml)<br>
+[![Nightly](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml/badge.svg)](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml)<br>
 
-# Operations manual
+# Operations manual (Warning: outdated)
 [pdf](https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/raw/master/doc/ops01.pdf)
 
 # Social Media
 
-[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mastodon.png"></img>](https://chaos.social/@ToxBlinkenwall)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/Twitter_Social_Icon_Rounded_Square_Color.png"></img>](https://twitter.com/ToxBlinkenwall)
+[<img width="60" src="https://raw.githubusercontent.com/zoff99/ToxBlinkenwall_raspi_lite_image/_images_/images/mastodon.png"></img>](https://chaos.social/@ToxBlinkenwall)
 
 # Things you need
 
-- Raspberry Pi 3B or 3B+ or 4B
+- Raspberry Pi 3B or 3B+ or 4B or 5
     + <sub><sup>supported devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/)</sup></sub>
         - <sub><sup>[Raspberry Pi 4 Model B](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)</sup></sub>
         - <sub><sup>[Raspberry Pi 3 Model B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/)</sup></sub>
         - <sub><sup>[Rsapberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)</sup></sub>
 - Raspberry Pi Powersupply
     + <sub><sup>recommended devices:</sup></sub>
+        - <sub><sup>[Raspberry Pi 27W USB-C Power Supply](https://www.raspberrypi.com/products/27w-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi 15.3W USB-C Power Supply](https://www.raspberrypi.org/products/type-c-power-supply/)</sup></sub>
         - <sub><sup>[Raspberry Pi Universal Power Supply](https://www.raspberrypi.org/products/raspberry-pi-universal-power-supply/)</sup></sub>
 - Raspberry Pi Camera module V2
@@ -48,11 +71,7 @@
 # Latest Version (Raspberry PI)
 
 Download the latest Release version here:
-https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/releases
-
-# Latest Development Version (Raspberry PI)<br>[not always available]
-
-The latest version can be downloaded from [CircleCI](https://circleci.com/api/v1.1/project/github/zoff99/ToxBlinkenwall_raspi_lite_image/latest/artifacts/0/deploy/image-Raspbian-lite.zip?filter=successful&branch=toxphone_pi4)
+https://github.com/zoff99/ToxBlinkenwall_raspi_lite_image/actions/workflows/rpi5_image.yml
 
 ## Source for ToxBlinkenwall
 
