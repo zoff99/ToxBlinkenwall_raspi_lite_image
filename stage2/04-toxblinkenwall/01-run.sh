@@ -186,9 +186,16 @@ echo 'start_x=1' >> "${ROOTFS_DIR}/boot/config.txt"
 echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
-#disable some stuff so that fbset (and framebuffer) works correctly
+# disable some stuff so that fbset (and framebuffer) works correctly
 sed -i -e 's_dtoverlay=vc4-fkms-v3d_#dtoverlay=vc4-fkms-v3d_' "${ROOTFS_DIR}/boot/config.txt"
 sed -i -e 's/max_framebuffers=.*/#max_framebuffers=2/' "${ROOTFS_DIR}/boot/config.txt"
+
+# set kernel commandline to get "proper" 32bit color depth framebuffer again
+# see: https://github.com/raspberrypi/linux/issues/5049#issuecomment-1873982920
+#      https://www.kernel.org/doc/html/latest/fb/modedb.html
+cp -av "${ROOTFS_DIR}/boot/firmware/cmdline.txt" "${ROOTFS_DIR}/boot/firmware/cmdline.txt_"
+cat "${ROOTFS_DIR}/boot/firmware/cmdline.txt" | awk '{ print $0 " video=HDMI-A-1:-32" }' > "${ROOTFS_DIR}/boot/firmware/cmdline.txt_"
+mv -v "${ROOTFS_DIR}/boot/firmware/cmdline.txt_" "${ROOTFS_DIR}/boot/firmware/cmdline.txt"
 
 echo "contents of /boot/config.txt:"
 echo "---------------------------------------"
