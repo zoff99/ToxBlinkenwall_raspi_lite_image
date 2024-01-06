@@ -38,7 +38,7 @@ jobs:
       - run: sudo modprobe binfmt_misc
       - run: sudo update-binfmts --enable
 
-      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2023-12-05-raspios-bookworm"
+      - run: git clone https://github.com/RPi-Distro/pi-gen ; cd pi-gen ; git checkout "2023-12-05-raspios-bookworm-arm64"
       - run: pwd; ls -al; id -a
       # add ToxBlinkenwall custom build stuff ----------
       - run: cd ./stage2 ; find . -name '*.sh' -exec chmod a+x {} \;
