@@ -187,8 +187,12 @@ echo 'gpu_mem=384' >> "${ROOTFS_DIR}/boot/config.txt"
 echo '' >> "${ROOTFS_DIR}/boot/config.txt"
 
 # disable some stuff so that fbset (and framebuffer) works correctly
-sed -i -e 's_dtoverlay=vc4-fkms-v3d_#dtoverlay=vc4-fkms-v3d_' "${ROOTFS_DIR}/boot/config.txt"
-sed -i -e 's/max_framebuffers=.*/#max_framebuffers=2/' "${ROOTFS_DIR}/boot/config.txt"
+#sed -i -e 's_dtoverlay=vc4-fkms-v3d_#dtoverlay=vc4-fkms-v3d_' "${ROOTFS_DIR}/boot/config.txt"
+#sed -i -e 's/max_framebuffers=.*/#max_framebuffers=2/' "${ROOTFS_DIR}/boot/config.txt"
+
+# HINT: this change is gone in the final image, for some unknown reason
+sed -i -e 's_dtparam=audio=on_#dtparam=audio=on_' "${ROOTFS_DIR}/boot/config.txt"
+
 
 # set kernel commandline to get "proper" 32bit color depth framebuffer again
 # see: https://github.com/raspberrypi/linux/issues/5049#issuecomment-1873982920
@@ -339,6 +343,12 @@ echo 'blacklist bcm2835_codec module'
 # this module creates /dev/video10 /dev/video11 /dev/video12
 on_chroot << EOF
     echo 'blacklist bcm2835_codec' > /etc/modprobe.d/blacklist-bcm2835_codec.conf
+EOF
+
+echo 'blacklist snd_bcm2835 module'
+# this module creates the audio device for the microphone jack on the pi4, pi3 etc.
+on_chroot << EOF
+    echo 'blacklist snd_bcm2835' > /etc/modprobe.d/blacklist-snd_bcm2835.conf
 EOF
 
 echo 'dont use debian ntp pool, !!metadataleak!!'
